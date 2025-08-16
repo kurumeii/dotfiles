@@ -51,7 +51,7 @@ local load = function(specs)
       require(mod_name)
     end
   end
-  return adaptive_func(specs.lazy, function()
+  return adaptive_func(specs.later, function()
     if is_git then
       MiniDeps.add({
         source = specs.source,

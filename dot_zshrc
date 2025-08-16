@@ -68,3 +68,5 @@ esac
 
 # pnpm end
 fastfetch -c neofetch
+
+alias cd=z
