@@ -28,15 +28,18 @@ require('config.mini').setup({
     source = 'ellisonleao/gruvbox.nvim',
     name = 'gruvbox',
     opts = {
+      ---@module 'gruvbox'
+      ---@type GruvboxConfig
       italic = {
         strings = true,
         emphasis = true,
         comments = true,
         operators = false,
         folds = true,
+        transparent_mode = true,
       },
     },
   },
 })
 
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme('gruvbox')

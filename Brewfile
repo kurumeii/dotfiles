@@ -1,4 +1,3 @@
-brew "chezmoi"
 brew "fastfetch"
 brew "fd"
 brew "fnm"
