@@ -1,0 +1,7 @@
+astrolight
+catppuccin
+tokyonight
+rebelot
+kanagawa
+astrotheme
+gruvbox

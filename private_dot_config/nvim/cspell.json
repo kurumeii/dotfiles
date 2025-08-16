@@ -1,0 +1,38 @@
+{
+	"version": "0.2",
+	"language": "en,vi",
+	"ignorePaths": [
+		"**/node_modules/**",
+		"**/.git/**",
+		"**/.gitignore",
+		"**/.github/**",
+		"**/.vscode/**",
+		"**/**-data/**",
+		"**/mini-deps-snap",
+		"**/**.toml"
+	],
+	"import": [
+		"@cspell/dict-vi-vn/cspell-ext.json",
+		"@cspell/dict-vim/cspell-ext.json"
+	],
+	"dictionaryDefinitions": [
+		{
+			"name": "custom-words",
+			"path": "./dictionary/custom-words.txt"
+		},
+		{
+			"name": "colorscheme-word",
+			"path": "./dictionary/colorscheme-word.txt"
+		}
+	],
+	"dictionaries": [
+		"custom-words",
+		"colorscheme-word",
+		"software-term-suggestions",
+		"softwareTerms",
+		"software-tools",
+		"computing-acronyms",
+		"vim",
+		"filetypes"
+	]
+}

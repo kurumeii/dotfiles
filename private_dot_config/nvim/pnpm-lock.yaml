@@ -1,0 +1,30 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@cspell/dict-vi-vn':
+        specifier: ^3.0.6
+        version: 3.0.6
+      '@cspell/dict-vim':
+        specifier: ^1.0.10
+        version: 1.0.10
+
+packages:
+
+  '@cspell/dict-vi-vn@3.0.6':
+    resolution: {integrity: sha512-VFPpTrutrNOY8UTRSThTq3u5xfdkdsB2kiSSP9VCpUo2AaBdKbvL0rk8QBhvJEfaQVgZwRfPIAgM8ml97QJAKA==}
+
+  '@cspell/dict-vim@1.0.10':
+    resolution: {integrity: sha512-eP+bKOr/nhxYQJuBM8e5Kj33dwJcfo5MTcKYd9WOEJ68qNrGXzfcZtlNmuncTTRQmS8k90Khl6JNZGSANwevig==}
+
+snapshots:
+
+  '@cspell/dict-vi-vn@3.0.6': {}
+
+  '@cspell/dict-vim@1.0.10': {}

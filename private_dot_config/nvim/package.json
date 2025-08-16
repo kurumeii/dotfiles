@@ -1,0 +1,6 @@
+{
+	"devDependencies": {
+		"@cspell/dict-vi-vn": "^3.0.6",
+		"@cspell/dict-vim": "^1.0.10"
+	}
+}

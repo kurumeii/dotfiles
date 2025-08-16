@@ -1,0 +1,21 @@
+{
+	"selectedAuthType": "oauth-personal",
+	"theme": "Ayu",
+	"preferredEditor": "neovim",
+	"vimMode": true,
+	"hideTip": true,
+	"hideBanner": true,
+	"contextFileName": [
+		"GEMINI.MD",
+		"AGENTS.MD",
+		".cursorrules"
+	],
+	"checkpointing": {
+		"enabled": true
+	},
+	"summarizeToolOutput": {
+  "run_shell_command": {
+			"tokenBudget": 2000
+		}
+	}
+}

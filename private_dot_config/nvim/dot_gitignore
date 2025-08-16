@@ -1,0 +1,10 @@
+supermaven/*
+scoop/*
+bak/*
+*-data/*
+pnpm/*
+lesshst
+node_modules/*
+.cspellcache
+.github/*
+.git/*
