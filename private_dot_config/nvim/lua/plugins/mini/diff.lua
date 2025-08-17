@@ -48,14 +48,6 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
-  callback = function(arg)
-    local utils = require('utils')
-    utils.map('n', utils.L('ug'), MiniDiff.toggle_overlay, 'UI toggle git overlay', {
-      buffer = arg.buf,
-    })
-    utils.map('n', utils.L('uG'), MiniDiff.toggle, 'UI toggle git', {
-      buffer = arg.buf,
-    })
-  end,
-})
+-- local utils = require('utils')
+-- utils.map('n', utils.L('ug'), MiniDiff.toggle_overlay, 'UI toggle git overlay')
+-- utils.map('n', utils.L('uG'), MiniDiff.toggle, 'UI toggle git')

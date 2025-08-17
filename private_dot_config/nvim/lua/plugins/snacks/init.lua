@@ -5,10 +5,6 @@ require('snacks').setup({
   statuscolumn = {
     left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
     right = { 'fold', 'git' }, -- priority of signs on the right (high to low)
-    git = {
-      -- patterns to match Git signs
-      patterns = { 'MiniDiffSign' },
-    },
     refresh = 50, -- refresh at most every 50ms
     folds = {
       open = true,

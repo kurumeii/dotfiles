@@ -10,8 +10,8 @@ MiniAnimate.setup({
   },
   scroll = {
     enable = true,
-    timing = MiniAnimate.gen_timing.linear({
-      duration = 100,
+    timing = MiniAnimate.gen_timing.quadratic({
+      duration = 200,
       unit = 'total',
     }),
     subscroll = MiniAnimate.gen_subscroll.equal({

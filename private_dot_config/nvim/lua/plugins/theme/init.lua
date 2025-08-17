@@ -1,4 +1,4 @@
-require('config.mini').setup({
+mininvim.deps.setup({
   {
     source = 'catppuccin/nvim',
     name = 'catppuccin',

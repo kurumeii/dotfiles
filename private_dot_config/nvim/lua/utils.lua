@@ -265,17 +265,6 @@ function H.uniq(tbl)
   return result
 end
 
----@type MiniHookFunction
-function H.build_blink(params)
-  H.notify('Building blink.cmp', 'INFO')
-  local obj = vim.system({ 'cargo', 'build', '--release' }, { cwd = params.path }):wait()
-  if obj.code == 0 then
-    H.notify('Building blink.cmp done', 'INFO')
-  else
-    H.notify('Building blink.cmp failed', 'ERROR')
-  end
-end
-
 local function progress(opts)
   local count = 1
   local timer = vim.loop.new_timer()
@@ -314,6 +303,16 @@ local function progress(opts)
       MiniNotify.remove(notif)
     end, 1000)
   end)
+end
+
+---@type MiniHookFunction
+function H.build_blink(params)
+  progress({
+    cmd = { 'cargo', 'build', '--release' },
+    cwd = params.path,
+    on_success = 'Building blink.cmp done',
+    on_failure = 'Building blink.cmp failed',
+  })
 end
 
 ---@type MiniHookFunction
