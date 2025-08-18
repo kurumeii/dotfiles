@@ -25,7 +25,9 @@ end
 H.notify = function(msg, level, title)
   level = level or 'INFO'
   vim.defer_fn(function()
-    -- Snacks.notify[string.lower(level)](msg)
+    -- require('snacks').notify[string.lower(level)](msg, {
+    --   title = title or 'Notification',
+    -- })
     vim.notify(msg, vim.log.levels[level], { title = title or 'Notification' })
   end, 1000)
 end

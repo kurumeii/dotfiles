@@ -26,7 +26,7 @@ require('mini.pick').setup({
     toggle_info = '?',
   },
 })
-vim.ui.select = MiniPick.ui_select
+-- vim.ui.select = MiniPick.ui_select
 
 local utils = require('utils')
 local map, L = utils.map, utils.L

@@ -30,7 +30,7 @@ require('mini.notify').setup({
   },
 })
 
-vim.notify = MiniNotify.make_notify()
+-- vim.notify = MiniNotify.make_notify()
 
 local utils = require('utils')
 vim.api.nvim_create_autocmd('BufWritePost', {
