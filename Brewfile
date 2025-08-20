@@ -1,5 +1,6 @@
 brew "python@3.13"
 brew "bat"
+brew "dos2unix"
 brew "fastfetch"
 brew "fd"
 brew "fnm"
