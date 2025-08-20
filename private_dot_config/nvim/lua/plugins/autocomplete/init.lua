@@ -6,10 +6,11 @@ mininvim.deps.setup({
     source = 'saghen/blink.cmp',
     later = true,
     disable = vim.g.use_blink == false,
-    hooks = {
-      post_install = require('utils').build_blink,
-      post_checkout = require('utils').build_blink,
-    },
+    checkout = '1.*',
+    -- hooks = {
+    --   post_install = require('utils').build_blink,
+    --   post_checkout = require('utils').build_blink,
+    -- },
     cb = function()
       require('plugins.autocomplete.blink-cmp')
     end,

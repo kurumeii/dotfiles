@@ -23,7 +23,7 @@ mininvim.deps.setup({
   { source = 'plugins.mini.snippets', later = true },
   { source = 'plugins.mini.jump2d', later = true },
   { source = 'plugins.mini.tabline', later = true, disable = false },
-  { source = 'plugins.mini.pick', later = true, disable = false },
+  -- { source = 'plugins.mini.pick', later = true, disable = false },
   { source = 'plugins.mini.diff', later = true, disable = false },
   { source = 'plugins.mini.git', later = true },
   { source = 'plugins.mini.ai', later = true },
