@@ -1,0 +1,14 @@
+{
+  "workspace.checkThirdParty": false,
+  "completion.callSnippet": "Both",
+  "completion.showParams": true,
+  "diagnostics.globals": ["Snacks"],
+  "diagnostics.disable": [
+    "duplicate-set-field",
+    "missing-fields",
+    "undefined-field"
+  ],
+  "doc.privateName": ["^_"],
+  "hint.enable": true,
+  "hint.paramType": true
+}

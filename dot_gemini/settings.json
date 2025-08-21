@@ -1,4 +1,3 @@
-
 {
   "selectedAuthType": "oauth-personal",
   "theme": "Ayu",
@@ -6,11 +5,7 @@
   "vimMode": true,
   "hideTip": true,
   "hideBanner": true,
-  "contextFileName": [
-    "GEMINI.MD",
-    "AGENTS.MD",
-    ".cursorrules"
-  ],
+  "contextFileName": ["GEMINI.MD", "AGENTS.MD"],
   "checkpointing": {
     "enabled": true
   },
@@ -21,6 +16,18 @@
   },
   "hideTips": true,
   "showMemoryUsage": true,
-  "showLineNumbers": true
+  "showLineNumbers": true,
+  "mcpServers": {
+    "serena": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "$HOME/mcp-server/serena",
+        "serena",
+        "start-mcp-server"
+      ],
+      "timeout": 30000
+    }
+  }
 }
-
