@@ -1,21 +1,5 @@
 mininvim.deps.setup({
   {
-    source = 'nvim-treesitter/nvim-treesitter-textobjects',
-    later = true,
-    hooks = {
-      post_checkout = function()
-        vim.cmd('TSUpdate')
-      end,
-    },
-    depends = {
-      'nvim-treesitter/nvim-treesitter-context',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    cb = function()
-      require('plugins.core.treesitter')
-    end,
-  },
-  {
     source = 'neovim/nvim-lspconfig',
     later = true,
     depends = {
