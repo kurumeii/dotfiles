@@ -7,7 +7,7 @@
 
 ## Keymaps
 
-- [ ]Change keymaps for mini-surround
+- [x] Change keymaps for mini-surround
 - [ ] Unify Search and Find into a single Keystroke
   - [ ] _Leader f_ for find: everything
     - `ff`: Find Files
@@ -63,7 +63,7 @@
 
 - [x] Use mini.files instead of Snacks.explorer
 - [x] Disabled Scratch plugins
-- [ ] Modified Flash plugins
+- [x] Modified Flash plugins
 - [ ] Modified mini.hipatterns to see more colors
 - [ ] Modified lualine
 - [ ] Modifed buffersline

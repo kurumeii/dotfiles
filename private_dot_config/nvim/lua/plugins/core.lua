@@ -69,4 +69,20 @@ return {
 			},
 		},
 	},
+	{
+		"folke/flash.nvim",
+		keys = {
+			-- Disable default mappings
+			{ "S", mode = { "n", "x", "o" }, false },
+			{ "s", mode = { "n", "x", "o" }, false },
+			{
+				"<leader>j",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Jumping fast to",
+			},
+		},
+	},
 }
