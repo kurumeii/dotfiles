@@ -10,5 +10,6 @@
   ],
   "doc.privateName": ["^_"],
   "hint.enable": true,
-  "hint.paramType": true
+  "hint.paramType": true,
+  "hint.arrayIndex": "Disable"
 }

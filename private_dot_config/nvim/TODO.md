@@ -45,7 +45,7 @@
   - `tabs h`: Switch to tab on the left
   - `tabs l`: Switch to tab on the right
   - `tabs n`: New tab
-- [ ] _Leader e_ for Explorer (should be using mini.files)
+- [x] _Leader e_ for Explorer (should be using mini.files)
   - `h`: Go out plus
   - `<c-s>`: Synchronize
   - `<c-w>s`: Split Horizontal
@@ -61,8 +61,8 @@
 
 ## Plugins
 
-- [ ] Use mini.files instead of Snacks.explorer
-- [ ] Disabled Scratch plugins
+- [x] Use mini.files instead of Snacks.explorer
+- [x] Disabled Scratch plugins
 - [ ] Modified Flash plugins
 - [ ] Modified mini.hipatterns to see more colors
 - [ ] Modified lualine
