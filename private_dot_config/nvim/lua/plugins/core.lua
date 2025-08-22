@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
 	{
 		"max397574/better-escape.nvim",
@@ -25,6 +26,15 @@ return {
 				--   },
 				-- },
 			},
+		},
+	},
+	{
+		"stuckinsnow/import-size.nvim",
+		ft = {
+			"typescript",
+			"javascript",
+			"typescriptreact",
+			"javascriptreact",
 		},
 	},
 }
