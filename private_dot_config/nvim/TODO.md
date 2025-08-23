@@ -68,3 +68,4 @@
 - [x] Modified lualine
 - [ ] Modified buffersline
 - [ ] Modified whichkey
+- [ ] Modified mini.icons to show more types
