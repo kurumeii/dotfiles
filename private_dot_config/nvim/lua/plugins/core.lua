@@ -71,18 +71,33 @@ return {
 	},
 	{
 		"folke/flash.nvim",
-		keys = {
-			-- Disable default mappings
-			{ "S", mode = { "n", "x", "o" }, false },
-			{ "s", mode = { "n", "x", "o" }, false },
-			{
-				"<leader>j",
-				mode = { "n", "x", "o" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Jumping fast to",
+		event = "VeryLazy",
+		vscode = true,
+		---@module 'flash'
+		---@type Flash.Config
+		opts = {
+			search = {
+				mode = "fuzzy",
+				max_length = 5,
 			},
 		},
+		keys = function()
+			local keys = {
+				{
+					"<leader>j",
+					mode = { "n", "x", "o" },
+					function()
+						require("flash").jump()
+					end,
+					desc = "Jumping fast to",
+				},
+			}
+			require("which-key").add(vim.tbl_map(function(key)
+				return vim.tbl_extend("force", key, {
+					icon = "",
+				})
+			end, keys))
+			return keys
+		end,
 	},
 }

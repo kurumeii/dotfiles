@@ -3,11 +3,19 @@ return {
 	"akinsho/bufferline.nvim",
 	event = "VeryLazy",
 	opts = function(_, opts)
-		opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
-			always_show_bufferline = true,
-			show_buffer_close_icons = false,
+		---@module 'bufferline'
+		---@type bufferline.Options
+		local overrides = {
+			-- always_show_bufferline = true,
 			show_close_icon = false,
-			separator_style = "slant",
-		})
+			show_buffer_close_icons = false,
+			-- separator_style = "slope",
+			groups = {
+				options = {
+					toggle_hidden_on_enter = true,
+				},
+			},
+		}
+		opts.options = vim.tbl_deep_extend("force", opts.options or {}, overrides)
 	end,
 }

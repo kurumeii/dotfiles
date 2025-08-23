@@ -119,6 +119,58 @@ return {
 				end,
 				desc = "Find projects",
 			},
+			{
+				"<leader>fv",
+				function()
+					picker.recent({ filter = { cwd = true } })
+				end,
+				desc = "Find visited path",
+			},
+			{
+				mode = { "n", "x" },
+				"<leader>fg",
+				function()
+					local mode = vim.fn.mode(true)
+					local grug = require("grug-far")
+					local inBuffer = vim.fn.expand("%:p")
+					-- In visual mode, grep for the selection
+					if mode:find("[vV\22]") then
+						grug.with_visual_selection({
+							prefills = {
+								paths = inBuffer,
+							},
+						})
+					else
+						grug.open({
+							prefills = {
+								paths = inBuffer,
+							},
+						})
+					end
+				end,
+				desc = "Find & Grug in current buffer",
+			},
+			{
+				"<leader>fd",
+				function()
+					picker.diagnostics_buffer()
+				end,
+				desc = "Find diagnostics (buffer)",
+			},
+			{
+				"<leader>fD",
+				function()
+					picker.diagnostics()
+				end,
+				desc = "Find diagnostics (workspace)",
+			},
+			{
+				"<leader>fC",
+				function()
+					LazyVim.pick.config_files()
+				end,
+				desc = "Find config files",
+			},
 		}
 	end,
 }

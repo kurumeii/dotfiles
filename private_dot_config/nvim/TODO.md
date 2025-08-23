@@ -66,7 +66,7 @@
 - [x] Modified Flash plugins
 - [ ] Modified mini.hipatterns to see more colors
 - [x] Modified lualine
-- [ ] Modified buffersline
-- [ ] Modified whichkey
-- [ ] Modified mini.icons to show more types
+- [x] Modified buffersline
+- [x] Modified whichkey
+- [x] Modified mini.icons to show more types
 - [ ] Add utils helper for cspell
