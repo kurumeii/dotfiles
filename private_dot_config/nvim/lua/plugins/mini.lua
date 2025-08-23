@@ -23,6 +23,9 @@ return {
 				go_out_plus = "h",
 				synchronize = "<c-s>",
 			},
+			options = {
+				permanent_delete = false,
+			},
 		},
 		keys = {
 			-- Disabled default keymaps from lazynvim

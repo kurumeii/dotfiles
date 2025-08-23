@@ -69,3 +69,4 @@
 - [ ] Modified buffersline
 - [ ] Modified whichkey
 - [ ] Modified mini.icons to show more types
+- [ ] Add utils helper for cspell
