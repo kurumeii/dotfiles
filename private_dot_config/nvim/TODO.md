@@ -65,5 +65,6 @@
 - [x] Disabled Scratch plugins
 - [x] Modified Flash plugins
 - [ ] Modified mini.hipatterns to see more colors
-- [ ] Modified lualine
-- [ ] Modifed buffersline
+- [x] Modified lualine
+- [ ] Modified buffersline
+- [ ] Modified whichkey
