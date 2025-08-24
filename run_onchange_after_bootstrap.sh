@@ -24,7 +24,7 @@ fi
 
 echo "Updating Homebrew and running Brewfile..."
 brew update
-brew bundle --global
+brew bundle
 
 # --- Rust ---
 echo "Checking Rust..."
