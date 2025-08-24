@@ -167,7 +167,9 @@ return {
 			{
 				"<leader>fC",
 				function()
-					LazyVim.pick.config_files()
+					picker.files({
+						cwd = vim.fn.stdpath("config"),
+					})
 				end,
 				desc = "Find config files",
 			},
