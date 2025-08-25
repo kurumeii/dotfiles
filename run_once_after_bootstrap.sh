@@ -55,8 +55,18 @@ else
   echo "Zsh already installed."
 fi
 
-# --- Zsh fzf-tab plugin ---
+# --- Zsh lugin ---
 if command -v zsh &>/dev/null; then
+  # --- Oh My Zsh ---
+  echo "Checking for oh-my-zsh..."
+  if [ -d "$HOME/.oh-my-zsh" ]; then
+    echo "oh-my-zsh found. Pulling latest changes..."
+    git -C "$HOME/.oh-my-zsh" pull
+  else
+    echo "oh-my-zsh not found. Installing..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
+  # -- fzf-tab plugin ---
   echo "Checking for fzf-tab plugin..."
   # Define the target directory
   ZSH_CUSTOM_DIR=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
@@ -69,7 +79,7 @@ if command -v zsh &>/dev/null; then
     echo "fzf-tab already installed."
   fi
 else
-    echo "Skipping fzf-tab installation because zsh is not installed."
+  echo "Skipping installation because zsh is not installed."
 fi
 
 echo "››››››››››››››››››››››››››››››››››››››››››››››››››"
