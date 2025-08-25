@@ -190,6 +190,13 @@ return {
 				end,
 				desc = "Find Task (TODO, FIX, HACK, NOTE)",
 			},
+			{
+				"<leader>fP",
+				function()
+					picker.lazy()
+				end,
+				desc = "Find Plugins",
+			},
 		}
 	end,
 }
