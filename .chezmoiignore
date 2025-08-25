@@ -234,3 +234,5 @@ tmp/
 
 # Ignore Python virtual environments
 **/.venv
+**/.git
+**/__pycache__
