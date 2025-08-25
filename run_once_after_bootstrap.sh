@@ -23,31 +23,53 @@ else
 fi
 
 echo "Updating Homebrew and running Brewfile..."
-brew update
 brew bundle
 
 # --- Rust ---
 echo "Checking Rust..."
 if ! command -v rustup &>/dev/null; then
   echo "Rustup not found. Installing..."
-  # The rustup-init script might be installed via the Brewfile.
-  # If not, this will fail. Ensure 'rustup-init' is in your Brewfile.
   rustup-init -y
 else
   echo "Rust already installed."
 fi
 
-# --- Zsh fzf-tab plugin ---
-echo "Checking for fzf-tab plugin..."
-# Define the target directory
-ZSH_CUSTOM_DIR=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
-FZF_TAB_DIR="$ZSH_CUSTOM_DIR/plugins/fzf-tab"
-
-if [ ! -d "$FZF_TAB_DIR" ]; then
-  echo "fzf-tab not found. Cloning..."
-  git clone https://github.com/Aloxaf/fzf-tab "$FZF_TAB_DIR"
+# --- Zsh ---
+echo "Checking Zsh..."
+if ! command -v zsh &>/dev/null; then
+  echo "Zsh not found. Installing..."
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if command -v apt &>/dev/null; then
+      sudo apt update
+      sudo apt install zsh -y
+    elif command -v dnf &>/dev/null; then
+      sudo dnf install zsh -y
+    else
+      echo "Could not find apt or dnf. Please install zsh manually."
+      exit 1
+    fi
+  else
+    echo "Unsupported OS for automatic zsh installation"
+  fi
 else
-  echo "fzf-tab already installed."
+  echo "Zsh already installed."
+fi
+
+# --- Zsh fzf-tab plugin ---
+if command -v zsh &>/dev/null; then
+  echo "Checking for fzf-tab plugin..."
+  # Define the target directory
+  ZSH_CUSTOM_DIR=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+  FZF_TAB_DIR="$ZSH_CUSTOM_DIR/plugins/fzf-tab"
+
+  if [ ! -d "$FZF_TAB_DIR" ]; then
+    echo "fzf-tab not found. Cloning..."
+    git clone https://github.com/Aloxaf/fzf-tab "$FZF_TAB_DIR"
+  else
+    echo "fzf-tab already installed."
+  fi
+else
+    echo "Skipping fzf-tab installation because zsh is not installed."
 fi
 
 echo "››››››››››››››››››››››››››››››››››››››››››››››››››"
