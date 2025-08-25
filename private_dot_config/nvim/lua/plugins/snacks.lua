@@ -1,6 +1,9 @@
 ---@type LazySpec
 return {
 	"folke/snacks.nvim",
+	dependencies = {
+		"folke/todo-comments.nvim",
+	},
 	---@type snacks.Config
 	opts = {
 		explorer = {
@@ -20,6 +23,11 @@ return {
 					hidden = true,
 				},
 			},
+		},
+		animate = {
+			fps = 120,
+			duration = 200,
+			easing = "inOutCubic",
 		},
 	},
 	keys = function()
@@ -172,6 +180,15 @@ return {
 					})
 				end,
 				desc = "Find config files",
+			},
+			{
+				"<leader>fT",
+				function()
+					picker.todo_comments({
+						keywords = { "TODO", "FIX", "HACK", "NOTE" },
+					})
+				end,
+				desc = "Find Task (TODO, FIX, HACK, NOTE)",
 			},
 		}
 	end,
