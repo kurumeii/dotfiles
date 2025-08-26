@@ -1,243 +1,248 @@
----@type LazySpec[]
+local utils = require('utils')
 return {
-	{
-		"echasnovski/mini.basics",
-		opts = {
-			options = {
-				basic = true,
-				extra_ui = false,
-				win_borders = "default",
-			},
-			mappings = {
-				basic = false,
-			},
-			autocommands = {
-				basic = true,
-			},
-		},
-	},
-	{
-		"echasnovski/mini.files",
-		opts = {
-			mappings = {
-				go_out_plus = "h",
-				synchronize = "<c-s>",
-			},
-			options = {
-				permanent_delete = false,
-			},
-		},
-		keys = {
-			-- Disabled default keymaps from lazynvim
-			{ "<leader>fm", false },
-			{ "<leader>fM", false },
-			{
-				"<leader>e",
-				function()
-					local files = require("mini.files")
-					files.open(vim.api.nvim_buf_get_name(0), false)
-				end,
-				desc = "Open mini.files",
-			},
-		},
-	},
-	{
-		"echasnovski/mini.surround",
-		event = "VeryLazy",
-		config = function()
-			require("mini.surround").setup({
-				mappings = {
-					add = "sa",
-					delete = "sd",
-					find = "sf",
-					find_left = "",
-					highlight = "",
-					replace = "sr",
-					update_n_lines = "",
+  { -- Collection of various small independent plugins/modules
+    'echasnovski/mini.nvim',
+    priority = 2,
+    config = function()
+      require('mini.keymap').setup()
+      require('mini.move').setup()
+      require('mini.bufremove').setup()
+      require('mini.basics').setup({
+        options = {
+          basic = true,
+          extra_ui = false,
+          win_borders = 'shadow',
+        },
+        mappings = {
+          windows = true,
+          move_with_alt = true,
+        },
+      })
+      local MiniExtra = require('mini.extra')
+      local ai = require('mini.ai')
+      ai.setup({
+        n_lines = 500,
+        custom_textobjects = {
+          L = MiniExtra.gen_ai_spec.line(), -- Line
+          -- Tweak function call to not detect dot in function name
+          f = ai.gen_spec.function_call({ name_pattern = '[%w_]' }),
+          -- Function definition (needs treesitter queries with these captures)
+          F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+          o = ai.gen_spec.treesitter({
+            a = { '@block.outer', '@loop.outer', '@conditional.outer' },
+            i = { '@block.inner', '@loop.inner', '@conditional.inner' },
+          }),
+          B = MiniExtra.gen_ai_spec.buffer(),
+          D = MiniExtra.gen_ai_spec.diagnostic(),
+          I = MiniExtra.gen_ai_spec.indent(),
+          u = ai.gen_spec.function_call(), -- u for "Usage"
+          U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }),
+          N = MiniExtra.gen_ai_spec.number(),
+        },
+      })
+      local MiniAnimate = require('mini.animate')
 
-					-- Add this only if you don't want to use extended mappings
-					suffix_last = "",
-					suffix_next = "",
-				},
-				search_method = "cover_or_next",
-			})
-		end,
-	},
-	{
-		"echasnovski/mini.icons",
-		lazy = true,
-		opts = function(_, opts)
-			local icon_groups = {
-				eslint = {
-					files = {
-						".eslintrc.js",
-						".eslintrc.json",
-						".eslintrc.yaml",
-						".eslintrc.yml",
-						".eslintrc.cjs",
-						".eslintrc.mjs",
-						".eslintrc.ts",
-						".eslintrc",
-						"eslint.config.js",
-						"eslint.config.json",
-						"eslint.config.yaml",
-						"eslint.config.yml",
-						"eslint.config.cjs",
-						"eslint.config.mjs",
-						"eslint.config.ts",
-					},
-					glyph = "󰱺",
-					type = "file",
-					hl = "MiniIconsPurple",
-				},
-				prettier = {
-					files = {
-						".prettierrc",
-						".prettierrc.json",
-						".prettierrc.yaml",
-						".prettierrc.yml",
-						".prettierrc.json5",
-						".prettierrc.js",
-						".prettierrc.cjs",
-						".prettierrc.mjs",
-						".prettierrc.ts",
-						"prettier.config.js",
-						"prettier.config.cjs",
-						"prettier.config.mjs",
-						"prettier.config.ts",
-					},
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsYellow",
-				},
-				yarn = {
-					files = { "yarn.lock", ".yarnrc.yml", ".yarnrc.yaml" },
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsBlue",
-				},
-				ts = {
-					files = {
-						"tsconfig.json",
-						"tsconfig.build.json",
-						"tsconfig.app.json",
-						"tsconfig.server.json",
-						"tsconfig.web.json",
-						"tsconfig.client.json",
-					},
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsAzure",
-				},
-				node = {
-					files = { ".node-version", "package.json", ".npmrc" },
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsGreen",
-				},
-				vite = {
-					files = { "vite.config.ts", "vite.config.js" },
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsYellow",
-				},
-				pnpm = {
-					files = { "pnpm-lock.yaml", "pnpm-workspace.yaml" },
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsYellow",
-				},
-				docker = {
-					files = { ".dockerignore" },
-					glyph = "󰡨",
-					type = "file",
-					hl = "MiniIconsBlue",
-				},
-				react_router = {
-					files = { "react-router.config.ts", "react-router.config.js" },
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsRed",
-				},
-				bun = {
-					files = { "bun.lockb", "bun.lock" },
-					glyph = "",
-					type = "file",
-					hl = "MiniIconsGrey",
-				},
-				vscode = {
-					type = "directory",
-					files = { ".vscode" },
-					glyph = "",
-					hl = "MiniIconsBlue",
-				},
-				cspell = {
-					type = "directory",
-					files = { "cspell" },
-					glyph = "󰓆",
-					hl = "MiniIconsPurple",
-				},
-				config = {
-					type = "directory",
-					files = { "config", "configs" },
-					glyph = "",
-					hl = "MiniIconsGrey",
-				},
-				app = {
-					type = "directory",
-					files = { "app", "application" },
-					glyph = "󰀻",
-					hl = "MiniIconsRed",
-				},
-				routes = {
-					type = "directory",
-					files = { "routes", "route", "router", "routers" },
-					glyph = "󰑪",
-					hl = "MiniIconsGreen",
-				},
-				server = {
-					type = "directory",
-					files = { "server", "servers", "api" },
-					glyph = "󰒋",
-					hl = "MiniIconsCyan",
-				},
-				web = {
-					type = "directory",
-					files = { "web", "client", "frontend" },
-					glyph = "󰖟",
-					hl = "MiniIconsBlue",
-				},
-				database = {
-					type = "directory",
-					files = { "database", "db", "databases" },
-					glyph = "󰆼",
-					hl = "MiniIconsOrange",
-				},
-			}
+      MiniAnimate.setup({
+        cursor = {
+          enable = false,
+          timing = MiniAnimate.gen_timing.linear({
+            duration = 100,
+            unit = 'total',
+          }),
+        },
+        scroll = {
+          enable = true,
+          timing = MiniAnimate.gen_timing.linear({
+            duration = 100,
+            unit = 'total',
+          }),
+          subscroll = MiniAnimate.gen_subscroll.equal({
+            predicate = function(total_scroll)
+              return total_scroll > 1
+            end,
+          }),
+        },
+        resize = {
+          enable = true,
+          timing = MiniAnimate.gen_timing.linear({
+            duration = 50,
+            unit = 'total',
+          })
+        },
+        open = { enable = true },
+        close = { enable = true },
+      })
+      require('mini.bracketed').setup({
+        treesitter = { suffix = 's' },
+      })
+      require('mini.files').setup({
+        windows = {
+          preview = true,
+          width_focus = 30,
+          width_preview = 30,
+        },
+        options = {
+          use_as_default_explorer = true,
+        },
+        mappings = {
+          go_out_plus = 'h',
+          synchronize = '<c-s>',
+        },
+        content = {
+          filter = utils.filter_show,
+        },
+      })
+      ---@param type 'file' | 'directory'
+      local init_setup = function(type)
+        local result = {}
+        for _, group in pairs(mininvim.icons.groups) do
+          if group.type == type then
+            for _, fname in ipairs(group.files) do
+              result[fname] = { glyph = group.glyph, hl = group.hl }
+            end
+          end
+        end
+        return result
+      end
+      local MiniIcons = require('mini.icons')
+      MiniIcons.setup({
+        file = init_setup('file'),
+        directory = init_setup('directory'),
+      })
+      MiniIcons.mock_nvim_web_devicons()
 
-			---@param type 'file' | 'directory'
-			local init_setup = function(type)
-				local result = {}
-				for _, group in pairs(icon_groups) do
-					if group.type == type then
-						for _, fname in ipairs(group.files) do
-							result[fname] = { glyph = group.glyph, hl = group.hl }
-						end
-					end
-				end
-				return result
-			end
+      require('mini.jump').setup({
+        mappings = {
+          forward = 'f',
+          backward = 'F',
+          repeat_jump = ';',
+        }
+      })
+      local MiniJump2d = require('mini.jump2d')
+      MiniJump2d.setup({
+        labels = 'abcdefghijklmnopqrstuvwxyz',
+        view = {
+          dim = true,
+          n_steps_ahead = 2,
+        },
+        mappings = {
+          start_jumping = '<leader>j',
+        },
+      })
+      local MiniSessions = require('mini.sessions')
+      MiniSessions.setup({
+        autoread = false,
+        autowrite = true,
+        force = {
+          delete = true,
+          write = true,
+        },
+        directory = vim.fn.stdpath('data') .. '/sessions',
+      })
+      require('mini.surround').setup({
+        mappings = {
+          add = "sa",            -- Add surrounding
+          delete = "sd",         -- Delete surrounding
+          find = "sf",           -- Find surrounding (to the right)
+          find_left = "sF",      -- Find surrounding (to the left)
+          highlight = "sh",      -- Highlight surrounding
+          replace = "sr",        -- Replace surrounding
+          update_n_lines = "sn", -- Update `n_lines`
+        },
+      })
+      -- END OF PLUGINS
 
-			require("mini.icons").setup({
-				file = init_setup("file"),
-				directory = init_setup("directory"),
-			})
-		end,
-		init = function()
-			package.preload["nvim-web-devicons"] = function()
-				require("mini.icons").mock_nvim_web_devicons()
-				return package.loaded["nvim-web-devicons"]
-			end
-		end,
-	},
+      -- KEYMAPS
+      utils.map({ 'n', 'x', 'o' }, '<leader>j', function()
+        MiniJump2d.start(MiniJump2d.builtin_opts.query)
+      end, 'Start jumping arround', {
+        icon = ''
+      })
+      utils.map('n', 'L', function()
+        require('mini.bracketed').buffer('forward')
+      end, 'Next Buffer')
+      utils.map('n', 'H', function()
+        require('mini.bracketed').buffer('backward')
+      end, 'Previous Buffer')
+
+      utils.map('n', utils.L('e'), function()
+        local MiniFiles = require('mini.files')
+        local ok = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0), false)
+        if not ok then
+          MiniFiles.open(nil, false)
+        end
+      end, 'Open explore', {
+        icon = ''
+      })
+
+      utils.map({ 'n' }, utils.L('ss'), function()
+        local default_sessions = 'session-' .. os.date('%Y%m%d-%H%M%S')
+        vim.ui.input({ prompt = 'Enter session name: ', default = default_sessions }, function(input)
+          if input == nil or input == '' then
+            utils.notify('Name is required for session', 'WARN')
+            return
+          end
+          MiniSessions.write(input)
+          utils.notify('Session ' .. input .. ' saved', 'INFO')
+        end)
+      end, 'Save session')
+
+      utils.map({ 'n' }, utils.L('sd'), function()
+        local ok, err = pcall(function()
+          MiniSessions.select('delete')
+        end)
+        if not ok then
+          utils.notify('Error: ' .. tostring(err), 'ERROR')
+        end
+        -- notify('Session deleted', 'INFO')
+      end, 'Delete session')
+
+      utils.map({ 'n' }, utils.L('sl'), function()
+        MiniSessions.select()
+      end, 'Load session')
+    end,
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    event = 'VeryLazy',
+    config = function()
+      require('mini.comment').setup({
+        options = {
+          custom_commentstring = function()
+            return require('ts_context_commentstring.internal').calculate_commentstring() or vim.bo.commentstring
+          end,
+        },
+      })
+    end,
+  },
+  {
+    'rafamadriz/friendly-snippets',
+    event = 'InsertEnter',
+    config = function()
+      local lang_patterns = {
+        jsx = { 'javascript/javascript.json', 'javascript/react-es7.json' },
+        tsx = { 'javascript/javascript.json', 'javascript/typescript.json', 'javascript/react-ts.json' },
+      }
+      local snippets, config_path = require('mini.snippets'), vim.fn.stdpath('config')
+      snippets.setup({
+        snippets = {
+          snippets.gen_loader.from_lang({
+            lang_patterns = lang_patterns,
+          }),
+          snippets.gen_loader.from_file(config_path .. '/snippets/global.json'),
+          -- snippets.start_lsp_server(),
+        },
+        mappings = {
+          expand = '',
+        },
+        expand = {
+          select = function(snip, ins)
+            local select = snippets.default_select
+            select(snip, ins)
+          end,
+        },
+      })
+    end
+  }
 }
+-- vim: ts=2 sts=2 sw=2 et

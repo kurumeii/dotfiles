@@ -2,7 +2,7 @@
   "workspace.checkThirdParty": false,
   "completion.callSnippet": "Both",
   "completion.showParams": true,
-  "diagnostics.globals": ["Snacks"],
+  "diagnostics.globals": ["Snacks", "mininvim"],
   "diagnostics.disable": [
     "duplicate-set-field",
     "missing-fields",
