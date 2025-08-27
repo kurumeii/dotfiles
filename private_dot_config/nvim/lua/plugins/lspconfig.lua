@@ -82,7 +82,7 @@ return {
         }
       )
 
-      vim.lsp.config("*", {
+      mininvim.utils.lsp("*", {
         capabilities = capabilities,
       })
 

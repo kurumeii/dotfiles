@@ -11,10 +11,11 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+-- Load mininvim early so vim.config helper & globals are available everywhere
+require("config.mininvim")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
-require("config.mininvim")
 
 require("lazy").setup({
 	spec = {
