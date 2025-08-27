@@ -172,12 +172,6 @@ return {
 					icon = "",
 				}
 			)
-			utils.map("n", "L", function()
-				MiniBracketed.buffer("forward")
-			end, "Next Buffer")
-			utils.map("n", "H", function()
-				MiniBracketed.buffer("backward")
-			end, "Previous Buffer")
 			utils.map(
 				"n",
 				utils.L("e"),

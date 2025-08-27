@@ -1,3 +1,4 @@
+local utils = require("utils")
 ---@type LazySpec[]
 return {
 	{
@@ -396,7 +397,14 @@ return {
 			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
 			{ "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
 			{ "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-			-- { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+			{
+				"<leader>bd",
+				function()
+					require("mini.bufremove").wipeout(0, true)
+				end,
+				desc = "Delete Buffer",
+			},
+			{ "<leader>bD", utils.C("BufferLineCloseOthers"), desc = "Delete Others Buffer" },
 			-- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
 			-- { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
 			-- { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
@@ -408,7 +416,7 @@ return {
 				-- always_show_bufferline = true,
 				show_close_icon = false,
 				show_buffer_close_icons = false,
-				separator_style = "slanted",
+				separator_style = "slant",
 				groups = {
 					options = {
 						toggle_hidden_on_enter = true,
