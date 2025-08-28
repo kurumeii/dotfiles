@@ -323,18 +323,18 @@ return {
 					{
 						"diff",
 						symbols = {
-							added = mininvim.icons.git_add .. " ",
-							modified = mininvim.icons.git_edit .. " ",
-							removed = mininvim.icons.git_remove .. " ",
+							added = mininvim.icons.git_add,
+							modified = mininvim.icons.git_edit,
+							removed = mininvim.icons.git_remove,
 						},
 					},
 					{
 						"diagnostics",
 						symbols = {
-							error = mininvim.icons.error .. " ",
-							warn = mininvim.icons.warn .. " ",
-							info = mininvim.icons.info .. " ",
-							hint = mininvim.icons.hint .. " ",
+							error = mininvim.icons.error,
+							warn = mininvim.icons.warn,
+							info = mininvim.icons.info,
+							hint = mininvim.icons.hint,
 						},
 					},
 				},

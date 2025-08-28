@@ -1,18 +1,69 @@
 ---@type LazySpec
 return {
 	"folke/snacks.nvim",
+	lazy = false,
 	dependencies = {
 		"folke/todo-comments.nvim",
 	},
 	---@type snacks.Config
 	opts = {
+		dashboard = {
+			preset = {
+				header = [[
+ __       __ __          __ __     __ __              
+|  \     /  \  \        |  \  \   |  \  \             
+| ▓▓\   /  ▓▓\▓▓_______  \▓▓ ▓▓   | ▓▓\▓▓______ ____  
+| ▓▓▓\ /  ▓▓▓  \       \|  \ ▓▓   | ▓▓  \      \    \ 
+| ▓▓▓▓\  ▓▓▓▓ ▓▓ ▓▓▓▓▓▓▓\ ▓▓\▓▓\ /  ▓▓ ▓▓ ▓▓▓▓▓▓\▓▓▓▓\
+| ▓▓\▓▓ ▓▓ ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓ \▓▓\  ▓▓| ▓▓ ▓▓ | ▓▓ | ▓▓
+| ▓▓ \▓▓▓| ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓  \▓▓ ▓▓ | ▓▓ ▓▓ | ▓▓ | ▓▓
+| ▓▓  \▓ | ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓   \▓▓▓  | ▓▓ ▓▓ | ▓▓ | ▓▓
+ \▓▓      \▓▓\▓▓\▓▓   \▓▓\▓▓    \▓    \▓▓\▓▓  \▓▓  \▓▓
+		]],
+				---@type snacks.dashboard.Item[]
+				keys = {
+					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+					{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+					{
+						icon = " ",
+						key = "c",
+						desc = "Config",
+						action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+					},
+					{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+					{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+				},
+				section = {
+					{ section = "header" },
+					{ section = "keys", gap = 1, padding = 1 },
+				},
+			},
+		},
+		indent = { enabled = true },
+		input = { enabled = true },
+		notifier = { enabled = true },
+		scope = { enabled = true },
+		scroll = { enabled = true },
+		statuscolumn = {
+			enabled = true,
+			folds = {
+				git_hl = true,
+				open = true,
+			},
+		}, -- we set this in options.lua
+		toggle = { map = vim.keymap.set },
+		words = { enabled = true },
 		explorer = {
 			enabled = false,
 		},
 		scratch = {
 			enabled = false,
 		},
+
 		picker = {
+			enabled = true,
 			sources = {
 				explorer = {
 					layout = {
@@ -27,7 +78,11 @@ return {
 		animate = {
 			fps = 120,
 			duration = 200,
-			easing = "inOutCubic",
+			easing = "inOutQuad",
+		},
+		terminal = { enabled = true },
+		image = {
+			enabled = true,
 		},
 	},
 	keys = function()
@@ -196,6 +251,33 @@ return {
 					picker.lazy()
 				end,
 				desc = "Find Plugins",
+			},
+			{
+				"<leader>ts",
+				function()
+					Snacks.terminal.toggle()
+				end,
+				desc = "Terminal split",
+			},
+			{
+				"<leader>tf",
+				function()
+					Snacks.terminal.toggle(nil, {
+						win = {
+							style = "float",
+							border = "rounded",
+							width = 0.7,
+						},
+					})
+				end,
+				desc = "Terminal float",
+			},
+			{
+				"<leader>gg",
+				function()
+					Snacks.lazygit.open()
+				end,
+				desc = "Open lazygit",
 			},
 		}
 	end,

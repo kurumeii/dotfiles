@@ -1,10 +1,12 @@
 local utils = require("utils")
 return {
-	{ -- Collection of various small independent plugins/modules
-		"echasnovski/mini.nvim",
+	{
+		"nvim-mini/mini.nvim",
 		priority = 2,
+		lazy = fals,
 		config = function()
 			require("mini.keymap").setup()
+			require("mini.trailspace").setup()
 			require("mini.move").setup()
 			require("mini.bufremove").setup()
 			require("mini.basics").setup({
@@ -39,38 +41,6 @@ return {
 					U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }),
 					N = MiniExtra.gen_ai_spec.number(),
 				},
-			})
-			local MiniAnimate = require("mini.animate")
-
-			MiniAnimate.setup({
-				cursor = {
-					enable = false,
-					timing = MiniAnimate.gen_timing.linear({
-						duration = 100,
-						unit = "total",
-					}),
-				},
-				scroll = {
-					enable = true,
-					timing = MiniAnimate.gen_timing.linear({
-						duration = 100,
-						unit = "total",
-					}),
-					subscroll = MiniAnimate.gen_subscroll.equal({
-						predicate = function(total_scroll)
-							return total_scroll > 1
-						end,
-					}),
-				},
-				resize = {
-					enable = true,
-					timing = MiniAnimate.gen_timing.linear({
-						duration = 50,
-						unit = "total",
-					}),
-				},
-				open = { enable = true },
-				close = { enable = true },
 			})
 			local MiniBracketed = require("mini.bracketed")
 			MiniBracketed.setup({
@@ -152,7 +122,7 @@ return {
 				},
 			})
 			require("mini.pairs").setup({
-				modes = { insert = true, command = true, terminal = false },
+				modes = { insert = true, command = false, terminal = false },
 				skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
 				skip_ts = { "string" },
 				skip_unbalanced = true,
@@ -161,6 +131,12 @@ return {
 			-- END OF PLUGINS
 
 			-- KEYMAPS
+			utils.map("n", "<s-l>", function()
+				MiniBracketed.buffer("forward")
+			end, "Next buffer")
+			utils.map("n", "<s-h>", function()
+				MiniBracketed.buffer("backward")
+			end, "Previous buffer")
 			utils.map(
 				{ "n", "x", "o" },
 				"<leader>j",
