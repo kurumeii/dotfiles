@@ -24,11 +24,9 @@ return {
 			keymap = {
 				preset = "enter",
 			},
-
 			appearance = {
 				nerd_font_variant = "normal",
 			},
-
 			completion = {
 				accept = {
 					-- experimental auto-brackets support
@@ -76,7 +74,6 @@ return {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				},
 			},
-
 			snippets = { preset = "mini_snippets" },
 			fuzzy = { implementation = "prefer_rust" },
 

@@ -13,8 +13,8 @@ return {
 		{ utils.L("bL"), utils.C("BufferLineCloseLeft"), desc = "Delete Buffers to the Left" },
 		{
 			utils.L("bd"),
-			function(n)
-				Snacks.bufdelete.delete(n)
+			function()
+				Snacks.bufdelete.delete()
 			end,
 			desc = "Delete Buffer",
 		},
@@ -23,6 +23,13 @@ return {
 		{ "<S-h>", utils.C("BufferLineCyclePrev"), desc = "Next Buffer" },
 		{ utils.L("bh"), utils.C("BufferLineMovePrev"), desc = "Move buffer prev" },
 		{ utils.L("bl"), utils.C("BufferLineMoveNext"), desc = "Move buffer next" },
+		{
+			utils.L("ba"),
+			function()
+				Snacks.bufdelete.all()
+			end,
+			desc = "Delete all buffer",
+		},
 	},
 	---@module 'bufferline'
 	---@type bufferline.Options
@@ -39,7 +46,7 @@ return {
 			},
 			diagnostics = "nvim_lsp",
 			close_command = function(n)
-				require("mini.bufremove").delete(n)
+				Snacks.bufdelete.delete(n)
 			end,
 			diagnostics_indicator = function(_, _, diag)
 				local icons = mininvim.icons
