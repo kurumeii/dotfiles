@@ -2,34 +2,6 @@ local utils = require("utils")
 ---@type LazySpec[]
 return {
 	{
-		"max397574/better-escape.nvim",
-		opts = {
-			default_mappings = false, -- setting this to false removes all the default mappings
-			mappings = {
-				-- i for insert
-				i = {
-					j = {
-						j = false,
-						k = "<Esc>",
-					},
-				},
-				t = {
-					q = {
-						k = "<C-\\><C-n>",
-					},
-				},
-				v = {
-					j = {},
-				},
-				-- s = {
-				--   j = {
-				--     k = '<Esc>',
-				--   },
-				-- },
-			},
-		},
-	},
-	{
 		"stuckinsnow/import-size.nvim",
 		ft = {
 			"typescript",
@@ -155,70 +127,6 @@ return {
 		},
 	},
 	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		opts_extend = { "spec" },
-		opts = {
-			preset = "helix",
-			win = {
-				col = 0,
-				row = math.huge,
-			},
-			spec = {
-				{
-					mode = { "n", "v" },
-					{ "<leader><tab>", group = "tabs" },
-					{ "<leader>b", group = "Buffer", icon = "" },
-					{ "<leader>c", group = "Code", icon = "" },
-					{ "<leader>d", group = "Debugger", icon = "" },
-					{ "<leader>f", group = "Find", icon = "" },
-					{ "<leader>g", group = "Git", icon = "󰊢" },
-					{ "<leader>l", group = "Lsp", icon = "'" },
-					{ "<leader>s", group = "Sessions", icon = "" },
-					{ "<leader>u", group = "Ui", icon = { icon = "󰙵 ", color = "cyan" } },
-					{ "[", group = "prev" },
-					{ "]", group = "next" },
-					{ "g", group = "goto" },
-					{ "gs", group = "surround" },
-					{ "z", group = "fold" },
-					{
-						"<leader>b",
-						group = "buffer",
-						expand = function()
-							return require("which-key.extras").expand.buf()
-						end,
-					},
-					{
-						"<leader>w",
-						group = "windows",
-						proxy = "<c-w>",
-						expand = function()
-							return require("which-key.extras").expand.win()
-						end,
-					},
-					-- better descriptions
-					{ "gx", desc = "Open with system app" },
-				},
-			},
-		},
-		keys = {
-			{
-				"<leader>?",
-				function()
-					require("which-key").show({ global = false })
-				end,
-				desc = "Buffer Keymaps (which-key)",
-			},
-			{
-				"<c-w><space>",
-				function()
-					require("which-key").show({ keys = "<c-w>", loop = true })
-				end,
-				desc = "Window Hydra Mode (which-key)",
-			},
-		},
-	},
-	{
 		"folke/trouble.nvim",
 		opts = {
 			modes = {
@@ -279,163 +187,74 @@ return {
 		},
 	},
 	{
-		"SmiteshP/nvim-navic",
-		event = { "BufReadPre" },
-		init = function()
-			mininvim.utils.lsp({
-				on_attach = function(client, bufnr)
-					if client.server_capabilities.documentSymbolProvider then
-						require("nvim-navic").attach(client, bufnr)
+		"kevinhwang91/nvim-ufo",
+		event = { "BufReadPost" },
+		dependencies = {
+			"kevinhwang91/promise-async",
+		},
+		keys = {
+			{
+				"zO",
+				function()
+					require("ufo").openAllFolds()
+				end,
+				desc = "Open all folds",
+			},
+			{
+				"zC",
+				function()
+					require("ufo").closeAllFolds()
+				end,
+				desc = "Close all folds",
+			},
+			{
+				"<s-k>",
+				function()
+					local winid = require("ufo").peekFoldedLinesUnderCursor()
+					if not winid then
+						vim.lsp.buf.hover()
 					end
 				end,
-			})
-		end,
-		opts = {
-			highlight = true,
-			depth_limit = 4,
-			-- lsp = {
-			--   auto_attach = true,
-			-- }
-		},
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- options = {
-			--   component_separators = { left = '', right = '' },
-			--   section_separators = { left = '', right = '' },
-			-- },
-			sections = {
-				lualine_a = {
-					{
-						"filename",
-						file_status = true,
-						newfile_status = true,
-						path = 4,
-					},
-				},
-				lualine_b = {
-					{
-						"branch",
-						icon = mininvim.icons.git_branch,
-					},
-					{
-						"diff",
-						symbols = {
-							added = mininvim.icons.git_add,
-							modified = mininvim.icons.git_edit,
-							removed = mininvim.icons.git_remove,
-						},
-					},
-					{
-						"diagnostics",
-						symbols = {
-							error = mininvim.icons.error,
-							warn = mininvim.icons.warn,
-							info = mininvim.icons.info,
-							hint = mininvim.icons.hint,
-						},
-					},
-				},
-				lualine_c = {
-					-- {
-					--   'filename',
-					--   file_status = true,
-					--   newfile_status = true,
-					--   path = 1,
-					-- },
-					"%=",
-				},
-				lualine_x = {
-					{
-						"macro",
-					},
-					{
-						"lsp_status",
-						icon = mininvim.icons.lsp,
-						symbols = {
-							separator = ",",
-						},
-					},
-					{
-						"filetype",
-					},
-				},
-				-- lualine_y = {
-				--   'searchcount',
-				-- },
-				lualine_z = {
-					{
-						"datetime",
-						style = "%R" .. " " .. mininvim.icons.clock,
-					},
-				},
-			},
-			inactive_sections = {
-				lualine_a = { "filename" },
-				lualine_b = {},
-				lualine_c = {},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = { "location" },
-			},
-			winbar = {
-				lualine_c = {
-					"navic",
-					color_correction = nil,
-					navic_opts = nil,
-				},
 			},
 		},
-	},
-	{
-		"akinsho/bufferline.nvim",
-		event = "VeryLazy",
-		keys = {
-			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
-			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
-			{ "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
-			{ "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-			{
-				"<leader>bd",
-				function()
-					require("mini.bufremove").wipeout(0, true)
-				end,
-				desc = "Delete Buffer",
-			},
-			{ "<leader>bD", utils.C("BufferLineCloseOthers"), desc = "Delete Others Buffer" },
-			-- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-			-- { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
-			-- { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
-		},
-		---@module 'bufferline'
-		---@type bufferline.Options
+		---@type UfoConfig
 		opts = {
-			options = {
-				-- always_show_bufferline = true,
-				show_close_icon = false,
-				show_buffer_close_icons = false,
-				separator_style = "slant",
-				groups = {
-					options = {
-						toggle_hidden_on_enter = true,
-					},
+			open_fold_hl_timeout = 150,
+			preview = {
+				win_config = {
+					border = { "", "─", "", "", "", "─", "", "" },
+					winhighlight = "Normal:Folded",
+					winblend = 0,
 				},
-				diagnostics = "nvim_lsp",
-				close_command = function(n)
-					require("mini.bufremove").delete(n)
-				end,
-				diagnostics_indicator = function(_, _, diag)
-					local icons = mininvim.icons
-					local ret = (diag.error and icons.error .. diag.error .. " " or "")
-						.. (diag.warning and icons.warn .. diag.warning or "")
-					return vim.trim(ret)
-				end,
-				get_element_icon = function(o)
-					return require("mini.icons").get("filetype", o.filetype)
-				end,
 			},
+			-- provider_selector = {},
+			fold_virt_text_handler = function(virt_text, lnum, endLnum, width, truncate)
+				local newVirtText = {}
+				local suffix = (" 󱞡 %d "):format(endLnum - lnum)
+				local sufWidth = vim.fn.strdisplaywidth(suffix)
+				local targetWidth = width - sufWidth
+				local curWidth = 0
+				for _, chunk in ipairs(virt_text) do
+					local chunkText = chunk[1]
+					local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+					if targetWidth > curWidth + chunkWidth then
+						table.insert(newVirtText, chunk)
+					else
+						chunkText = truncate(chunkText, targetWidth - curWidth)
+						local hlGroup = chunk[2]
+						table.insert(newVirtText, { chunkText, hlGroup })
+						chunkWidth = vim.fn.strdisplaywidth(chunkText)
+						-- str width returned from truncate() may less than 2nd argument, need padding
+						if curWidth + chunkWidth < targetWidth then
+							suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+						end
+						break
+					end
+					curWidth = curWidth + chunkWidth
+				end
+				table.insert(newVirtText, { suffix, "MoreMsg" })
+				return newVirtText
+			end,
 		},
 	},
 }

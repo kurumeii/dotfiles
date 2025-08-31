@@ -1,5 +1,6 @@
 local utils = require("utils")
 
+-- Mini Files
 vim.api.nvim_create_autocmd("User", {
 	pattern = "MiniFilesBufferCreate",
 	callback = function(args)
@@ -14,6 +15,7 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+-- Rename snacks
 vim.api.nvim_create_autocmd("User", {
 	pattern = "MiniFilesActionRename",
 	callback = function(e)
@@ -22,12 +24,10 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+-- LspAttach
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(args)
-		utils.map("i", "<C-S>", vim.lsp.buf.signature_help, "Signature help", {
-			buffer = args.buf,
-		})
 		utils.map("n", utils.L("cr"), function()
 			vim.ui.input({ prompt = "Rename to: " }, function(new_name)
 				if not new_name then
@@ -47,6 +47,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+-- Navic
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function()
 		if vim.api.nvim_buf_line_count(0) > 10000 then
@@ -55,9 +56,26 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
+-- Dashboard
 vim.api.nvim_create_autocmd("User", {
 	pattern = "SnacksDashboardOpened",
 	callback = function(args)
 		vim.b[args.buf].minitrailspace_disable = true
+	end,
+})
+
+-- Auto save session
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	callback = function()
+		local except = {
+			"ministarter",
+			"snacks_dashboard",
+		}
+		if vim.bo.ft[except] then
+			return
+		end
+		local default_session = "session-" .. os.date("%Y%m%d-%H%M%S")
+		local session_name = MiniSessions.get_latest() or default_session
+		MiniSessions.write(session_name)
 	end,
 })

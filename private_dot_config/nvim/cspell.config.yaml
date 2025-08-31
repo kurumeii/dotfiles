@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
+
+# The version of the configuration file format.
+version: "0.2"
+# The locale to use when spell checking. (e.g., en, en-GB, de-DE
+language: en,vi
+
+cache:
+  cacheFormat: universal
+  cacheStrategy: metadata
+  useCache: true
+
+ignorePaths:
+  - "**/node_modules/**"
+  - "**/.git/**"
+  - "**/.github/**"
+  - "**/.vscode/**"
+  - "**/**-data/**"
+  - "**/**.toml"
+
+import:
+  - "@cspell/dict-vi-vn/cspell-ext.json"
+  - "@cspell/dict-vim/cspell-ext.json"
+
+dictionaryDefinitions:
+  - name: custom-words
+    description: For things like lib name, author name, etc
+    path: "./dictionary/custom-words.txt"
+  - name: colorscheme
+    description: For colorscheme name
+    path: "./dictionary/colorscheme.txt"
+
+dictionaries:
+  - custom-words
+  - colorscheme

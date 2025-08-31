@@ -8,8 +8,8 @@
 ## Keymaps
 
 - [x] Change keymaps for mini-surround
-- [ ] Unify Search and Find into a single Keystroke
-  - [ ] _Leader f_ for find: everything
+- [x] Unify Search and Find into a single Keystroke
+  - [x] _Leader f_ for find: everything
     - `ff`: Find Files
     - `ft`: Find Theme
     - `fm`: Find Marks
@@ -27,14 +27,14 @@
     - `fD`: Find diagnostics (For all buffers)
     - `fc`: Find config files (maybe chezmoi one ?)
     - `fp`: Find plugins place
-  - [ ] _leader s_ for session:
+  - [x] _leader s_ for session:
     - `ss`: Session save
     - `sl`: Session load (list)
     - `sr`: Session restore most recent
     - `sd`: Session delete (list)
 - [ ] ctrl:
-  - `<c-l>`: Accept completion
-- [ ] Shift:
+  - `<c-l>`: Accept completion for AI autocomplete
+- [x] Shift:
   - `<s-s>`: Change line and move cursor to the Indent first
 - [ ] _Leader t_ for terminial
   - `tl`: Toggle right terminal
@@ -53,7 +53,7 @@
   - `/`: toggle hidden files
   - Should not delete permanent files
   - can trigger rename with LSP
-- [ ] _Leader c_ for code
+- [x] _Leader c_ for code
   - `csc`: Create spelling config (cspell)
   - `csw`: Create spelling word (From diagnostics)
   - `csW`: Create spelling word (input)
@@ -64,9 +64,9 @@
 - [x] Use mini.files instead of Snacks.explorer
 - [x] Disabled Scratch plugins
 - [x] Modified Flash plugins
-- [ ] Modified mini.hipatterns to see more colors
+- [ ] ~Modified mini.hipatterns to see more colors~
 - [x] Modified lualine
 - [x] Modified buffersline
 - [x] Modified whichkey
 - [x] Modified mini.icons to show more types
-- [ ] Add utils helper for cspell
+- [x] Add utils helper for cspell

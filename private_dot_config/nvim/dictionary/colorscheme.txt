@@ -1,0 +1,7 @@
+catppuccin
+gruvbox
+ellisonleao
+nvim
+rebelot
+kanagawa
+Kanagawa

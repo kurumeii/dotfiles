@@ -16,7 +16,7 @@ return {
 				opts = {},
 			},
 			"folke/lazydev.nvim",
-			"echasnovski/mini.nvim",
+			"nvim-mini/mini.nvim",
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config

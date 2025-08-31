@@ -1,21 +1,55 @@
+local utils = require("utils")
 ---@type LazySpec
 return {
 	"akinsho/bufferline.nvim",
 	event = "VeryLazy",
-	opts = function(_, opts)
-		---@module 'bufferline'
-		---@type bufferline.Options
-		local overrides = {
-			-- always_show_bufferline = true,
+	dependencies = {
+		"nvim-mini/mini.nvim",
+	},
+	keys = {
+		{ utils.L("bp"), utils.C("BufferLineTogglePin"), desc = "Toggle Pin" },
+		{ utils.L("bP"), utils.C("BufferLineGroupClose ungrouped"), desc = "Delete Non-Pinned Buffers" },
+		{ utils.L("bR"), utils.C("BufferLineCloseRight"), desc = "Delete Buffers to the Right" },
+		{ utils.L("bL"), utils.C("BufferLineCloseLeft"), desc = "Delete Buffers to the Left" },
+		{
+			utils.L("bd"),
+			function(n)
+				Snacks.bufdelete.delete(n)
+			end,
+			desc = "Delete Buffer",
+		},
+		{ utils.L("bD"), utils.C("BufferLineCloseOthers"), desc = "Delete Others Buffer" },
+		{ "<S-l>", utils.C("BufferLineCycleNext"), desc = "Next Buffer" },
+		{ "<S-h>", utils.C("BufferLineCyclePrev"), desc = "Next Buffer" },
+		{ utils.L("bh"), utils.C("BufferLineMovePrev"), desc = "Move buffer prev" },
+		{ utils.L("bl"), utils.C("BufferLineMoveNext"), desc = "Move buffer next" },
+	},
+	---@module 'bufferline'
+	---@type bufferline.Options
+	opts = {
+		options = {
+			always_show_bufferline = false,
 			show_close_icon = false,
 			show_buffer_close_icons = false,
-			-- separator_style = "slope",
+			-- separator_style = "slant",
 			groups = {
 				options = {
 					toggle_hidden_on_enter = true,
 				},
 			},
-		}
-		opts.options = vim.tbl_deep_extend("force", opts.options or {}, overrides)
-	end,
+			diagnostics = "nvim_lsp",
+			close_command = function(n)
+				require("mini.bufremove").delete(n)
+			end,
+			diagnostics_indicator = function(_, _, diag)
+				local icons = mininvim.icons
+				local ret = (diag.error and icons.error .. diag.error .. " " or "")
+					.. (diag.warning and icons.warn .. diag.warning or "")
+				return vim.trim(ret)
+			end,
+			get_element_icon = function(o)
+				return require("mini.icons").get("filetype", o.filetype)
+			end,
+		},
+	},
 }

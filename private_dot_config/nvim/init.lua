@@ -45,4 +45,4 @@ require("lazy").setup({
 	},
 })
 
-vim.cmd.colorscheme("gruvbox")
+vim.cmd.colorscheme(vim.g.colorscheme)

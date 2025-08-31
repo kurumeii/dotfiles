@@ -236,3 +236,6 @@ tmp/
 **/.venv
 **/.git
 **/__pycache__
+**/.eslintcache
+**/node_modules/**
+**/.cspellcache

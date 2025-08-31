@@ -3,12 +3,15 @@ return {
 	{
 		"nvim-mini/mini.nvim",
 		priority = 2,
-		lazy = fals,
+		lazy = false,
 		config = function()
 			require("mini.keymap").setup()
+			local map_combo = require("mini.keymap").map_combo
+			local mode = { "i", "t" }
+			map_combo(mode, "jk", "<bs><bs><esc>")
+			map_combo(mode, "qq", "<BS><BS><C-\\><C-n>")
 			require("mini.trailspace").setup()
 			require("mini.move").setup()
-			require("mini.bufremove").setup()
 			require("mini.basics").setup({
 				options = {
 					basic = true,
@@ -131,12 +134,6 @@ return {
 			-- END OF PLUGINS
 
 			-- KEYMAPS
-			utils.map("n", "<s-l>", function()
-				MiniBracketed.buffer("forward")
-			end, "Next buffer")
-			utils.map("n", "<s-h>", function()
-				MiniBracketed.buffer("backward")
-			end, "Previous buffer")
 			utils.map(
 				{ "n", "x", "o" },
 				"<leader>j",

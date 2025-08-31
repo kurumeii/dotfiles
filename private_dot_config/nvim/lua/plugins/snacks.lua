@@ -1,15 +1,5 @@
----@type LazySpec
-return {
-	"folke/snacks.nvim",
-	lazy = false,
-	dependencies = {
-		"folke/todo-comments.nvim",
-	},
-	---@type snacks.Config
-	opts = {
-		dashboard = {
-			preset = {
-				header = [[
+local utils = require("utils")
+local header_logo = [[
  __       __ __          __ __     __ __              
 |  \     /  \  \        |  \  \   |  \  \             
 | ▓▓\   /  ▓▓\▓▓_______  \▓▓ ▓▓   | ▓▓\▓▓______ ____  
@@ -19,266 +9,298 @@ return {
 | ▓▓ \▓▓▓| ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓  \▓▓ ▓▓ | ▓▓ ▓▓ | ▓▓ | ▓▓
 | ▓▓  \▓ | ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓   \▓▓▓  | ▓▓ ▓▓ | ▓▓ | ▓▓
  \▓▓      \▓▓\▓▓\▓▓   \▓▓\▓▓    \▓    \▓▓\▓▓  \▓▓  \▓▓
-		]],
-				---@type snacks.dashboard.Item[]
-				keys = {
-					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-					{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-					{
-						icon = " ",
-						key = "c",
-						desc = "Config",
-						action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-					},
-					{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
-					{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
-				},
-				section = {
-					{ section = "header" },
-					{ section = "keys", gap = 1, padding = 1 },
-				},
-			},
-		},
-		indent = { enabled = true },
-		input = { enabled = true },
-		notifier = { enabled = true },
-		scope = { enabled = true },
-		scroll = { enabled = true },
-		statuscolumn = {
-			enabled = true,
-			folds = {
-				git_hl = true,
-				open = true,
-			},
-		}, -- we set this in options.lua
-		toggle = { map = vim.keymap.set },
-		words = { enabled = true },
-		explorer = {
-			enabled = false,
-		},
-		scratch = {
-			enabled = false,
-		},
+]]
 
-		picker = {
-			enabled = true,
-			sources = {
-				explorer = {
-					layout = {
-						preset = "sidebar",
-						preview = "main",
+---@module "lazy"
+---@type LazySpec
+return {
+	"folke/snacks.nvim",
+	lazy = false,
+	opts = function()
+		---@type snacks.config
+		local opt = {
+			indent = { enabled = true },
+			input = { enabled = true },
+			notifier = { enabled = true, style = "fancy" },
+			scope = { enabled = true },
+			scroll = { enabled = true },
+			statuscolumn = {
+				enabled = true,
+				folds = {
+					git_hl = true,
+					open = true,
+				},
+			}, -- we set this in options.lua
+			toggle = { map = vim.keymap.set },
+			words = { enabled = true },
+			explorer = {
+				enabled = false,
+			},
+			scratch = {
+				enabled = false,
+			},
+			animate = {
+				fps = 120,
+				duration = 200,
+				easing = "inOutQuad",
+			},
+			image = {
+				enabled = true,
+			},
+			dashboard = {
+				preset = {
+					header = header_logo,
+					---@type snacks.dashboard.Item
+					keys = {
+						{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+						{
+							icon = " ",
+							key = "c",
+							desc = "Config",
+							action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+						},
+						{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 					},
-					ignored = true,
-					hidden = true,
+					section = {
+						{ section = "header" },
+						{ section = "keys", gap = 1, padding = 1 },
+					},
 				},
 			},
-		},
-		animate = {
-			fps = 120,
-			duration = 200,
-			easing = "inOutQuad",
-		},
-		terminal = { enabled = true },
-		image = {
-			enabled = true,
-		},
-	},
-	keys = function()
-		local picker = require("snacks.picker")
-		return {
-			{
-				"<leader>ff",
-				function()
-					picker.files()
-				end,
-				desc = "Find files",
-			},
-			{
-				"<leader>fh",
-				function()
-					picker.help()
-				end,
-				desc = "Find Help",
-			},
-			{
-				"<leader>ft",
-				function()
-					picker.colorschemes()
-				end,
-				desc = "Find theme",
-			},
-			{
-				"<leader>fm",
-				function()
-					picker.marks()
-				end,
-				desc = "Find marks",
-			},
-			{
-				"<leader>fw",
-				function()
-					local mode = vim.fn.mode(true)
-					-- In visual mode, grep for the selection
-					if mode:find("[vV\22]") then
-						picker.grep_word()
-					else
-						picker.grep()
-					end
-				end,
-				desc = "Find word/selection (grep)",
-				mode = { "n", "v" },
-			},
-			{
-				mode = { "n" },
-				"<leader>fr",
-				function()
-					picker.registers()
-				end,
-				desc = "Find registers",
-			},
-			{
-				mode = { "n" },
-				"<leader>fc",
-				function()
-					picker.commands()
-				end,
-				desc = "Find commands",
-			},
-			{
-				mode = { "n" },
-				"<leader>fk",
-				function()
-					picker.keymaps()
-				end,
-				desc = "Find keymaps",
-			},
-			{
-				mode = { "n" },
-				"<leader>fb",
-				function()
-					picker.buffers()
-				end,
-				desc = "Find buffers",
-			},
-			{
-				mode = { "n" },
-				"<leader>fl",
-				function()
-					picker.lines({
-						buf = vim.api.nvim_get_current_buf(),
-					})
-				end,
-				desc = "Find lines in buffer",
-			},
-			{
-				mode = { "n" },
-				"<leader>fp",
-				function()
-					picker.projects({
-						cwd = vim.fn.expand("~/projects"),
-					})
-				end,
-				desc = "Find projects",
-			},
-			{
-				"<leader>fv",
-				function()
-					picker.recent({ filter = { cwd = true } })
-				end,
-				desc = "Find visited path",
-			},
-			{
-				mode = { "n", "x" },
-				"<leader>fg",
-				function()
-					local mode = vim.fn.mode(true)
-					local grug = require("grug-far")
-					local inBuffer = vim.fn.expand("%:p")
-					-- In visual mode, grep for the selection
-					if mode:find("[vV\22]") then
-						grug.with_visual_selection({
-							prefills = {
-								paths = inBuffer,
-							},
-						})
-					else
-						grug.open({
-							prefills = {
-								paths = inBuffer,
-							},
-						})
-					end
-				end,
-				desc = "Find & Grug in current buffer",
-			},
-			{
-				"<leader>fd",
-				function()
-					picker.diagnostics_buffer()
-				end,
-				desc = "Find diagnostics (buffer)",
-			},
-			{
-				"<leader>fD",
-				function()
-					picker.diagnostics()
-				end,
-				desc = "Find diagnostics (workspace)",
-			},
-			{
-				"<leader>fC",
-				function()
-					picker.files({
-						cwd = vim.fn.stdpath("config"),
-					})
-				end,
-				desc = "Find config files",
-			},
-			{
-				"<leader>fT",
-				function()
-					picker.todo_comments({
-						keywords = { "TODO", "FIX", "HACK", "NOTE" },
-					})
-				end,
-				desc = "Find Task (TODO, FIX, HACK, NOTE)",
-			},
-			{
-				"<leader>fP",
-				function()
-					picker.lazy()
-				end,
-				desc = "Find Plugins",
-			},
-			{
-				"<leader>ts",
-				function()
-					Snacks.terminal.toggle()
-				end,
-				desc = "Terminal split",
-			},
-			{
-				"<leader>tf",
-				function()
-					Snacks.terminal.toggle(nil, {
-						win = {
-							style = "float",
-							border = "rounded",
-							width = 0.7,
-						},
-					})
-				end,
-				desc = "Terminal float",
-			},
-			{
-				"<leader>gg",
-				function()
-					Snacks.lazygit.open()
-				end,
-				desc = "Open lazygit",
+			terminal = { enabled = true },
+			lazygit = { enabled = true },
+			picker = {
+				enabled = true,
+				sources = {
+					files,
+					grep,
+					grep_word,
+					grep_buffers,
+				},
 			},
 		}
+		local source_names = { "files", "explorer", "grep", "grep_word", "grep_buffers" }
+		local sources = opt.picker.sources or {}
+		for _, name in ipairs(source_names) do
+			sources[name] = {
+				hidden = true,
+				ignored = true,
+				exclude = { ".git", "node_modules" },
+			}
+		end
+		opt.picker.sources = sources
+		return opt
 	end,
+	keys = {
+		{
+			utils.L("h"),
+			function()
+				Snacks.dashboard.open()
+			end,
+			desc = "Open dashboard",
+		},
+		{
+			"<leader>tt",
+			function()
+				Snacks.terminal.toggle()
+			end,
+			desc = "Toggle terminal",
+		},
+		{
+			"<leader>ta",
+			function()
+				Snacks.terminal.toggle("opencode", {
+					win = {
+						position = "right",
+						width = 0.7,
+					},
+				})
+			end,
+			desc = "Terminal (opencode)",
+		},
+		{
+			"<leader>gg",
+			function()
+				Snacks.lazygit.open()
+			end,
+			desc = "Open lazygit",
+		},
+
+		{
+			"<leader>ff",
+			function()
+				Snacks.picker.files()
+			end,
+			desc = "Find files",
+		},
+		{
+			"<leader>fh",
+			function()
+				Snacks.picker.help()
+			end,
+			desc = "Find Help",
+		},
+		{
+			"<leader>ft",
+			function()
+				Snacks.picker.colorschemes()
+			end,
+			desc = "Find theme",
+		},
+		{
+			"<leader>fm",
+			function()
+				Snacks.picker.marks()
+			end,
+			desc = "Find marks",
+		},
+		{
+			"<leader>fw",
+			function()
+				local mode = vim.fn.mode(true)
+				-- In visual mode, grep for the selection
+				if mode:find("[vV\22]") then
+					Snacks.picker.grep_word()
+				else
+					Snacks.picker.grep()
+				end
+			end,
+			desc = "Find word/selection (grep)",
+			mode = { "n", "v" },
+		},
+		{
+			mode = { "n" },
+			"<leader>fr",
+			function()
+				Snacks.picker.registers()
+			end,
+			desc = "Find registers",
+		},
+		{
+			mode = { "n" },
+			"<leader>fc",
+			function()
+				Snacks.picker.commands()
+			end,
+			desc = "Find commands",
+		},
+		{
+			mode = { "n" },
+			"<leader>fk",
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Find keymaps",
+		},
+		{
+			mode = { "n" },
+			"<leader>fb",
+			function()
+				Snacks.picker.buffers()
+			end,
+			desc = "Find buffers",
+		},
+		{
+			mode = { "n" },
+			"<leader>fl",
+			function()
+				Snacks.picker.lines({
+					buf = vim.api.nvim_get_current_buf(),
+				})
+			end,
+			desc = "Find lines in buffer",
+		},
+		{
+			mode = { "n" },
+			"<leader>fp",
+			function()
+				Snacks.picker.projects({
+					cwd = vim.fn.expand("~/projects"),
+				})
+			end,
+			desc = "Find projects",
+		},
+		{
+			"<leader>fv",
+			function()
+				Snacks.picker.recent({ filter = { cwd = true } })
+			end,
+			desc = "Find visited path",
+		},
+		{
+			mode = { "n", "x" },
+			"<leader>fg",
+			function()
+				local mode = vim.fn.mode(true)
+				local grug = require("grug-far")
+				local inBuffer = vim.fn.expand("%:p")
+				-- In visual mode, grep for the selection
+				if mode:find("[vV\22]") then
+					grug.with_visual_selection({
+						prefills = {
+							paths = inBuffer,
+						},
+					})
+				else
+					grug.open({
+						prefills = {
+							paths = inBuffer,
+						},
+					})
+				end
+			end,
+			desc = "Find & Grug in current buffer",
+		},
+		{
+			"<leader>fd",
+			function()
+				Snacks.picker.diagnostics_buffer()
+			end,
+			desc = "Find diagnostics (buffer)",
+		},
+		{
+			"<leader>fD",
+			function()
+				Snacks.picker.diagnostics()
+			end,
+			desc = "Find diagnostics (workspace)",
+		},
+		{
+			"<leader>fC",
+			function()
+				Snacks.picker.files({
+					cwd = vim.fn.stdpath("config"),
+				})
+			end,
+			desc = "Find config files",
+		},
+		{
+			"<leader>fP",
+			function()
+				Snacks.picker.lazy()
+			end,
+			desc = "Find Plugins",
+		},
+		{
+			"<leader>nh",
+			function()
+				Snacks.picker.notifications()
+			end,
+			desc = "notification history",
+		},
+		{
+			"<leader>nc",
+			function()
+				local all_notif = Snacks.notifier.get_history()
+				for _, notification in ipairs(all_notif) do
+					Snacks.notifier.hide(notification.id)
+				end
+			end,
+			desc = "notifications clear",
+		},
+	},
 }
