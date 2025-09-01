@@ -7,6 +7,9 @@ return {
 		lazy = false,
 		branch = "main",
 		build = ":TSUpdate",
+		opts = {
+			install_dir = vim.fn.stdpath("data") .. "/treesitter",
+		},
 		config = function()
 			local ts = require("nvim-treesitter")
 			local ensure_install = {

@@ -130,6 +130,7 @@ return {
 								spinner = mininvim.icons.spinner,
 								done = "",
 							},
+							ignore_lsp = { "copilot", "mini.snippets" },
 						},
 						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
 						"fileformat",

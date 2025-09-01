@@ -1,14 +1,14 @@
 _G.mininvim = {
 	icons = {
 		mode_prepend = " ",
-		clock = "󰥔 ",
-		git_branch = " ",
+		clock = "󰥔",
+		git_branch = "",
 		error = "󰅙 ",
 		warn = "󰀨 ",
 		info = "󰋼 ",
 		hint = "󰌵 ",
-		lsp = " ",
-		no_lsp = "󱏎 ",
+		lsp = "",
+		no_lsp = "󱏎",
 		edit = "󰏫 ",
 		git_add = "󰐖 ",
 		git_edit = "󱗜 ",
@@ -23,6 +23,59 @@ _G.mininvim = {
 		},
 		recording = " ",
 		groups = {
+			brewer = {
+				files = { "Brewfile" },
+				glyph = "󰂘",
+				type = "file",
+				hl = "MiniIconsYellow",
+			},
+			chezmoi = {
+				files = { ".chezmoi.toml" },
+				glyph = "",
+				type = "file",
+				hl = "MiniIconsGrey",
+			},
+			bash = {
+				files = {
+					".zshrc",
+					".zprofile",
+					".zshenv",
+					".zlogin",
+					".zlogout",
+					"zsh.tmpl",
+					".bashrc",
+					".bash_profile",
+					".bash_aliases",
+					".bash_logout",
+					"bash.tmpl",
+				},
+				glyph = "",
+				type = "file",
+				hl = "MiniIconsGrey",
+			},
+			json = {
+				files = { ".json", ".jsonc", ".bak", "json.tmpl" },
+				glyph = "",
+				type = "file",
+				hl = "MiniIconsYellow",
+			},
+			toml = {
+				files = { ".toml", "toml.tmpl" },
+				glyph = "",
+				hl = "MiniIconsRed",
+			},
+			yaml = {
+				files = { "yaml.tmpl" },
+				glyph = "",
+				type = "file",
+				hl = "MiniIconsGrey",
+			},
+			powershell = {
+				files = { "ps1.tmpl" },
+				glyph = "󰨊",
+				type = "file",
+				hl = "MiniIconsBlue",
+			},
 			eslint = {
 				files = {
 					".eslintrc.js",

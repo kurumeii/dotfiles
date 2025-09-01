@@ -1,44 +1,50 @@
 local utils = require("utils")
+---@module 'lazy'
+---@type LazySpec[]
 return {
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		opts = {
+			ensure_installed = {
+				"tailwindcss",
+				"vtsls",
+				"lua_ls",
+				"stylua",
+				"cspell",
+				"marksman",
+				"markdownlint-cli2",
+				"biome",
+				"prettierd",
+				"eslint-lsp",
+				"css_variables",
+				"cssls",
+				"stylelint",
+				"prismals",
+				"powershell_es",
+				"yamlfix",
+				"jsonls",
+				"yamlls",
+				"taplo",
+				"js-debug-adapter",
+			},
+		},
+	},
 	{
 		-- Main LSP Configuration
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"mason-org/mason.nvim",
-			"mason-org/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			{
+				"mason-org/mason-lspconfig.nvim",
+				opts = {
+					ensure_installed = {},
+				},
+			},
 			"justinsgithub/wezterm-types",
 			"b0o/SchemaStore.nvim",
 			"saghen/blink.cmp",
 		},
 		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {},
-			})
-			require("mason-tool-installer").setup({
-				ensure_installed = {
-					"tailwindcss",
-					"vtsls",
-					"lua_ls",
-					"stylua",
-					"cspell",
-					"marksman",
-					"markdownlint-cli2",
-					"biome",
-					"prettierd",
-					"eslint-lsp",
-					"css_variables",
-					"cssls",
-					"stylelint",
-					"prismals",
-					"powershell_es",
-					"yamlfix",
-					"jsonls",
-					"yamlls",
-					"taplo",
-					"js-debug-adapter",
-				},
-			})
 			---@type lsp.ClientCapabilities
 			local capabilities = vim.tbl_extend(
 				"force",

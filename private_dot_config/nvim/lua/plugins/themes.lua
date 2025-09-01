@@ -1,4 +1,3 @@
-vim.g.colorscheme = "catppuccin"
 ---@type LazySpec[]
 return {
 	-- add gruvbox
@@ -6,9 +5,6 @@ return {
 		"ellisonleao/gruvbox.nvim",
 		enabled = vim.g.colorscheme == "gruvbox",
 		priority = 1000,
-		opts = {
-			contrast = "hard",
-		},
 	},
 	{
 		"rebelot/kanagawa.nvim",
