@@ -3,7 +3,7 @@ local utils = require("utils")
 ---@module "lazy"
 ---@type LazySpec
 return {
-	"snacks.nvim",
+	"folke/snacks.nvim",
 	lazy = false,
 	priority = 1000,
 	opts = function()
@@ -186,13 +186,6 @@ return {
 				Snacks.picker.lsp_config()
 			end,
 			desc = "LSP config",
-		},
-		{
-			"<leader>la",
-			function()
-				Snacks.picker.actions()
-			end,
-			desc = "LSP code actions",
 		},
 		{
 			"<leader>ff",

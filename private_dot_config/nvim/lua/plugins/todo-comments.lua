@@ -12,4 +12,7 @@ return {
 			desc = "Find Task (TODO, FIX, HACK, NOTE)",
 		},
 	},
+	opts = {
+		signs = false,
+	},
 }
