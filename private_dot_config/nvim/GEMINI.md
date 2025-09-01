@@ -1,4 +1,4 @@
-# Copilot Instructions for nvim
+# Gemini Instructions for nvim
 
 ## Project Overview
 

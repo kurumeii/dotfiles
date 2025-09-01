@@ -1,21 +1,11 @@
 local utils = require("utils")
-local header_logo = [[
- __       __ __          __ __     __ __              
-|  \     /  \  \        |  \  \   |  \  \             
-| ▓▓\   /  ▓▓\▓▓_______  \▓▓ ▓▓   | ▓▓\▓▓______ ____  
-| ▓▓▓\ /  ▓▓▓  \       \|  \ ▓▓   | ▓▓  \      \    \ 
-| ▓▓▓▓\  ▓▓▓▓ ▓▓ ▓▓▓▓▓▓▓\ ▓▓\▓▓\ /  ▓▓ ▓▓ ▓▓▓▓▓▓\▓▓▓▓\
-| ▓▓\▓▓ ▓▓ ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓ \▓▓\  ▓▓| ▓▓ ▓▓ | ▓▓ | ▓▓
-| ▓▓ \▓▓▓| ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓  \▓▓ ▓▓ | ▓▓ ▓▓ | ▓▓ | ▓▓
-| ▓▓  \▓ | ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓   \▓▓▓  | ▓▓ ▓▓ | ▓▓ | ▓▓
- \▓▓      \▓▓\▓▓\▓▓   \▓▓\▓▓    \▓    \▓▓\▓▓  \▓▓  \▓▓
-]]
 
 ---@module "lazy"
 ---@type LazySpec
 return {
-	"folke/snacks.nvim",
+	"snacks.nvim",
 	lazy = false,
+	priority = 1000,
 	opts = function()
 		---@type snacks.config
 		local opt = {
@@ -30,7 +20,7 @@ return {
 					git_hl = true,
 					open = true,
 				},
-			}, -- we set this in options.lua
+			},
 			toggle = { map = vim.keymap.set },
 			words = { enabled = true },
 			explorer = {
@@ -47,9 +37,35 @@ return {
 			image = {
 				enabled = true,
 			},
+			terminal = { enabled = true },
+			lazygit = { enabled = true },
+			picker = {
+				enabled = true,
+				sources = {
+					files,
+					grep,
+					grep_word,
+					grep_buffers,
+				},
+			},
+			styles = {
+				notification = {
+					wo = { wrap = true }, -- Wrap notifications
+				},
+			},
 			dashboard = {
 				preset = {
-					header = header_logo,
+					header = [[
+ __       __ __          __ __     __ __              
+|  \     /  \  \        |  \  \   |  \  \             
+| ▓▓\   /  ▓▓\▓▓_______  \▓▓ ▓▓   | ▓▓\▓▓______ ____  
+| ▓▓▓\ /  ▓▓▓  \       \|  \ ▓▓   | ▓▓  \      \    \ 
+| ▓▓▓▓\  ▓▓▓▓ ▓▓ ▓▓▓▓▓▓▓\ ▓▓\▓▓\ /  ▓▓ ▓▓ ▓▓▓▓▓▓\▓▓▓▓\
+| ▓▓\▓▓ ▓▓ ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓ \▓▓\  ▓▓| ▓▓ ▓▓ | ▓▓ | ▓▓
+| ▓▓ \▓▓▓| ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓  \▓▓ ▓▓ | ▓▓ ▓▓ | ▓▓ | ▓▓
+| ▓▓  \▓ | ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓   \▓▓▓  | ▓▓ ▓▓ | ▓▓ | ▓▓
+ \▓▓      \▓▓\▓▓\▓▓   \▓▓\▓▓    \▓    \▓▓\▓▓  \▓▓  \▓▓
+]],
 					---@type snacks.dashboard.Item
 					keys = {
 						{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
@@ -71,17 +87,6 @@ return {
 					},
 				},
 			},
-			terminal = { enabled = true },
-			lazygit = { enabled = true },
-			picker = {
-				enabled = true,
-				sources = {
-					files,
-					grep,
-					grep_word,
-					grep_buffers,
-				},
-			},
 		}
 		local source_names = { "files", "explorer", "grep", "grep_word", "grep_buffers" }
 		local sources = opt.picker.sources or {}
@@ -96,6 +101,7 @@ return {
 		return opt
 	end,
 	keys = {
+		-- Dashboard
 		{
 			utils.L("h"),
 			function()
@@ -103,6 +109,7 @@ return {
 			end,
 			desc = "Open dashboard",
 		},
+		-- Terminal
 		{
 			"<leader>tt",
 			function()
@@ -129,7 +136,64 @@ return {
 			end,
 			desc = "Open lazygit",
 		},
-
+		-- Pickers
+		{ "<leader>l", group = "LSP", desc = "Find LSP" },
+		{
+			"<leader>li",
+			function()
+				Snacks.picker.lsp_implementations()
+			end,
+			desc = "LSP implementations",
+		},
+		{
+			"<leader>ld",
+			function()
+				Snacks.picker.lsp_definitions()
+			end,
+			desc = "LSP definitions",
+		},
+		{
+			"<leader>lt",
+			function()
+				Snacks.picker.lsp_type_definitions()
+			end,
+			desc = "LSP type definitions",
+		},
+		{
+			"<leader>lD",
+			function()
+				Snacks.picker.lsp_declarations()
+			end,
+			desc = "LSP declarations",
+		},
+		{
+			"<leader>ls",
+			function()
+				Snacks.picker.lsp_symbols()
+			end,
+			desc = "LSP document symbols",
+		},
+		{
+			"<leader>lw",
+			function()
+				Snacks.picker.lsp_workspace_symbols()
+			end,
+			desc = "workspace symbols",
+		},
+		{
+			"<leader>lc",
+			function()
+				Snacks.picker.lsp_config()
+			end,
+			desc = "LSP config",
+		},
+		{
+			"<leader>la",
+			function()
+				Snacks.picker.actions()
+			end,
+			desc = "LSP code actions",
+		},
 		{
 			"<leader>ff",
 			function()
@@ -292,6 +356,7 @@ return {
 			end,
 			desc = "notification history",
 		},
+		-- Notifications
 		{
 			"<leader>nc",
 			function()
