@@ -2,14 +2,6 @@
 ---@type LazySpec[]
 return {
 	{
-		-- highlighting for chezmoi files template files
-		"alker0/chezmoi.vim",
-		init = function()
-			vim.g["chezmoi#use_tmp_buffer"] = 1
-			vim.g["chezmoi#source_dir_path"] = os.getenv("HOME") .. "/.local/share/chezmoi"
-		end,
-	},
-	{
 		"xvzc/chezmoi.nvim",
 		cmd = "ChezmoiEdit",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -31,6 +23,20 @@ return {
 					notification = {
 						enable = true,
 						msg = "Opened a chezmoi-managed file",
+						opts = {},
+					},
+				},
+				on_watch = {
+					notification = {
+						enable = true,
+						msg = "This file will be automatically applied",
+						opts = {},
+					},
+				},
+				on_apply = {
+					notification = {
+						enable = true,
+						msg = "Successfully applied",
 						opts = {},
 					},
 				},
