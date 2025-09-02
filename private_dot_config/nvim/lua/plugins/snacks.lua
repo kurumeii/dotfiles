@@ -37,16 +37,15 @@ return {
 			image = {
 				enabled = true,
 			},
-			terminal = { enabled = true },
+			terminal = {
+				enabled = true,
+				win = {
+					border = "rounded",
+				},
+			},
 			lazygit = { enabled = true },
 			picker = {
 				enabled = true,
-				sources = {
-					files,
-					grep,
-					grep_word,
-					grep_buffers,
-				},
 			},
 			styles = {
 				notification = {
@@ -123,11 +122,22 @@ return {
 				Snacks.terminal.toggle("opencode", {
 					win = {
 						position = "right",
-						width = 0.7,
 					},
 				})
 			end,
 			desc = "Terminal (opencode)",
+		},
+		{
+			"<leader>tf",
+			function()
+				Snacks.terminal.toggle(nil, {
+					win = {
+						position = "float",
+						width = 0.7,
+					},
+				})
+			end,
+			desc = "Terminal (float)",
 		},
 		{
 			"<leader>gg",

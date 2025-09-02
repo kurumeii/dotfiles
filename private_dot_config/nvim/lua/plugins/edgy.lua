@@ -9,15 +9,16 @@ return {
 		opts = function()
 			---@type Edgy.Config
 			local opt = {
-				bottom = {
+				float = {
 					{
 						ft = "snacks_terminal",
-						size = { height = 0.4 },
 						filter = function(_, win)
-							return vim.api.nvim_win_get_config(win).relative == ""
+							return vim.w[win].snacks_win and vim.w[win].snacks_win.position == "float"
 						end,
+						size = { width = 0.7 },
 					},
 				},
+				bottom = {},
 				right = {
 					{ title = "Grug Far", ft = "grug-far", size = { width = 0.4 } },
 				},
@@ -58,9 +59,13 @@ return {
 			-- snacks terminal
 			for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
 				opt[pos] = opt[pos] or {}
+				local size = { height = 0.4 }
+				if pos == "left" or pos == "right" then
+					size = { width = 0.4 }
+				end
 				table.insert(opt[pos], {
 					ft = "snacks_terminal",
-					size = { height = 0.4 },
+					size = size,
 					title = "%{b:snacks_terminal.id}: %{b:term_title}",
 					filter = function(_, win)
 						return vim.w[win].snacks_win
