@@ -241,3 +241,4 @@ tmp/
 **/.cspellcache
 
 **/.serena/**
+**/gh/hosts.yaml
