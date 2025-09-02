@@ -1,0 +1,61 @@
+# This script handles the initial setup of a new Windows machine using PowerShell.
+
+# Stop on errors
+$ErrorActionPreference = 'Stop'
+
+Write-Output "››››››››››››››››››››››››››››››››››››››››››››››››››"
+Write-Output "                        BOOTSTRAPPING MACHINE (Windows)"
+Write-Output "››››››››››››››››››››››››››››››››››››››››››››››››››"
+
+# --- Scoop ---
+Write-Output "Checking Scoop..."
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Output "Scoop not found. Installing..."
+    Invoke-RestMethod get.scoop.sh -OutFile 'install-scoop.ps1'
+    # Note: -RunAsAdmin may trigger a UAC prompt.
+    & ./install-scoop.ps1 -RunAsAdmin -ScoopCacheDir "$HOME/scoop/cache" -ScoopDir "$HOME/scoop/root" -ScoopGlobalDir "$HOME/scoop/root"
+} else {
+    Write-Output "Scoop already installed."
+}
+
+# --- Gum ---
+if (-not (Get-Command gum -ErrorAction SilentlyContinue)) {
+    scoop install gum
+}
+
+# Now that gum is installed, we can use it for the rest of the script.
+gum style --border thick --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
+gum style --bold --foreground 212 "                        STYLISH BOOTSTRAPPING"
+gum style --border thick --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
+
+gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- Scoop Import ---"
+gum spin --spinner dot --title "Importing scoop apps..." -- scoop import "G:\My Drive\backups\scoop_apps.bak"
+
+gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- fnm ---"
+if (-not (Get-Command fnm -ErrorAction SilentlyContinue)) {
+    gum spin --spinner dot --title "fnm not found. Installing with scoop..." -- scoop install fnm
+} else {
+    gum style --foreground "0" --background "2" --padding "0 1" "fnm already installed."
+}
+
+# --- Rust ---
+gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- Rust ---"
+Write-Output "Checking Rust..."
+if (-not (Get-Command rustup -ErrorAction SilentlyContinue)) {
+  gum spin --spinner dot --title "Rustup not found. Installing..." -- rustup-init.exe -y
+} else {
+  gum style --foreground "0" --background "2" --padding "0 1" "Rust already installed."
+}
+
+# --- Node.js ---
+gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- Node.js ---"
+if (Get-Command fnm -ErrorAction SilentlyContinue) {
+  gum spin --spinner dot --title "fnm found. Installing latest LTS Node.js..." -- fnm install --lts --corepack-enabled
+} else {
+  gum style --foreground "3" --padding "0 1" "Skipping Node.js installation because fnm is not installed."
+}
+
+
+gum style --border double --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
+gum style --bold --foreground 212 "                        BOOTSTRAP COMPLETE"
+gum style --border double --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
