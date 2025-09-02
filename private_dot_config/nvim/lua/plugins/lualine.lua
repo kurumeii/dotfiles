@@ -45,12 +45,7 @@ return {
 				},
 				sections = {
 					lualine_a = {
-						{
-							"filename",
-							file_status = true,
-							newfile_status = true,
-							path = 4,
-						},
+						"mode",
 					},
 					lualine_b = {
 						{
@@ -86,6 +81,12 @@ return {
 						},
 					},
 					lualine_c = {
+						{
+							"filename",
+							file_status = true,
+							newfile_status = true,
+							path = 1,
+						},
 						"%=",
 					},
 					lualine_x = {

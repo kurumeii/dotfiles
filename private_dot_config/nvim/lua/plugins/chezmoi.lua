@@ -1,3 +1,10 @@
+local get_chezmoi_dirs = function()
+	if vim.fn.has("win32") == 1 then
+		return os.getenv("USERPROFILE") .. "\\.local\\share\\chezmoi\\*"
+	else
+		return os.getenv("HOME") .. "/.local/share/chezmoi/*"
+	end
+end
 ---@module "lazy"
 ---@type LazySpec[]
 return {
@@ -8,7 +15,7 @@ return {
 		init = function()
 			-- run chezmoi edit on file enter
 			vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-				pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
+				pattern = get_chezmoi_dirs(),
 				callback = function()
 					vim.schedule(require("chezmoi.commands.__edit").watch)
 				end,
