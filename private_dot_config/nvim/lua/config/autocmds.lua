@@ -71,11 +71,59 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 			"ministarter",
 			"snacks_dashboard",
 		}
-		if vim.bo.ft[except] then
+		if vim.tbl_contains(except, vim.bo.ft) then
 			return
 		end
 		local default_session = "session-" .. os.date("%Y%m%d-%H%M%S")
 		local session_name = MiniSessions.get_latest() or default_session
 		MiniSessions.write(session_name)
+	end,
+})
+
+--Treesitter
+-- Auto-install and start parsers for unknown filetypes
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	desc = "Enable Treesitter",
+	callback = function(event)
+		local bufnr = event.buf
+		local filetype = vim.bo[bufnr].filetype
+		-- Skip if no filetype
+		if filetype == "" then
+			return
+		end
+		-- Set values to ignore ft
+		---@diagnostic disable-next-line: unused-local
+		local ignore_fts = {}
+		local ts = require("nvim-treesitter")
+		local already_installed = ts.get_installed("parsers")
+		-- Get parser name based on filetype
+		local parser_name = vim.treesitter.language.get_lang(filetype)
+		if not parser_name then
+			utils.notify("No treesitter parser found for filetype: " .. filetype, "WARN", "Treesitter")
+			return
+		end
+
+		-- Try to get existing parser
+		local parser_configs = require("nvim-treesitter.parsers")
+		if not parser_configs[parser_name] then
+			return -- Parser not available, skip silently
+		end
+
+		local parser_exists = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+
+		if not parser_exists then
+			-- check if parser is already installed
+			if vim.tbl_contains(already_installed, parser_name) then
+				utils.notify("Parser for " .. parser_name .. " already installed.", "INFO", "Treesitter")
+			else
+				utils.notify("Installing missing parser for " .. parser_name, "INFO", "Treesitter")
+				ts.install({ parser_name })
+			end
+		end
+		vim.defer_fn(function()
+			vim.treesitter.start(bufnr, parser_name)
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		end, 500)
 	end,
 })
