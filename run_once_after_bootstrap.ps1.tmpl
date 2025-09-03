@@ -1,3 +1,4 @@
+{{- if eq .chezmoi.os "windows" -}}
 # This script handles the initial setup of a new Windows machine using PowerShell.
 
 # Stop on errors
@@ -59,3 +60,4 @@ if (Get-Command fnm -ErrorAction SilentlyContinue) {
 gum style --border double --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
 gum style --bold --foreground 212 "                        BOOTSTRAP COMPLETE"
 gum style --border double --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
+{{- end -}}
