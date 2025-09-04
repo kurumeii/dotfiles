@@ -124,15 +124,52 @@ return {
 							end,
 						},
 						{
-							"lsp_status",
+							function()
+								local clients = vim.lsp.get_clients({ bufnr = 0 })
+								if #clients == 0 then
+									return ""
+								end
+								local names = {}
+								local ignore = {
+									"copilot",
+									"mini.snippets",
+								}
+								for _, client in ipairs(clients) do
+									local ignore_client = false
+									for _, ig in ipairs(ignore) do
+										if client.name == ig then
+											ignore_client = true
+											break
+										end
+									end
+									if not ignore_client then
+										table.insert(names, client.name)
+									end
+								end
+								if #names == 0 then
+									return ""
+								end
+								if #names <= 2 then
+									return table.concat(names, ", ")
+								else
+									return names[1] .. ", ..."
+								end
+							end,
 							icon = mininvim.icons.lsp,
-							symbols = {
-								separator = ",",
-								spinner = mininvim.icons.spinner,
-								done = "",
-							},
-							ignore_lsp = { "copilot", "mini.snippets" },
+							cond = function()
+								return #vim.lsp.get_clients({ bufnr = 0 }) > 0
+							end,
 						},
+						-- {
+						-- 	"lsp_status",
+						-- 	icon = mininvim.icons.lsp,
+						-- 	symbols = {
+						-- 		separator = ",",
+						-- 		spinner = mininvim.icons.spinner,
+						-- 		done = "",
+						-- 	},
+						-- 	ignore_lsp = { "copilot", "mini.snippets" },
+						-- },
 						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
 						"fileformat",
 						{
