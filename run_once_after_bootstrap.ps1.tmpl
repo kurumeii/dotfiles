@@ -21,7 +21,7 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 # --- Gum ---
 if (-not (Get-Command gum -ErrorAction SilentlyContinue)) {
-    scoop install gum
+		scoop install main/charm-gum
 }
 
 # Now that gum is installed, we can use it for the rest of the script.
