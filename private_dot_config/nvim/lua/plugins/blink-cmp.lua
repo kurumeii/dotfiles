@@ -3,12 +3,11 @@ return {
 		"saghen/blink.cmp",
 		event = "VimEnter",
 		build = "cargo build --release",
-		-- opts_extend = {
-		--   "sources.completion.enabled_providers",
-		--   "sources.compat",
-		--   "sources.default",
-		-- },
-		opts_extend = { "sources.default" },
+		opts_extend = {
+			"sources.completion.enabled_providers",
+			-- "sources.compat",
+			"sources.default",
+		},
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			{
@@ -64,7 +63,7 @@ return {
 					auto_show_delay_ms = 200,
 				},
 				ghost_text = {
-					enabled = false, -- README: Should work with AI autocomplete
+					enabled = true, -- README: Should work with AI autocomplete
 				},
 			},
 
