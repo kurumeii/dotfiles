@@ -118,3 +118,13 @@ deepcopy
 autocmd
 augroup
 fnamemodify
+lazypath
+lazyrepo
+keymaps
+autocmds
+retrobox
+matchit
+matchparen
+netrw
+tohtml
+lspconfig
