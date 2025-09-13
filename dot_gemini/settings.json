@@ -1,43 +1,74 @@
 {
-	"selectedAuthType": "oauth-personal",
-	"theme": "Default",
-	"preferredEditor": "neovim",
-	"vimMode": true,
-	"hideTip": true,
-	"hideBanner": true,
-	"contextFileName": [
-		"GEMINI.MD",
-		"AGENTS.MD"
-	],
-	"checkpointing": {
-		"enabled": true
-	},
-	"summarizeToolOutput": {
-		"run_shell_command": {
-			"tokenBudget": 2000
+	"general": {
+		"preferredEditor": "neovim",
+		"vimMode": false,
+		"checkpointing": {
+			"enabled": true
 		}
 	},
-	"hideTips": true,
-	"showMemoryUsage": true,
-	"showLineNumbers": true,
+	"ui": {
+		"theme": "Default",
+		"hideWindowTitle": true,
+		"hideTips": true,
+		"hideBanner": true,
+		"hideFooter": false,
+		"showMemoryUsage": true,
+		"showLineNumbers": true,
+		"showCitations": true,
+		"accessibility": {
+			"disableLoadingPhrases": true
+		}
+	},
+	"model": {
+		"summarizeToolOutput": {
+			"run_shell_command": {
+				"tokenBudget": 2000
+			}
+		}
+	},
+	"context": {
+		"contextFileName": [
+			"GEMINI.MD",
+			"AGENTS.MD"
+		]
+	},
+	"tools": {
+		"excludeTools": [
+			"find_and_replace",
+			"read_file",
+			"write_file",
+			"list_files"
+		]
+	},
+	"mcp": {
+		"allowed": [
+			"serena",
+			"shadcn"
+		]
+	},
 	"mcpServers": {
 		"serena": {
 			"command": "uv",
 			"args": [
 				"run",
 				"--directory",
-				"/home/hoanganh/mcp-server/serena",
+				"$HOME/mcp-server/serena",
 				"serena",
 				"start-mcp-server"
 			],
 			"timeout": 30000
+		},
+		"shadcn": {
+			"command": "pnpm dlx",
+			"args": [
+				"shadcn@latest",
+				"mcp"
+			]
 		}
 	},
-	"excludeTools": [
-		"run_shell_command",
-		"find_and_replace",
-		"read_file",
-		"write_file",
-		"list_files"
-	]
+	"security": {
+		"auth": {
+			"selectedType": "oauth-personal"
+		}
+	}
 }
