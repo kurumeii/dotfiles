@@ -184,11 +184,18 @@ return {
 			desc = "LSP document symbols",
 		},
 		{
-			"<leader>lw",
+			"<leader>lS",
 			function()
 				Snacks.picker.lsp_workspace_symbols()
 			end,
-			desc = "workspace symbols",
+			desc = "LSP workspace symbols",
+		},
+		{
+			"<leader>lr",
+			function()
+				Snacks.picker.lsp_references()
+			end,
+			desc = "LSP references",
 		},
 		{
 			"<leader>lc",

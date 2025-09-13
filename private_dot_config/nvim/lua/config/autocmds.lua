@@ -38,11 +38,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				end
 			end)
 		end, "Rename")
-		if utils.has_lsp("vtsls") then
-			utils.map("n", utils.L("co"), utils.action["source.organizeImports"], "[TS] Organize imports")
-			utils.map("n", utils.L("cv"), function()
-				utils.execute({ command = "typescript.selectTypeScriptVersion" })
-			end, "[TS] Select ts version")
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.name == "vtsls" then
+			utils.map("n", utils.L("co"), utils.action("source.organizeImports"), "[TS] Organize imports")
+			utils.map("n", utils.L("cv"), utils.command("typescript.selectTypeScriptVersion"), "[TS] Select ts version")
 		end
 	end,
 })
