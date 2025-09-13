@@ -1,6 +1,3 @@
----@module 'wezterm.wezterm'
----@type Config
-
 local items = {
 	pwsh = {
 		label = "󰨊 PowerShell",
@@ -16,6 +13,8 @@ local items = {
 	},
 }
 
+---@module 'wezterm.wezterm'
+---@type Config
 return {
 	launch_menu = {
 		items.pwsh,
@@ -26,4 +25,5 @@ return {
 	cursor_blink_rate = 500,
 	prefer_egl = true,
 	max_fps = 120,
+	tab_bar_at_bottom = true,
 }
