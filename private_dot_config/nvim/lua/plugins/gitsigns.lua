@@ -6,17 +6,17 @@ return {
 	opts = function()
 		require("gitsigns").setup({
 			signs = {
-				add = { text = mininvim.icons.git_add },
-				change = { text = mininvim.icons.git_edit },
-				delete = { text = mininvim.icons.git_remove },
+				add = { text = mininvim.icons.git_signs.add },
+				change = { text = mininvim.icons.git_signs.change },
+				delete = { text = mininvim.icons.git_signs.delete },
 				topdelete = { text = mininvim.icons.git_remove },
 				changedelete = { text = mininvim.icons.git_add },
 				untracked = { text = mininvim.icons.git_add },
 			},
 			signs_staged = {
-				add = { text = mininvim.icons.git_add },
-				change = { text = mininvim.icons.git_edit },
-				delete = { text = mininvim.icons.git_remove },
+				add = { text = mininvim.icons.git_signs.add },
+				change = { text = mininvim.icons.git_signs.change },
+				delete = { text = mininvim.icons.git_signs.delete },
 				topdelete = { text = mininvim.icons.git_remove },
 				changedelete = { text = mininvim.icons.git_add },
 			},

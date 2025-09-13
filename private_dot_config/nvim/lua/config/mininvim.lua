@@ -10,6 +10,11 @@ _G.mininvim = {
 		lsp = "",
 		no_lsp = "󱏎",
 		edit = "󰏫 ",
+		git_signs = {
+			add = "▎",
+			change = "▎",
+			delete = "",
+		},
 		git_add = "󰐖 ",
 		git_edit = "󱗜 ",
 		git_remove = "󰍵 ",
