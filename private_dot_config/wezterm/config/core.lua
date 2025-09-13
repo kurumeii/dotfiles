@@ -1,8 +1,6 @@
 ---@module 'wezterm.wezterm'
 ---@type Config
 
-local wsl_distro = "Ubuntu"
-
 local items = {
 	pwsh = {
 		label = "󰨊 PowerShell",
@@ -10,13 +8,11 @@ local items = {
 	},
 	ubuntu = {
 		label = "󰕈 Ubuntu",
-		args = { "wsl.exe", "-d", "Ubuntu" },
-		cwd = "~",
+		args = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" },
 	},
 	fedora = {
 		label = "󰣛 fedora",
-		args = { "wsl.exe", "-d", "FedoraLinux-42" },
-		cwd = "~",
+		args = { "wsl.exe", "-d", "FedoraLinux-42", "--cd", "~" },
 	},
 }
 
@@ -26,7 +22,6 @@ return {
 		items.ubuntu,
 	},
 	default_prog = items.ubuntu.args,
-	default_cwd = "~",
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
 	prefer_egl = true,
