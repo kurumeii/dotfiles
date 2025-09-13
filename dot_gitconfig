@@ -20,9 +20,5 @@
 	bv = branch -v
 	cp = cherry-pick
 
-[user]
-	name = Hoang Anh
-	email = ngphuchoanganh@gmail.com
-
 [includeIf "gitdir:/home/hoanganh/projects/ekimetrics/"]
 	path = ~/projects/ekimetrics/.gitconfig
