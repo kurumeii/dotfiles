@@ -111,7 +111,7 @@ return {
 					delete = true,
 					write = true,
 				},
-				directory = vim.fn.stdpath("data") .. "/sessions",
+				directory = vim.fn.stdpath("data") .. "/sessions/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
 			})
 			require("mini.surround").setup({
 				mappings = {
