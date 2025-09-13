@@ -9,7 +9,7 @@ return {
 				add = { text = mininvim.icons.git_signs.add },
 				change = { text = mininvim.icons.git_signs.change },
 				delete = { text = mininvim.icons.git_signs.delete },
-				topdelete = { text = mininvim.icons.git_remove },
+				topdelete = { text = mininvim.icons.git_signs.delete },
 				changedelete = { text = mininvim.icons.git_add },
 				untracked = { text = mininvim.icons.git_add },
 			},
