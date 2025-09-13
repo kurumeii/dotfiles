@@ -52,7 +52,7 @@
 			"args": [
 				"run",
 				"--directory",
-				"$HOME/mcp-server/serena",
+				"{{ if eq .chezmoi.os "windows" }}$HOME\\mcp-server\\serena{{ else }}$HOME/mcp-server/serena{{ end }}",
 				"serena",
 				"start-mcp-server"
 			],
