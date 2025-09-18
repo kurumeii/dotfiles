@@ -38,10 +38,13 @@ local join_mods = function(m)
 end
 
 config = {
-	font = wez.font("ZedMono Nerd Font"),
+	font = wez.font("Caskaydia Nerd Font", {
+		is_fallback = true,
+	}),
 	font_size = 12,
 	front_end = "OpenGL",
-	freetype_load_target = "HorizontalLcd",
+	freetype_load_target = "Light",
+	freetype_render_target = "HorizontalLcd",
 	line_height = 1.1,
 
 	launch_menu = {
@@ -191,6 +194,19 @@ config = {
 tabline.setup({
 	options = {
 		theme = config.color_scheme,
+	},
+	sections = {
+		tabline_a = {
+			"hostname",
+		},
+		tab_active = {
+			"index",
+			{ "process", padding = { right = 1, left = 0 } },
+			{
+				"tab",
+				padding = { left = 1, right = 1 },
+			},
+		},
 	},
 })
 
