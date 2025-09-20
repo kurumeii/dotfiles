@@ -38,11 +38,10 @@ local join_mods = function(m)
 end
 
 config = {
-	font = wez.font("CaskaydiaCove Nerd Font", {
-		is_fallback = true,
-	}),
-	font_size = 12,
-	front_end = "OpenGL",
+	font = wez.font("CaskaydiaCove Nerd Font"),
+	font_size = 11,
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
 	freetype_render_target = "HorizontalLcd",
 	line_height = 1.1,
