@@ -38,7 +38,7 @@ local join_mods = function(m)
 end
 
 config = {
-	font = wez.font("Caskaydia Nerd Font", {
+	font = wez.font("CaskaydiaCove Nerd Font", {
 		is_fallback = true,
 	}),
 	font_size = 12,
@@ -202,6 +202,7 @@ tabline.setup({
 		tab_active = {
 			"index",
 			{ "process", padding = { right = 1, left = 0 } },
+			"-",
 			{
 				"tab",
 				padding = { left = 1, right = 1 },
