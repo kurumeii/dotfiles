@@ -41,7 +41,7 @@ config = {
 	font = wez.font("CaskaydiaCove Nerd Font", {
 		weight = "Light",
 	}),
-	font_size = 11,
+	font_size = 12,
 	front_end = "WebGpu",
 	webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
@@ -52,7 +52,7 @@ config = {
 		items.pwsh,
 		items.ubuntu,
 	},
-	default_prog = items.ubuntu.args,
+	default_prog = items.pwsh.args,
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
 	prefer_egl = true,
