@@ -38,7 +38,9 @@ local join_mods = function(m)
 end
 
 config = {
-	font = wez.font("CaskaydiaCove Nerd Font"),
+	font = wez.font("CaskaydiaCove Nerd Font", {
+		weight = "Light",
+	}),
 	font_size = 11,
 	front_end = "WebGpu",
 	webgpu_power_preference = "HighPerformance",
