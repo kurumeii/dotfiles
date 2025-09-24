@@ -1,3 +1,6 @@
+vim.g.colorscheme = "catppuccin"
+
+---@module 'lazy'
 ---@type LazySpec[]
 return {
 	-- add gruvbox

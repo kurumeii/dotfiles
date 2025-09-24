@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.show_dotfiles = true
-vim.g.colorscheme = "gruvbox"
 
 vim.o.number = true
 vim.o.relativenumber = true
