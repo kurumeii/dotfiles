@@ -63,10 +63,9 @@ return {
 					auto_show_delay_ms = 200,
 				},
 				ghost_text = {
-					enabled = true, -- README: Should work with AI autocomplete
+					enabled = false, -- README: Should work with AI autocomplete
 				},
 			},
-
 			sources = {
 				default = { "lsp", "path", "snippets", "lazydev", "buffer" },
 				providers = {
@@ -77,7 +76,7 @@ return {
 			fuzzy = { implementation = "prefer_rust" },
 
 			-- Shows a signature help window while you type arguments for a function
-			signature = { enabled = true },
+			signature = { enabled = false },
 		},
 	},
 }
