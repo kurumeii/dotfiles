@@ -5,15 +5,10 @@ return {
 		build = "cargo build --release",
 		opts_extend = {
 			"sources.completion.enabled_providers",
-			-- "sources.compat",
 			"sources.default",
 		},
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			{
-				"saghen/blink.compat",
-				opts = {},
-			},
 			"folke/lazydev.nvim",
 			"nvim-mini/mini.nvim",
 		},
@@ -36,6 +31,7 @@ return {
 				menu = {
 					draw = {
 						treesitter = { "lsp" },
+						padding = { 0, 1 },
 						components = {
 							kind_icon = {
 								text = function(ctx)
@@ -70,13 +66,46 @@ return {
 				default = { "lsp", "path", "snippets", "lazydev", "buffer" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+					copilot = {
+						transform_items = function(_, items)
+							for _, item in ipairs(items) do
+								item.kind_icon = ""
+								item.kind_name = "Copilot"
+							end
+							return items
+						end,
+					},
+				},
+			},
+			cmdline = {
+				enabled = true,
+				keymap = { preset = "cmdline" },
+				completion = {
+					list = { selection = { preselect = false } },
+					menu = {
+						auto_show = function()
+							return vim.fn.getcmdtype() == ":"
+						end,
+					},
+					ghost_text = { enabled = true },
 				},
 			},
 			snippets = { preset = "mini_snippets" },
-			fuzzy = { implementation = "prefer_rust" },
-
-			-- Shows a signature help window while you type arguments for a function
-			signature = { enabled = false },
+			fuzzy = {
+				implementation = "prefer_rust",
+				sorts = {
+					"exact",
+					-- defaults
+					"score",
+					"sort_text",
+				},
+			},
+			signature = {
+				enabled = true,
+				window = {
+					show_documentation = false,
+				},
+			},
 		},
 	},
 }

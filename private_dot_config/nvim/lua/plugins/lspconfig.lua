@@ -49,7 +49,6 @@ return {
 			local capabilities = vim.tbl_extend(
 				"force",
 				vim.lsp.protocol.make_client_capabilities(),
-				require("blink.cmp").get_lsp_capabilities({}, false),
 				-- require('mini.completion').get_lsp_capabilities(),
 				{
 					textDocument = {
