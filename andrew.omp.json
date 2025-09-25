@@ -21,7 +21,7 @@
 					"type": "text",
 					"style": "plain",
 					"foreground": "#62ED8B",
-					"template": "➜"
+					"template": "\udb85\udc0b"
 				},
 				{
 					"type": "path",
@@ -69,7 +69,7 @@
 					"type": "text",
 					"style": "plain",
 					"foreground": "#62ED8B",
-					"template": "\udb85\udfaa "
+					"template": "\uea9f "
 				}
 			]
 		}
