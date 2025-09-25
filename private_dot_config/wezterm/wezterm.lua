@@ -92,21 +92,42 @@ config = {
 			}),
 		},
 		{
-			key = "r", -- Rename tab
+			key = "r", -- Rename workspace
 			mods = mods.L,
 			action = wez.action.PromptInputLine({
 				description = wez.format({
 					{ Attribute = { Intensity = "Bold" } },
 					{ Foreground = { AnsiColor = "Fuchsia" } },
-					{ Text = "Change tab title" },
+					{ Text = "Enter name for workspace" },
 				}),
-				action = wez.action_callback(function(win, _, line)
-					if line == nil then
-						return
+				action = wez.action_callback(function(window, pane, line)
+					if line then
+						window:perform_action(
+							wez.action.SwitchToWorkspace({
+								name = line,
+							}),
+							pane
+						)
 					end
-					win:active_tab():set_title(line)
 				end),
 			}),
+		},
+		{
+			key = "\\", -- Toggle launcher for workspace
+			mods = mods.L,
+			action = wez.action.ShowLauncherArgs({
+				flags = "FUZZY|WORKSPACES",
+			}),
+		},
+		{
+			key = "]", -- Cycle next workpsace
+			mods = mods.L,
+			action = wez.action.SwitchWorkspaceRelative(1),
+		},
+		{
+			key = "[", -- Cycle previous workspace
+			mods = mods.L,
+			action = wez.action.SwitchWorkspaceRelative(-1),
 		},
 		{
 			key = "o",
@@ -114,7 +135,7 @@ config = {
 			action = "ShowLauncher",
 		},
 		{
-			key = "w", -- Close tab without confirm
+			key = "x", -- Close tab
 			mods = mods.L,
 			action = wez.action.CloseCurrentTab({
 				confirm = true,
@@ -203,11 +224,6 @@ tabline.setup({
 		tab_active = {
 			"index",
 			{ "process", padding = { right = 1, left = 0 } },
-			"-",
-			{
-				"tab",
-				padding = { left = 1, right = 1 },
-			},
 		},
 	},
 })
