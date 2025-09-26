@@ -42,28 +42,24 @@
 	},
 	"mcp": {
 		"allowed": [
-			"serena",
-			"shadcn"
+			"shadcn",
+			"context7"
 		]
 	},
 	"mcpServers": {
-		"serena": {
-			"command": "uv",
-			"args": [
-				"run",
-				"--directory",
-				"{{ if eq .chezmoi.os "windows" }}$HOME\\mcp-server\\serena{{ else }}$HOME/mcp-server/serena{{ end }}",
-				"serena",
-				"start-mcp-server"
-			],
-			"timeout": 30000
-		},
 		"shadcn": {
-			"command": "{{ if eq .chezmoi.os "windows" }}pnpm dlx{{ else }}npx{{ end }}",
+			"command": "pnpm dlx",
 			"args": [
 				"shadcn@latest",
 				"mcp"
 			]
+		},
+		"context7": {
+			"httpUrl": "https://mcp.context7.com/mcp",
+			"headers": {
+				"CONTEXT7_API_KEY": "ctx7sk-4be38d02-7c54-4128-9457-570f944c4c62",
+				"Accept": "application/json, text/event-stream"
+			}
 		}
 	},
 	"security": {
