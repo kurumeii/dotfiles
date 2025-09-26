@@ -4,7 +4,8 @@
 		"vimMode": false,
 		"checkpointing": {
 			"enabled": true
-		}
+		},
+		"enablePromptCompletion": true
 	},
 	"ui": {
 		"theme": "Default",
@@ -16,7 +17,7 @@
 		"showLineNumbers": true,
 		"showCitations": true,
 		"accessibility": {
-			"disableLoadingPhrases": true
+			"disableLoadingPhrases": false
 		}
 	},
 	"model": {
@@ -33,12 +34,9 @@
 		]
 	},
 	"tools": {
-		"excludeTools": [
-			"find_and_replace",
-			"read_file",
-			"write_file",
-			"list_files"
-		]
+		"shell": {
+			"showColor": true
+		}
 	},
 	"mcp": {
 		"allowed": [
