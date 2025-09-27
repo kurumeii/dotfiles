@@ -3,3 +3,8 @@ gui:
   nerdFontsVersion: '3'
   showBranchCommitHash: true
   showCommandLog: true
+git:
+  paging:
+    colorArg: always
+    pager: diff-so-fancy
+    # externalDiffCommand: difft --color=always -- If prefer diffantastic
