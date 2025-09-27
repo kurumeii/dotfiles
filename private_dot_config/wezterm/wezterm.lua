@@ -51,6 +51,19 @@ config = {
 	launch_menu = {
 		items.pwsh,
 		items.ubuntu,
+		items.fedora,
+	},
+	wsl_domains = {
+		{
+			name = "Ubuntu",
+			distribution = "Ubuntu",
+			default_cwd = "~",
+		},
+		{
+			name = "Fedora",
+			distribution = "FedoraLinux-42",
+			default_cwd = "~",
+		},
 	},
 	default_prog = items.pwsh.args,
 	default_cursor_style = "BlinkingBlock",
