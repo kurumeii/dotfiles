@@ -41,26 +41,21 @@ config = {
 	font = wez.font("CaskaydiaCove Nerd Font", {
 		weight = "Light",
 	}),
+	adjust_window_size_when_changing_font_size = false,
 	font_size = 12,
 	front_end = "WebGpu",
 	webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
 	freetype_render_target = "HorizontalLcd",
 	line_height = 1.1,
-
-	launch_menu = {
-		items.pwsh,
-		items.ubuntu,
-		items.fedora,
-	},
 	wsl_domains = {
 		{
-			name = "Ubuntu",
+			name = items.ubuntu.label,
 			distribution = "Ubuntu",
 			default_cwd = "~",
 		},
 		{
-			name = "Fedora",
+			name = items.fedora.label,
 			distribution = "FedoraLinux-42",
 			default_cwd = "~",
 		},
