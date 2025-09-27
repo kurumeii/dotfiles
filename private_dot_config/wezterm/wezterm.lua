@@ -67,6 +67,7 @@ config = {
 		right = 3,
 		left = 3,
 	},
+	allow_win32_input_mode = false,
 
 	leader = {
 		key = "q",
