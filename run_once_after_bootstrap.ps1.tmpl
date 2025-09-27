@@ -30,7 +30,13 @@ gum style --bold --foreground 212 "                        STYLISH BOOTSTRAPPING
 gum style --border thick --margin "1" --padding "1" --border-foreground 212 "››››››››››››››››››››››››››››››››››››››››››››››››››"
 
 gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- Scoop Import ---"
-gum spin --spinner dot --title "Importing scoop apps..." -- scoop import "G:\My Drive\backups\scoop_apps.bak"
+
+$scoopBackupPath = "$env:USERPROFILE\scoop-bak.json"
+if (Test-Path $scoopBackupPath) {
+    gum spin --spinner dot --title "Importing scoop apps from $scoopBackupPath..." -- scoop import $scoopBackupPath
+} else {
+    gum style --foreground "3" --padding "0 1" "Scoop backup file not found at $scoopBackupPath. Skipping import."
+}
 
 gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- fnm ---"
 if (-not (Get-Command fnm -ErrorAction SilentlyContinue)) {
@@ -39,14 +45,6 @@ if (-not (Get-Command fnm -ErrorAction SilentlyContinue)) {
     gum style --foreground "0" --background "2" --padding "0 1" "fnm already installed."
 }
 
-# --- Rust ---
-gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- Rust ---"
-Write-Output "Checking Rust..."
-if (-not (Get-Command rustup -ErrorAction SilentlyContinue)) {
-  gum spin --spinner dot --title "Rustup not found. Installing..." -- rustup-init.exe -y
-} else {
-  gum style --foreground "0" --background "2" --padding "0 1" "Rust already installed."
-}
 
 # --- Node.js ---
 gum style --border normal --margin "1" --padding "1" --border-foreground 212 -- "--- Node.js ---"
