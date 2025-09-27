@@ -6,5 +6,8 @@ gui:
 git:
   paging:
     colorArg: always
+    {{ if eq .chezmoi.os "windows" -}}
+    externalDiffCommand: difft --color=always --display=inline
+    {{- else -}}
     pager: diff-so-fancy
-    # externalDiffCommand: difft --color=always -- If prefer diffantastic
+    {{- end }}
