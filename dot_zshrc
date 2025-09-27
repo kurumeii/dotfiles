@@ -52,10 +52,10 @@ source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.
 
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
-eval "$(oh-my-posh init zsh --config star)"
+eval "$(oh-my-posh init zsh --config ~/andrew.omp.json)"
 eval "$(gh completion -s zsh)"
-# eval "$(fnm completions)"
 eval "$(fnm env --use-on-cd --shell zsh --version-file-strategy=recursive --corepack-enabled)"
+eval "$(fnm completions)"
 eval "$(pnpm completion zsh)"
 eval "$(chezmoi completion zsh)"
 
