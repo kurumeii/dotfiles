@@ -30,6 +30,15 @@ return {
 			end,
 			desc = "Delete all buffer",
 		},
+		{
+			utils.L("bw"),
+			function()
+				Snacks.bufdelete.delete({
+					wipe = true,
+				})
+			end,
+			desc = "Wipeout Buffer",
+		},
 	},
 	---@module 'bufferline'
 	---@type bufferline.Options
