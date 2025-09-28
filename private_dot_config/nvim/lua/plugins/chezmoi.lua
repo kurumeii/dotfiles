@@ -1,9 +1,6 @@
 local get_chezmoi_dirs = function()
-	if vim.fn.has("win32") == 1 then
-		return os.getenv("USERPROFILE") .. "\\.local\\share\\chezmoi\\*"
-	else
-		return os.getenv("HOME") .. "/.local/share/chezmoi/*"
-	end
+	local home = assert(os.getenv("HOME") or os.getenv("USERPROFILE"), "HOME or USERPROFILE must be set")
+	return home:gsub("\\", "/") .. "/.local/share/chezmoi/*"
 end
 ---@module "lazy"
 ---@type LazySpec[]
