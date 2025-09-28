@@ -8,9 +8,18 @@ vim.o.mouse = "a"
 vim.o.showmode = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
-vim.schedule(function()
-	vim.o.clipboard = "unnamedplus"
-end)
+vim.g.clipboard = {
+	name = "Win32Yank",
+	copy = {
+		["+"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -i --crlf",
+		["*"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -i --crlf",
+	},
+	paste = {
+		["+"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -o --lf",
+		["*"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -o --lf",
+	},
+}
+vim.o.clipboard = "unnamedplus"
 vim.o.smartcase = true
 vim.o.smartindent = true
 vim.o.ignorecase = true
