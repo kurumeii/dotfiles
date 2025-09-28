@@ -1,7 +1,7 @@
 {
-  "banner": "never",
-  "theme": "auto",
-  "trusted_folders": [
-    "/home/hoanganh/.local/share/chezmoi"
-  ]
+	"banner": "once",
+	"theme": "auto",
+	"trusted_folders": [
+		"/home/hoanganh/.local/share/chezmoi"
+	]
 }
