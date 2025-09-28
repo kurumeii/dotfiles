@@ -47,7 +47,7 @@ config = {
 	webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
 	freetype_render_target = "HorizontalLcd",
-	line_height = 1.1,
+	line_height = 1.2,
 	wsl_domains = {
 		{
 			name = items.ubuntu.label,
@@ -221,6 +221,13 @@ config = {
 		},
 	},
 }
+
+config.hyperlink_rules = wez.default_hyperlink_rules()
+
+table.insert(config.hyperlink_rules, {
+	regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
+	format = "https://www.github.com/$1/$3",
+})
 
 tabline.setup({
 	options = {
