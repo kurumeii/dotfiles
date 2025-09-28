@@ -35,7 +35,7 @@ _G.mininvim = {
 				hl = "MiniIconsYellow",
 			},
 			chezmoi = {
-				files = { ".chezmoi.toml" },
+				files = { ".chezmoiignore", ".chezmoiremove", ".chezmoiroot", ".chezmoiversion" },
 				glyph = "",
 				type = "file",
 				hl = "MiniIconsGrey",
@@ -59,27 +59,10 @@ _G.mininvim = {
 				hl = "MiniIconsGrey",
 			},
 			json = {
-				files = { ".json", ".jsonc", ".bak", "json.tmpl" },
+				files = { ".json", ".jsonc", ".bak" },
 				glyph = "",
 				type = "file",
 				hl = "MiniIconsYellow",
-			},
-			toml = {
-				files = { ".toml", "toml.tmpl" },
-				glyph = "",
-				hl = "MiniIconsRed",
-			},
-			yaml = {
-				files = { "yaml.tmpl" },
-				glyph = "",
-				type = "file",
-				hl = "MiniIconsGrey",
-			},
-			powershell = {
-				files = { "ps1.tmpl" },
-				glyph = "󰨊",
-				type = "file",
-				hl = "MiniIconsBlue",
 			},
 			eslint = {
 				files = {
