@@ -1,0 +1,43 @@
+{
+	"mcpServers": {
+		"serena": {
+			"type": "local",
+			"command": "uvx",
+			"tools": [
+				"*"
+			],
+			"args": [
+				"--from",
+				"git+https://github.com/oraios/serena",
+				"serena",
+				"start-mcp-server",
+				"--context",
+				"ide-assistant"
+			]
+		},
+		"shadcn": {
+			"type": "local",
+			"command": "pnpm dlx",
+			"tools": [
+				"*"
+			],
+			"args": [
+				"shadcn@latest",
+				"mcp"
+			]
+		},
+		"context-7": {
+			"type": "local",
+			"command": "pnpm dlx",
+			"tools": [
+				"*"
+			],
+			"args": [
+				"-y",
+				"@upstash/context7-mcp",
+				"--api-key",
+				"ctx7sk-4be38d02-7c54-4128-9457-570f944c4c62"
+			]
+		}
+	}
+}
