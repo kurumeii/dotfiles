@@ -101,7 +101,7 @@ config = {
 			}),
 		},
 		{
-			key = "r", -- Rename workspace
+			key = "w", -- Workspace
 			mods = mods.L,
 			action = wez.action.PromptInputLine({
 				description = wez.format({
