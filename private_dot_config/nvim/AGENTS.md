@@ -82,3 +82,10 @@ This project is a modular Neovim configuration using Lua, structured for maintai
 - Adding a Plugin: Create a new file in `lua/plugins/` and add its config. Reference it in `init.lua` via the lazy setup import
 - Custom Keymap: Use `utils.map('n', '<leader>x', function() ... end, 'Description')` in `keymaps.lua`
 - Autocommand: Use `vim.api.nvim_create_autocmd` in `autocmds.lua` for event-driven behaviors
+
+---
+
+## Agent Operating Protocol
+
+- **Strict Adherence:** Only change what you are explicitly told to change.
+- **Verify and Clarify:** If you believe there is an error in my request, you must point it out and wait for my explicit permission before making any changes or corrections. Your primary directive is to follow my instructions precisely.

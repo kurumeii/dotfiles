@@ -55,3 +55,11 @@ This is a modular Neovim configuration using Lua, structured for maintainability
 ---
 
 _If any section is unclear or missing important project-specific details, please provide feedback to improve these instructions._
+
+---
+
+## Agent Operating Protocol
+
+- **Strict Adherence:** Only change what you are explicitly told to change.
+- **Verify and Clarify:** If you believe there is an error in my request, you must point it out and wait for my explicit permission before making any changes or corrections. Your primary directive is to follow my instructions precisely.
+
