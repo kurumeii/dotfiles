@@ -20,6 +20,7 @@ return {
 				topdelete = { text = mininvim.icons.git_signs.delete },
 				changedelete = { text = mininvim.icons.git_signs.change },
 			},
+			numhl = true,
 			current_line_blame = true,
 			current_line_blame_opts = {
 				virt_text = true,
@@ -95,7 +96,45 @@ return {
 			set = function(state)
 				require("gitsigns").toggle_signs(state)
 			end,
-		}):map("<leader>uG")
+		}):map("<leader>ugs")
+		Snacks.toggle({
+			name = "Toggle num hightlight",
+			get = function()
+				return require("gitsigns.config").config.numhl
+			end,
+			set = function(state)
+				require("gitsigns").toggle_signs(state)
+			end,
+		}):map("<leader>ugn")
+		Snacks.toggle({
+			name = "Toggle line hightlight",
+			get = function()
+				return require("gitsigns.config").config.linehl
+			end,
+			set = function(state)
+				require("gitsigns").toggle_signs(state)
+			end,
+		}):map("<leader>ugl")
+
+		Snacks.toggle({
+			name = "Toggle blame line",
+			get = function()
+				return require("gitsigns.config").config.current_line_blame
+			end,
+			set = function(state)
+				require("gitsigns").toggle_signs(state)
+			end,
+		}):map("<leader>ugb")
+
+		Snacks.toggle({
+			name = "Toggle word diff",
+			get = function()
+				return require("gitsigns.config").config.word_diff
+			end,
+			set = function(state)
+				require("gitsigns").toggle_signs(state)
+			end,
+		}):map("<leader>ugw")
 	end,
 	keys = {
 		{
@@ -150,10 +189,31 @@ return {
 			end,
 		},
 		{
+			mode = { "n", "v" },
 			"<leader>gs",
 			desc = "Show hunk",
 			function()
 				require("gitsigns").preview_hunk()
+			end,
+		},
+		{
+			"<leader>gc",
+			desc = "Git show commit",
+			function()
+				require("gitsigns").show_commit()
+			end,
+		},
+		{
+			"<leader>gd",
+			desc = "Git diff (input)",
+			function()
+				vim.ui.input({ prompt = "Enter commit hash or indexed (e.g. ~1): " }, function(input)
+					if input then
+						require("gitsigns").diffthis(input)
+					else
+						require("gitsigns").diffthis()
+					end
+				end)
 			end,
 		},
 	},
