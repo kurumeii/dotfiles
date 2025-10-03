@@ -8,6 +8,7 @@ vim.o.mouse = "a"
 vim.o.showmode = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+{{- if ne .chezmoi.os "windows" }}
 vim.g.clipboard = {
 	name = "Win32Yank",
 	copy = {
@@ -19,6 +20,7 @@ vim.g.clipboard = {
 		["*"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -o --lf",
 	},
 }
+{{- end }}
 vim.o.clipboard = "unnamedplus"
 vim.o.smartcase = true
 vim.o.smartindent = true

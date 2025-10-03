@@ -97,4 +97,64 @@ return {
 			end,
 		}):map("<leader>uG")
 	end,
+	keys = {
+		{
+			"]h",
+			function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					require("gitsigns").nav_hunk("next")
+				end
+			end,
+			desc = "Next Hunk",
+		},
+		{
+			"[h",
+			function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					require("gitsigns").nav_hunk("prev")
+				end
+			end,
+			desc = "Prev Hunk",
+		},
+		{
+			"]H",
+			function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					require("gitsigns").nav_hunk("last")
+				end
+			end,
+			desc = "Last Hunk",
+		},
+		{
+			"[H",
+			function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					require("gitsigns").nav_hunk("first")
+				end
+			end,
+			desc = "First Hunk",
+		},
+		{
+			"<leader>gr",
+			desc = "Revert Hunk",
+			function()
+				require("gitsigns").reset_hunk()
+			end,
+		},
+		{
+			"<leader>gs",
+			desc = "Show hunk",
+			function()
+				require("gitsigns").preview_hunk()
+			end,
+		},
+	},
 }
