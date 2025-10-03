@@ -8,16 +8,23 @@ vim.o.mouse = "a"
 vim.o.showmode = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
-{{- if ne .chezmoi.os "windows" }}
+{{- $isWSL := false -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if (output "uname" "-r" | lower | contains "microsoft") -}}
+{{-     $isWSL = true -}}
+{{-   end -}}
+{{- end -}}
+
+{{- if $isWSL }}
 vim.g.clipboard = {
 	name = "Win32Yank",
 	copy = {
-		["+"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -i --crlf",
-		["*"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -i --crlf",
+		["+"] = "/mnt/c/Users/{{ .win_user }}/scoop/root/shims/win32yank.exe -i --crlf",
+		["*"] = "/mnt/c/Users/{{ .win_user }}/scoop/root/shims/win32yank.exe -i --crlf",
 	},
 	paste = {
-		["+"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -o --lf",
-		["*"] = "/mnt/c/Users/hoanganh/scoop/root/shims/win32yank.exe -o --lf",
+		["+"] = "/mnt/c/Users/{{ .win_user }}/scoop/root/shims/win32yank.exe -o --lf",
+		["*"] = "/mnt/c/Users/{{ .win_user }}/scoop/root/shims/win32yank.exe -o --lf",
 	},
 }
 {{- end }}
