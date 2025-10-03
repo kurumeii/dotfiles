@@ -66,13 +66,18 @@ return {
 					filter = utils.filter_show,
 				},
 			})
-			---@param type 'file' | 'directory'
-			local init_setup = function(type)
+			---@param icon_type 'file' | 'directory' | "lsp"
+			local init_setup = function(icon_type)
 				local result = {}
-				for _, group in pairs(mininvim.icons.groups) do
-					if group.type == type then
-						for _, fname in ipairs(group.files) do
-							result[fname] = { glyph = group.glyph, hl = group.hl }
+				for name, group in pairs(mininvim.icons.groups) do
+					if group.type == icon_type then
+						if icon_type == "lsp" then
+							local lsp_kind = name
+							result[lsp_kind] = { glyph = group.glyph, hl = group.hl }
+						elseif type(group.files) == "table" then
+							for _, fname in ipairs(group.files) do
+								result[fname] = { glyph = group.glyph, hl = group.hl }
+							end
 						end
 					end
 				end
@@ -82,8 +87,10 @@ return {
 			MiniIcons.setup({
 				file = init_setup("file"),
 				directory = init_setup("directory"),
+				lsp = init_setup("lsp"),
 			})
 			MiniIcons.mock_nvim_web_devicons()
+			MiniIcons.tweak_lsp_kind()
 
 			require("mini.jump").setup({
 				mappings = {

@@ -209,6 +209,12 @@ _G.mininvim = {
 				glyph = "󰆼",
 				hl = "MiniIconsOrange",
 			},
+			copilot = {
+				type = "lsp",
+				name = "copilot",
+				glyph = "",
+				hl = "MiniIconsBlue",
+			},
 		},
 	},
 	utils = {

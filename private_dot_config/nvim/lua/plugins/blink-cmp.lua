@@ -9,6 +9,7 @@ return {
 		},
 		dependencies = {
 			"rafamadriz/friendly-snippets",
+			"giuxtaposition/blink-cmp-copilot",
 			"folke/lazydev.nvim",
 			"nvim-mini/mini.nvim",
 		},
@@ -30,8 +31,11 @@ return {
 				},
 				menu = {
 					draw = {
+						columns = {
+							{ "label" },
+							{ "kind_icon", "kind", "source_name", gap = 1 },
+						},
 						treesitter = { "lsp" },
-						padding = { 0, 1 },
 						components = {
 							kind_icon = {
 								text = function(ctx)
@@ -66,15 +70,6 @@ return {
 				default = { "lsp", "path", "snippets", "lazydev", "buffer" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					copilot = {
-						transform_items = function(_, items)
-							for _, item in ipairs(items) do
-								item.kind_icon = ""
-								item.kind_name = "Copilot"
-							end
-							return items
-						end,
-					},
 				},
 			},
 			cmdline = {
