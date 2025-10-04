@@ -111,11 +111,12 @@ return {
 			{
 				"<s-k>",
 				function()
-					local winid = require("ufo").peekFoldedLinesUnderCursor()
-					if not winid then
+					local success, winid = pcall(require("ufo").peekFoldedLinesUnderCursor)
+					if not success or not winid then
 						vim.lsp.buf.hover()
 					end
 				end,
+				desc = "Peek Folded Lines",
 			},
 		},
 		---@type UfoConfig
@@ -123,7 +124,7 @@ return {
 			open_fold_hl_timeout = 150,
 			preview = {
 				win_config = {
-					border = { "", "─", "", "", "", "─", "", "" },
+					border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
 					winhighlight = "Normal:Folded",
 					winblend = 0,
 				},
