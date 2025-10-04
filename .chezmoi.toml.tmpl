@@ -3,6 +3,7 @@
     args = ["-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
 
 [data]
+    headless = false
 {{- if and (eq .chezmoi.os "linux") (output "uname" "-r" | lower | contains "microsoft") }}
     win_user = "{{ (output "/mnt/c/Windows/System32/cmd.exe" "/c" "cd C:\\ && echo %USERNAME% 2>nul" | trim) }}"
 {{- end }}
