@@ -17,15 +17,15 @@
 	},
 	"catppuccin": {
 		"branch": "main",
-		"commit": "c89184526212e04feffbddda9d06b041a8fca416"
+		"commit": "5af9374957a65be8770696da295dc9016b96f241"
 	},
 	"chezmoi.nvim": {
 		"branch": "main",
-		"commit": "8b426285c2b0acb9b0dd46789193fa97f6480b99"
+		"commit": "e0b3ebafd910b63acdfbf6677b44b03eb3d09f19"
 	},
 	"conform.nvim": {
 		"branch": "master",
-		"commit": "c64cc754ace603e185ab30113aaef174187eacf8"
+		"commit": "016bc8174a675e1dbf884b06a165cd0c6c03f9af"
 	},
 	"copilot-lualine": {
 		"branch": "main",
@@ -45,7 +45,7 @@
 	},
 	"gitsigns.nvim": {
 		"branch": "main",
-		"commit": "1ee5c1fd068c81f9dd06483e639c2aa4587dc197"
+		"commit": "23ae90a2a52fdc9b8c50dc61d6c30ebb18521343"
 	},
 	"grug-far.nvim": {
 		"branch": "main",
@@ -77,7 +77,7 @@
 	},
 	"mason-lspconfig.nvim": {
 		"branch": "main",
-		"commit": "155eac5d8609a2f110041f8ac3491664cc126354"
+		"commit": "f760507df8c49a4bf46a4d12e1fc616797508979"
 	},
 	"mason-tool-installer.nvim": {
 		"branch": "main",
@@ -85,11 +85,11 @@
 	},
 	"mason.nvim": {
 		"branch": "main",
-		"commit": "a83eabdc8c49c0c93bf5bb162fa3b57404a9d095"
+		"commit": "b3689a41dd77e5294498dba9757fb22cc80cbebd"
 	},
 	"mini.nvim": {
 		"branch": "main",
-		"commit": "126ce3328c78399dcff58272f6f540a373b62a75"
+		"commit": "228a8c34fae1d778e895ad06e4158f65e85828bc"
 	},
 	"noice.nvim": {
 		"branch": "main",
@@ -105,7 +105,7 @@
 	},
 	"nvim-lspconfig": {
 		"branch": "master",
-		"commit": "db8fef885009fdec0daeff3e5dda92e1f539611e"
+		"commit": "0867a61e745920dd754c660a504fed4afb44bd0f"
 	},
 	"nvim-navic": {
 		"branch": "master",
@@ -149,7 +149,7 @@
 	},
 	"snacks.nvim": {
 		"branch": "main",
-		"commit": "bfe8c26dbd83f7c4fbc222787552e29b4eccfcc0"
+		"commit": "5d9dacd09876eed33bde204d224fa7596ac850e8"
 	},
 	"todo-comments.nvim": {
 		"branch": "main",
