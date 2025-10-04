@@ -111,10 +111,7 @@ return {
 			{
 				"<s-k>",
 				function()
-					local success, winid = pcall(require("ufo").peekFoldedLinesUnderCursor)
-					if not success or not winid then
-						vim.lsp.buf.hover()
-					end
+					require("ufo").peekFoldedLinesUnderCursor()
 				end,
 				desc = "Peek Folded Lines",
 			},

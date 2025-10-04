@@ -43,6 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			utils.map("n", utils.L("co"), utils.action("source.organizeImports"), "[TS] Organize imports")
 			utils.map("n", utils.L("cv"), utils.command("typescript.selectTypeScriptVersion"), "[TS] Select ts version")
 		end
+		utils.map("n", "<s-k>", vim.lsp.buf.hover)
 	end,
 })
 
