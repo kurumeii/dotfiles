@@ -1,0 +1,4 @@
+#!/bin/bash
+# Open a URL in the default Windows browser using PowerShell.
+url=$(echo "$1" | sed "s/'/''/g")
+"/mnt/c/Program Files/PowerShell/7/pwsh.exe" -Command "Start-Process -FilePath '$url'" &>/dev/null

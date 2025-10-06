@@ -70,3 +70,8 @@ esac
 # fastfetch -c neofetch
 
 alias cd='z'
+
+# Set a custom browser for WSL to open URLs in the default Windows browser.
+if grep -q -i "microsoft" /proc/version; then
+  export BROWSER="$HOME/bin/open-in-windows"
+fi
