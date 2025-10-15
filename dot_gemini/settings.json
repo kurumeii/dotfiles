@@ -40,20 +40,14 @@
 	},
 	"mcp": {
 		"allowed": [
-			"shadcn",
 			"context7",
-			"serena"
+			"serena",
+			"figma"
 		]
 	},
 	"mcpServers": {
 		"serena": {
-			"command": "uv",
-			"args": [
-				"run",
-				"--directory",
-				"$HOME/serena-mcp",
-				"serena-mcp-server"
-			]
+			"httpUrl": "http//localhost:12345/mcp"
 		},
 		"shadcn": {
 			"command": "npx",
@@ -67,9 +61,22 @@
 			"args": [
 				"-y",
 				"@upstash/context7-mcp",
-				"--api-key",
-				"ctx7sk-4be38d02-7c54-4128-9457-570f944c4c62"
-			]
+				"--api-key"
+			],
+			"env": {
+				"api-key": "${secrets.CONTEXT_7_API_KEY}"
+			}
+		},
+		"figma": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"figma-developer-mcp",
+				"--stdio"
+			],
+			"env": {
+				"FIGMA_API_KEY": "${secrets.FIGAM_API_KEY}"
+			}
 		}
 	},
 	"security": {

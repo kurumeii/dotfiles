@@ -1,19 +1,31 @@
 {
-  "servers": {
-    "shadcn": {
-      "url": "https://www.shadcn.io/api/mcp"
-    },
-    "serena": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server",
-        "--context",
-        "ide-assistant"
-      ]
-    }
-  }
+	"servers": {
+		"serena": {
+			"httpUrl": "http://localhost:12345/mcp",
+		}
+    "context-7": {
+			"type": "stdio",
+			"command": "pnpm",
+			"args": [
+				"dlx",
+				"@upstash/context7-mcp"
+			],
+			"env": {
+				"api-key": "${secrets.CONTEXT_7_API_KEY}"
+			}
+		},
+		"figma": {
+			"type": "stdio",
+			"command": "pnpm",
+			"args": [
+				"dlx",
+				"figma-developer-mcp",
+				"--stdio"
+			],
+			"env": {
+				"FIGMA_API_KEY": "${secrets.FIGMA_API_KEY}"
+			}
+		}
+	},
+	"inputs": []
 }
