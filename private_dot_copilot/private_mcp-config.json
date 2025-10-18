@@ -1,5 +1,20 @@
 {
 	"mcpServers": {
+		"figma": {
+			"type": "local",
+			"command": "npx",
+			"tools": [
+				"*"
+			],
+			"args": [
+				"-y",
+				"figma-developer-mcp",
+				"--stdio"
+			],
+			"env": {
+				"FIGMA_API_KEY": "$FIGMA_API_KEY"
+			}
+		},
 		"serena": {
 			"type": "local",
 			"command": "uv",
@@ -32,10 +47,11 @@
 			],
 			"args": [
 				"-y",
-				"@upstash/context7-mcp",
-				"--api-key",
-				"ctx7sk-4be38d02-7c54-4128-9457-570f944c4c62"
-			]
+				"@upstash/context7-mcp"
+			],
+			"env": {
+				"api-key": "$CONTEXT_7_API_KEY"
+			}
 		}
 	}
 }

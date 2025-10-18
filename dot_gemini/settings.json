@@ -47,7 +47,8 @@
 	},
 	"mcpServers": {
 		"serena": {
-			"httpUrl": "http//localhost:12345/mcp"
+			"httpUrl": "http://localhost:12345/mcp",
+			"timeout": 2000
 		},
 		"shadcn": {
 			"command": "npx",
@@ -60,11 +61,10 @@
 			"command": "npx",
 			"args": [
 				"-y",
-				"@upstash/context7-mcp",
-				"--api-key"
+				"@upstash/context7-mcp"
 			],
 			"env": {
-				"api-key": "${secrets.CONTEXT_7_API_KEY}"
+				"api-key": "$CONTEXT_7_API_KEY"
 			}
 		},
 		"figma": {
@@ -75,7 +75,7 @@
 				"--stdio"
 			],
 			"env": {
-				"FIGMA_API_KEY": "${secrets.FIGAM_API_KEY}"
+				"FIGMA_API_KEY": "$FIGMA_API_KEY"
 			}
 		}
 	},
