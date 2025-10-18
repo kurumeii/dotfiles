@@ -1,4 +1,6 @@
 vim.g.ai_cmp = true
+---@module "lazy"
+---@type LazySpec[]
 return {
 	{
 		"zbirenbaum/copilot.lua",
@@ -37,6 +39,87 @@ return {
 						async = true,
 					},
 				},
+			},
+		},
+	},
+	{
+		"folke/sidekick.nvim",
+		---@module "sidekick"
+		---@type sidekick.config
+		opts = {
+			nes = {
+				---@type sidekick.diff.Opts
+				diff = {
+					inline = "chars",
+				},
+			},
+			cli = {
+				---@type sidekick.win.Opts
+				win = {
+					split = {
+						width = 80,
+					},
+				},
+			},
+		},
+		lazy = true,
+		keys = {
+			{ "<leader>a", desc = "Sidekick" },
+			{
+				"<tab>",
+				function()
+					-- if there is a next edit, jump to it, otherwise apply it if any
+					if require("sidekick").nes_jump_or_apply() then
+						return -- jumped or applied
+					end
+
+					-- if you are using Neovim's native inline completions
+					if vim.lsp.inline_completion.get() then
+						return
+					end
+
+					-- any other things (like snippets) you want to do on <tab> go here.
+
+					-- fall back to normal tab
+					return "<tab>"
+				end,
+				mode = { "i", "n" },
+				expr = true,
+				desc = "Goto/Apply Next Edit Suggestion",
+			},
+			{
+				mode = { "n", "t", "i" },
+				"<leader>aa",
+				function()
+					require("sidekick.cli").toggle({
+						filter = { installed = true },
+					})
+				end,
+				desc = "Sidekick: Toggle",
+			},
+			{
+				mode = { "n", "t", "i" },
+				"<leader>ag",
+				desc = "Sidekick: gemini",
+				function()
+					require("sidekick.cli").toggle({
+						name = "gemini",
+					})
+				end,
+			},
+			{
+				"<leader>ad",
+				desc = "Sidekick: Detach cli",
+				function()
+					require("sidekick.cli").close()
+				end,
+			},
+			{
+				"<leader>at",
+				desc = "Sidekick: Send this message",
+				function()
+					require("sidekick.cli").send({ msg = "{this}" })
+				end,
 			},
 		},
 	},

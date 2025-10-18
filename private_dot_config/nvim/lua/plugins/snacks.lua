@@ -114,17 +114,6 @@ return {
 			desc = "Toggle terminal",
 		},
 		{
-			"<leader>ta",
-			function()
-				Snacks.terminal.toggle("opencode", {
-					win = {
-						position = "right",
-					},
-				})
-			end,
-			desc = "Terminal (opencode)",
-		},
-		{
 			"<leader>tf",
 			function()
 				Snacks.terminal.toggle(nil, {
