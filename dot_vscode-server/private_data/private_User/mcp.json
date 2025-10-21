@@ -1,9 +1,10 @@
 {
 	"servers": {
 		"serena": {
-			"httpUrl": "http://localhost:12345/mcp",
-		}
-    "context-7": {
+			"url": "http://localhost:12345/mcp",
+			"type": "http"
+		},
+		"context-7": {
 			"type": "stdio",
 			"command": "pnpm",
 			"args": [
@@ -11,7 +12,7 @@
 				"@upstash/context7-mcp"
 			],
 			"env": {
-				"api-key": "${secrets.CONTEXT_7_API_KEY}"
+				"api-key": "$CONTEXT_7_API_KEY"
 			}
 		},
 		"figma": {
@@ -23,7 +24,7 @@
 				"--stdio"
 			],
 			"env": {
-				"FIGMA_API_KEY": "${secrets.FIGMA_API_KEY}"
+				"FIGMA_API_KEY": "$FIGMA_API_KEY"
 			}
 		}
 	},
