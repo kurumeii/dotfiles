@@ -1,4 +1,4 @@
-vim.g.colorscheme = "catppuccin"
+vim.g.colorscheme = "gruvbox"
 
 ---@module 'lazy'
 ---@type LazySpec[]
@@ -8,6 +8,13 @@ return {
 		"ellisonleao/gruvbox.nvim",
 		enabled = vim.g.colorscheme == "gruvbox",
 		priority = 1000,
+		---@module 'gruvbox'
+		---@type GruvboxConfig
+		opts = {
+			overrides = {
+				SignColumn = { bg = "#ff9900" },
+			},
+		},
 	},
 	{
 		"rebelot/kanagawa.nvim",

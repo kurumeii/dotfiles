@@ -83,12 +83,10 @@ return {
 					-- fall back to normal tab
 					return "<tab>"
 				end,
-				mode = { "i", "n" },
 				expr = true,
 				desc = "Goto/Apply Next Edit Suggestion",
 			},
 			{
-				mode = { "n", "t", "i" },
 				"<leader>aa",
 				function()
 					require("sidekick.cli").toggle({
@@ -98,7 +96,6 @@ return {
 				desc = "Sidekick: Toggle",
 			},
 			{
-				mode = { "n", "t", "i" },
 				"<leader>ag",
 				desc = "Sidekick: gemini",
 				function()
