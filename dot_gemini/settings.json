@@ -1,4 +1,42 @@
 {
+	"ide": {
+		"enabled": true,
+		"hasSeenNudge": true
+	},
+	"mcpServers": {
+		"serena": {
+			"httpUrl": "http://localhost:12345/mcp",
+			"timeout": 2000
+		},
+		"shadcn": {
+			"command": "npx",
+			"args": [
+				"shadcn@latest",
+				"mcp"
+			]
+		},
+		"context7": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@upstash/context7-mcp"
+			],
+			"env": {
+				"api-key": "$CONTEXT_7_API_KEY"
+			}
+		},
+		"figma": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"figma-developer-mcp",
+				"--stdio"
+			],
+			"env": {
+				"FIGMA_API_KEY": "$FIGMA_API_KEY"
+			}
+		}
+	},
 	"general": {
 		"preferredEditor": "neovim",
 		"vimMode": false,
@@ -8,7 +46,7 @@
 		"enablePromptCompletion": true
 	},
 	"ui": {
-		"theme": "Default",
+		"theme": "ANSI",
 		"hideWindowTitle": true,
 		"hideTips": true,
 		"hideBanner": true,
@@ -28,9 +66,10 @@
 		}
 	},
 	"context": {
-		"contextFileName": [
-			"GEMINI.MD",
-			"AGENTS.MD"
+		"fileName": [
+			"GEMINI.md",
+			"AGENTS.md",
+			"AGENT.md"
 		]
 	},
 	"tools": {
