@@ -1,11 +1,11 @@
 {
 	"mcpServers": {
 		"figma": {
-			"type": "local",
-			"command": "npx",
 			"tools": [
 				"*"
 			],
+			"type": "local",
+			"command": "npx",
 			"args": [
 				"-y",
 				"figma-developer-mcp",
@@ -15,36 +15,23 @@
 				"FIGMA_API_KEY": "$FIGMA_API_KEY"
 			}
 		},
-		"serena": {
-			"type": "local",
-			"command": "uv",
+		"shadcn": {
 			"tools": [
 				"*"
 			],
-			"args": [
-				"run",
-				"--directory",
-				"$HOME/serena-mcp",
-				"serena-mcp-server"
-			]
-		},
-		"shadcn": {
 			"type": "local",
 			"command": "npx",
-			"tools": [
-				"*"
-			],
 			"args": [
 				"shadcn@latest",
 				"mcp"
 			]
 		},
 		"context-7": {
-			"type": "local",
-			"command": "npx",
 			"tools": [
 				"*"
 			],
+			"type": "local",
+			"command": "npx",
 			"args": [
 				"-y",
 				"@upstash/context7-mcp"
@@ -52,6 +39,23 @@
 			"env": {
 				"api-key": "$CONTEXT_7_API_KEY"
 			}
+		},
+		"serena-http": {
+			"tools": [
+				"*"
+			],
+			"type": "http",
+			"url": "http://localhost:12345/mcp",
+			"headers": {}
+		},
+		"tavily": {
+			"type": "http",
+			"url": "https://mcp.tavily.com/mcp",
+			"headers": {
+				"Authorization": "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"
+			},
+			"tools": [
+				"*"
+			]
 		}
 	}
-}
