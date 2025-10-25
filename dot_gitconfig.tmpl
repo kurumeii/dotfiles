@@ -7,6 +7,7 @@ email = "ngphuchoanganh@gmail.com"
 [credential]
 {{- if and (eq .chezmoi.os "linux") (output "uname" "-r" | lower | contains "microsoft") }}
 		helper = "/mnt/c/Users/{{ .win_user }}/scoop/root/apps/git/current/mingw64/bin/git-credential-manager.exe"
+{{- end }}
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RF
 [interactive]
