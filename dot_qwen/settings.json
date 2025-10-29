@@ -1,0 +1,75 @@
+{
+	"context": {
+		"fileName": [
+			"GEMINI.md",
+			"AGENTS.md",
+			"AGENT.md"
+		]
+	},
+	"ui": {
+		"hideTips": true,
+		"showMemoryUsage": false,
+		"showLineNumbers": true,
+		"theme": "ANSI",
+		"accessibility": {
+			"disableLoadingPhrases": true
+		}
+	},
+	"mcpServers": {
+		"serena": {
+			"command": "uv",
+			"args": [
+				"run",
+				"--directory",
+				"$HOME/serena-mcp/",
+				"serena-mcp-server",
+				"--mode",
+				"interactive"
+			]
+		},
+		"context-7": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@upstash/context7-mcp"
+			],
+			"env": {
+				"api-key": "$CONTEXT7_API_KEY"
+			},
+			"description": "Context 7 to fetch latest docs with mdx without calling web fetch tool"
+		},
+		"figma": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"figma-developer-mcp",
+				"--stdio"
+			],
+			"env": {
+				"FIGMA_API_KEY": "$FIGMA_API_KEY"
+			}
+		}
+	},
+	"general": {
+		"preferredEditor": "neovim",
+		"disableAutoUpdate": true,
+		"enablePromptCompletion": true
+	},
+	"security": {
+		"auth": {
+			"selectedType": "qwen-oauth"
+		}
+	},
+	"advanced": {
+		"tavilyApiKey": "$TAVILY_API_KEY"
+	},
+	"tools": {
+		"useRipgrep": true
+	},
+	"model": {
+		"enableOpenAILogging": false
+	},
+	"ide": {
+		"enabled": true
+	}
+}

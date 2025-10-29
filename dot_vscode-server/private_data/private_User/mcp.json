@@ -1,32 +1,35 @@
 {
-	"servers": {
-		"serena": {
-			"url": "http://localhost:12345/mcp",
-			"type": "http"
-		},
-		"context-7": {
-			"type": "stdio",
-			"command": "pnpm",
-			"args": [
-				"dlx",
-				"@upstash/context7-mcp"
-			],
-			"env": {
-				"api-key": "$CONTEXT_7_API_KEY"
-			}
-		},
-		"figma": {
-			"type": "stdio",
-			"command": "pnpm",
-			"args": [
-				"dlx",
-				"figma-developer-mcp",
-				"--stdio"
-			],
-			"env": {
-				"FIGMA_API_KEY": "$FIGMA_API_KEY"
-			}
-		}
-	},
-	"inputs": []
+  "servers": {
+    "serena": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "~/serena-mcp",
+        "serena-mcp-server",
+        "--mode",
+        "interactive",
+        "--context",
+        "ide-assistant"
+      ]
+    },
+    "context-7": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "@upstash/context7-mcp"],
+      "env": {
+        "api-key": "$CONTEXT_7_API_KEY"
+      }
+    },
+    "figma": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "figma-developer-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "$FIGMA_API_KEY"
+      }
+    }
+  },
+  "inputs": []
 }

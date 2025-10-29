@@ -40,22 +40,26 @@
 				"api-key": "$CONTEXT_7_API_KEY"
 			}
 		},
-		"serena-http": {
+		"serena": {
 			"tools": [
 				"*"
 			],
-			"type": "http",
-			"url": "http://localhost:12345/mcp",
-			"headers": {}
+			"type": "local",
+			"command": "bash",
+			"args": [
+				"-c",
+				"uv run --directory $HOME/serena-mcp serena-mcp-server --mode interactive --project $PWD"
+			]
 		},
 		"tavily": {
 			"type": "http",
 			"url": "https://mcp.tavily.com/mcp",
 			"headers": {
-				"Authorization": "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"
+				"Authorization": "$TAVILY_API_KEY"
 			},
 			"tools": [
 				"*"
 			]
 		}
 	}
+}

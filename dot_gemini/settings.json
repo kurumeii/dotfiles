@@ -5,8 +5,17 @@
 	},
 	"mcpServers": {
 		"serena": {
-			"httpUrl": "http://localhost:12345/mcp",
-			"timeout": 2000
+			// "httpUrl": "http://localhost:12345/mcp",
+			// "timeout": 2000
+			"command": "uv",
+			"args": [
+				"run",
+				"--directory",
+				"$HOME/serena-mcp/",
+				"serena-mcp-server",
+				"--mode",
+				"interactive"
+			]
 		},
 		"shadcn": {
 			"command": "npx",
@@ -43,20 +52,29 @@
 		"checkpointing": {
 			"enabled": true
 		},
-		"enablePromptCompletion": true
+		"enablePromptCompletion": true,
+		"disableAutoUpdate": true,
+		"sessionRetention": {
+			"enabled": false
+		}
 	},
 	"ui": {
 		"theme": "ANSI",
-		"hideWindowTitle": true,
+		"hideWindowTitle": false,
 		"hideTips": true,
-		"hideBanner": true,
+		"hideBanner": false,
 		"hideFooter": false,
-		"showMemoryUsage": true,
+		"showMemoryUsage": false,
 		"showLineNumbers": true,
 		"showCitations": true,
 		"accessibility": {
-			"disableLoadingPhrases": false
-		}
+			"disableLoadingPhrases": true
+		},
+		"hideContextSummary": false,
+		"footer": {
+			"hideSandboxStatus": false
+		},
+		"useFullWidth": true
 	},
 	"model": {
 		"summarizeToolOutput": {
@@ -87,6 +105,14 @@
 	"security": {
 		"auth": {
 			"selectedType": "oauth-personal"
+		}
+	},
+	"output": {
+		"format": "text"
+	},
+	"experimental": {
+		"codebaseInvestigatorSettings": {
+			"enabled": true
 		}
 	}
 }
