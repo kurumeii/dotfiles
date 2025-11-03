@@ -44,10 +44,10 @@ return {
 	---@type bufferline.Options
 	opts = {
 		options = {
-			always_show_bufferline = false,
+			always_show_bufferline = true,
 			show_close_icon = false,
 			show_buffer_close_icons = false,
-			-- separator_style = "slant",
+			separator_style = "slant", -- slant | padded_slant | slope | padded_slope | thick | thin
 			groups = {
 				options = {
 					toggle_hidden_on_enter = true,
