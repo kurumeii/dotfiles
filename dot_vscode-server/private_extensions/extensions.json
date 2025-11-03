@@ -266,66 +266,6 @@
 	},
 	{
 		"identifier": {
-			"id": "github.vscode-pull-request-github",
-			"uuid": "69ddd764-339a-4ecc-97c1-9c4ece58e36d"
-		},
-		"version": "0.120.1",
-		"location": {
-			"$mid": 1,
-			"path": "/home/andrew/.vscode-server/extensions/github.vscode-pull-request-github-0.120.1",
-			"scheme": "file"
-		},
-		"relativeLocation": "github.vscode-pull-request-github-0.120.1",
-		"metadata": {
-			"isApplicationScoped": false,
-			"isMachineScoped": false,
-			"isBuiltin": false,
-			"installedTimestamp": 1761294390585,
-			"pinned": false,
-			"source": "gallery",
-			"id": "69ddd764-339a-4ecc-97c1-9c4ece58e36d",
-			"publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
-			"publisherDisplayName": "GitHub",
-			"targetPlatform": "undefined",
-			"updated": true,
-			"private": false,
-			"isPreReleaseVersion": false,
-			"hasPreReleaseVersion": false,
-			"preRelease": false
-		}
-	},
-	{
-		"identifier": {
-			"id": "github.copilot-chat",
-			"uuid": "7ec7d6e6-b89e-4cc5-a59b-d6c4d238246f"
-		},
-		"version": "0.32.3",
-		"location": {
-			"$mid": 1,
-			"path": "/home/andrew/.vscode-server/extensions/github.copilot-chat-0.32.3",
-			"scheme": "file"
-		},
-		"relativeLocation": "github.copilot-chat-0.32.3",
-		"metadata": {
-			"isApplicationScoped": false,
-			"isMachineScoped": false,
-			"isBuiltin": false,
-			"installedTimestamp": 1761294390039,
-			"pinned": false,
-			"source": "gallery",
-			"id": "7ec7d6e6-b89e-4cc5-a59b-d6c4d238246f",
-			"publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
-			"publisherDisplayName": "GitHub",
-			"targetPlatform": "undefined",
-			"updated": true,
-			"private": false,
-			"isPreReleaseVersion": false,
-			"hasPreReleaseVersion": false,
-			"preRelease": false
-		}
-	},
-	{
-		"identifier": {
 			"id": "oven.bun-vscode",
 			"uuid": "2c58c6a8-c23c-4913-899e-17c90b15274e"
 		},
@@ -1253,31 +1193,6 @@
 	},
 	{
 		"identifier": {
-			"id": "gitlab.gitlab-workflow",
-			"uuid": "01826860-d71c-4734-9cf8-dc1c07baa5f9"
-		},
-		"version": "6.49.13",
-		"location": {
-			"$mid": 1,
-			"path": "/home/andrew/.vscode-server/extensions/gitlab.gitlab-workflow-6.49.13",
-			"scheme": "file"
-		},
-		"relativeLocation": "gitlab.gitlab-workflow-6.49.13",
-		"metadata": {
-			"installedTimestamp": 1761294561033,
-			"source": "gallery",
-			"id": "01826860-d71c-4734-9cf8-dc1c07baa5f9",
-			"publisherId": "11e0db43-01fa-42a2-aa75-d40835a05df7",
-			"publisherDisplayName": "GitLab",
-			"targetPlatform": "undefined",
-			"updated": false,
-			"private": false,
-			"isPreReleaseVersion": false,
-			"hasPreReleaseVersion": false
-		}
-	},
-	{
-		"identifier": {
 			"id": "ritwickdey.liveserver",
 			"uuid": "46cc5bbd-b098-4568-9b87-f91e07d26f2d"
 		},
@@ -1333,36 +1248,6 @@
 	},
 	{
 		"identifier": {
-			"id": "ms-vscode.vscode-typescript-next",
-			"uuid": "15305aca-2588-4ca0-8147-ab2c64730b82"
-		},
-		"version": "6.0.20251028",
-		"location": {
-			"$mid": 1,
-			"path": "/home/andrew/.vscode-server/extensions/ms-vscode.vscode-typescript-next-6.0.20251028",
-			"scheme": "file"
-		},
-		"relativeLocation": "ms-vscode.vscode-typescript-next-6.0.20251028",
-		"metadata": {
-			"isApplicationScoped": false,
-			"isMachineScoped": false,
-			"isBuiltin": false,
-			"installedTimestamp": 1761699735934,
-			"pinned": false,
-			"source": "gallery",
-			"id": "15305aca-2588-4ca0-8147-ab2c64730b82",
-			"publisherId": "5f5636e7-69ed-4afe-b5d6-8d231fb3d3ee",
-			"publisherDisplayName": "Microsoft",
-			"targetPlatform": "undefined",
-			"updated": true,
-			"private": false,
-			"isPreReleaseVersion": false,
-			"hasPreReleaseVersion": false,
-			"preRelease": false
-		}
-	},
-	{
-		"identifier": {
 			"id": "github.copilot",
 			"uuid": "23c4aeee-f844-43cd-b53e-1113e483f1a6"
 		},
@@ -1393,12 +1278,12 @@
 	},
 	{
 		"identifier": {
-			"id": "foxundermoon.shell-format"
+			"id": "foxundermoon.shell-format",
+			"uuid": "5fb19573-2183-4cf2-b53d-0fb869dae7ae"
 		},
 		"version": "7.2.8",
 		"location": {
 			"$mid": 1,
-			"fsPath": "/home/andrew/.vscode-server/extensions/foxundermoon.shell-format-7.2.8",
 			"path": "/home/andrew/.vscode-server/extensions/foxundermoon.shell-format-7.2.8",
 			"scheme": "file"
 		},
@@ -1414,6 +1299,153 @@
 			"private": false,
 			"isPreReleaseVersion": false,
 			"hasPreReleaseVersion": false
+		}
+	},
+	{
+		"identifier": {
+			"id": "qwenlm.qwen-code-vscode-ide-companion",
+			"uuid": "d630298e-483f-4683-b95b-cf8f4fb2de29"
+		},
+		"version": "0.1.0",
+		"location": {
+			"$mid": 1,
+			"path": "/home/andrew/.vscode-server/extensions/qwenlm.qwen-code-vscode-ide-companion-0.1.0",
+			"scheme": "file"
+		},
+		"relativeLocation": "qwenlm.qwen-code-vscode-ide-companion-0.1.0",
+		"metadata": {
+			"installedTimestamp": 1761703889399,
+			"pinned": false,
+			"source": "gallery",
+			"id": "d630298e-483f-4683-b95b-cf8f4fb2de29",
+			"publisherId": "98477230-9c82-488f-ba6c-852cfaacfc83",
+			"publisherDisplayName": "qwenlm",
+			"targetPlatform": "undefined",
+			"updated": false,
+			"private": false,
+			"isPreReleaseVersion": false,
+			"hasPreReleaseVersion": false
+		}
+	},
+	{
+		"identifier": {
+			"id": "github.vscode-pull-request-github",
+			"uuid": "69ddd764-339a-4ecc-97c1-9c4ece58e36d"
+		},
+		"version": "0.120.2",
+		"location": {
+			"$mid": 1,
+			"path": "/home/andrew/.vscode-server/extensions/github.vscode-pull-request-github-0.120.2",
+			"scheme": "file"
+		},
+		"relativeLocation": "github.vscode-pull-request-github-0.120.2",
+		"metadata": {
+			"isApplicationScoped": false,
+			"isMachineScoped": false,
+			"isBuiltin": false,
+			"installedTimestamp": 1761857234631,
+			"pinned": false,
+			"source": "gallery",
+			"id": "69ddd764-339a-4ecc-97c1-9c4ece58e36d",
+			"publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
+			"publisherDisplayName": "GitHub",
+			"targetPlatform": "undefined",
+			"updated": true,
+			"private": false,
+			"isPreReleaseVersion": false,
+			"hasPreReleaseVersion": false,
+			"preRelease": false
+		}
+	},
+	{
+		"identifier": {
+			"id": "gitlab.gitlab-workflow",
+			"uuid": "01826860-d71c-4734-9cf8-dc1c07baa5f9"
+		},
+		"version": "6.51.1",
+		"location": {
+			"$mid": 1,
+			"path": "/home/andrew/.vscode-server/extensions/gitlab.gitlab-workflow-6.51.1",
+			"scheme": "file"
+		},
+		"relativeLocation": "gitlab.gitlab-workflow-6.51.1",
+		"metadata": {
+			"isApplicationScoped": false,
+			"isMachineScoped": false,
+			"isBuiltin": false,
+			"installedTimestamp": 1761857234636,
+			"pinned": false,
+			"source": "gallery",
+			"id": "01826860-d71c-4734-9cf8-dc1c07baa5f9",
+			"publisherId": "11e0db43-01fa-42a2-aa75-d40835a05df7",
+			"publisherDisplayName": "GitLab",
+			"targetPlatform": "undefined",
+			"updated": true,
+			"private": false,
+			"isPreReleaseVersion": false,
+			"hasPreReleaseVersion": false,
+			"preRelease": false
+		}
+	},
+	{
+		"identifier": {
+			"id": "github.copilot-chat",
+			"uuid": "7ec7d6e6-b89e-4cc5-a59b-d6c4d238246f"
+		},
+		"version": "0.32.4",
+		"location": {
+			"$mid": 1,
+			"path": "/home/andrew/.vscode-server/extensions/github.copilot-chat-0.32.4",
+			"scheme": "file"
+		},
+		"relativeLocation": "github.copilot-chat-0.32.4",
+		"metadata": {
+			"isApplicationScoped": false,
+			"isMachineScoped": false,
+			"isBuiltin": false,
+			"installedTimestamp": 1761857237515,
+			"pinned": false,
+			"source": "gallery",
+			"id": "7ec7d6e6-b89e-4cc5-a59b-d6c4d238246f",
+			"publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
+			"publisherDisplayName": "GitHub",
+			"targetPlatform": "undefined",
+			"updated": true,
+			"private": false,
+			"isPreReleaseVersion": false,
+			"hasPreReleaseVersion": false,
+			"preRelease": false
+		}
+	},
+	{
+		"identifier": {
+			"id": "ms-vscode.vscode-typescript-next"
+		},
+		"version": "6.0.20251101",
+		"location": {
+			"$mid": 1,
+			"fsPath": "/home/andrew/.vscode-server/extensions/ms-vscode.vscode-typescript-next-6.0.20251101",
+			"external": "file:///home/andrew/.vscode-server/extensions/ms-vscode.vscode-typescript-next-6.0.20251101",
+			"path": "/home/andrew/.vscode-server/extensions/ms-vscode.vscode-typescript-next-6.0.20251101",
+			"scheme": "file"
+		},
+		"relativeLocation": "ms-vscode.vscode-typescript-next-6.0.20251101",
+		"metadata": {
+			"isApplicationScoped": false,
+			"isMachineScoped": false,
+			"isBuiltin": false,
+			"installedTimestamp": 1762071361461,
+			"pinned": false,
+			"source": "gallery",
+			"id": "15305aca-2588-4ca0-8147-ab2c64730b82",
+			"publisherId": "5f5636e7-69ed-4afe-b5d6-8d231fb3d3ee",
+			"publisherDisplayName": "Microsoft",
+			"targetPlatform": "undefined",
+			"updated": true,
+			"private": false,
+			"isPreReleaseVersion": false,
+			"hasPreReleaseVersion": false,
+			"preRelease": false
 		}
 	}
 ]
