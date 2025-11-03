@@ -14,7 +14,11 @@
 				"$HOME/serena-mcp/",
 				"serena-mcp-server",
 				"--mode",
-				"interactive"
+				"interactive",
+				"--context",
+				"ide-assistant",
+				"--project",
+				"cwd"
 			]
 		},
 		"shadcn": {
@@ -107,12 +111,7 @@
 			"selectedType": "oauth-personal"
 		}
 	},
-	"output": {
-		"format": "text"
-	},
 	"experimental": {
-		"codebaseInvestigatorSettings": {
-			"enabled": true
-		}
+		"useModelRouter": true
 	}
 }
