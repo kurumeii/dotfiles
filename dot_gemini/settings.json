@@ -112,6 +112,6 @@
 		}
 	},
 	"experimental": {
-		"useModelRouter": true
+		"useModelRouter": false
 	}
 }
