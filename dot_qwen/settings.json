@@ -17,15 +17,7 @@
 	},
 	"mcpServers": {
 		"serena": {
-			"command": "uv",
-			"args": [
-				"run",
-				"--directory",
-				"$HOME/serena-mcp/",
-				"serena-mcp-server",
-				"--mode",
-				"interactive"
-			]
+			"httpUrl": "http://localhost:12345/mcp"
 		},
 		"context-7": {
 			"command": "npx",
@@ -71,5 +63,6 @@
 	},
 	"ide": {
 		"enabled": true
-	}
+	},
+	"$version": 2
 }

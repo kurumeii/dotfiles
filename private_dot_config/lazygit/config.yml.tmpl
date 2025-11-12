@@ -4,10 +4,5 @@ gui:
   showBranchCommitHash: true
   showCommandLog: true
 git:
-  paging:
-    colorArg: always
-    {{ if eq .chezmoi.os "windows" -}}
-    externalDiffCommand: difft --color=always --display=inline
-    {{- else -}}
-    pager: diff-so-fancy
-    {{- end }}
+  pagers:
+    - externalDiffCommand: difft --color=always --display=inline
