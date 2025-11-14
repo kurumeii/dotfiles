@@ -4,8 +4,8 @@ name = "andrew nguyen"
 email = "ngphuchoanganh@gmail.com"
 {{- end }}
 
-[credential]
 {{- if and (eq .chezmoi.os "linux") (output "uname" "-r" | lower | contains "microsoft") }}
+[credential]
 		helper = "/mnt/c/Users/{{ .win_user }}/scoop/root/apps/git/current/mingw64/bin/git-credential-manager.exe"
 {{- end }}
 [core]

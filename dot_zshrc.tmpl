@@ -1,3 +1,4 @@
+{{- if ne .chezmoi.os "windows" -}}
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -77,3 +78,5 @@ alias cd='z'
 if grep -q -i "microsoft" /proc/version; then
   export BROWSER="$HOME/bin/open-in-windows"
 fi
+
+{{- end -}}
