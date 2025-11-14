@@ -220,12 +220,12 @@ config = {
 	},
 }
 
-config.hyperlink_rules = wez.default_hyperlink_rules()
-
-table.insert(config.hyperlink_rules, {
-	regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
-	format = "https://www.github.com/$1/$3",
-})
+-- config.hyperlink_rules = wez.default_hyperlink_rules()
+--
+-- table.insert(config.hyperlink_rules, {
+-- 	regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
+-- 	format = "https://www.github.com/$1/$3",
+-- })
 
 tabline.setup({
 	options = {
