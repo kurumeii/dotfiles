@@ -44,8 +44,8 @@ config = {
 	front_end = "WebGpu",
 	webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
-	freetype_render_target = "HorizontalLcd",
-	line_height = 1.2,
+	freetype_render_target = "Light",
+	line_height = 1.1,
 	wsl_domains = {
 		{
 			name = items.ubuntu.label,
@@ -61,9 +61,7 @@ config = {
 	default_prog = items.pwsh.args,
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
-	prefer_egl = true,
-	max_fps = 120,
-	tab_bar_at_bottom = true,
+	tab_bar_at_bottom = false,
 
 	color_scheme = "GruvboxDark",
 	enable_scroll_bar = false,
