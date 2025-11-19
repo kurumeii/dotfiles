@@ -182,15 +182,23 @@ return {
 			desc = "First Hunk",
 		},
 		{
+			mode = { "n", "v" },
 			"<leader>gr",
 			desc = "Revert Hunk",
 			function()
-				require("gitsigns").reset_hunk()
+				local start_line = vim.fn.getpos("v")[2]
+				local end_line = vim.fn.getpos(".")[2]
+				require("gitsigns").reset_hunk({
+					range = {
+						start_line,
+						end_line,
+					},
+				})
 			end,
 		},
 		{
-			mode = { "n", "v" },
-			"<leader>gs",
+			mode = { "n" },
+			"<leader>gh",
 			desc = "Show hunk",
 			function()
 				require("gitsigns").preview_hunk()
@@ -200,7 +208,13 @@ return {
 			"<leader>gc",
 			desc = "Git show commit",
 			function()
-				require("gitsigns").show_commit()
+				vim.ui.input({ prompt = "Enter commit hash or indexed (e.g. ~1): " }, function(input)
+					if input then
+						require("gitsigns").show_commit(input)
+					else
+						require("gitsigns").show_commit()
+					end
+				end)
 			end,
 		},
 		{

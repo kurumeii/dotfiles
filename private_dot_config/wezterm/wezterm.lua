@@ -3,6 +3,7 @@ local wez = require("wezterm")
 local mux = wez.mux
 local config = wez.config_builder()
 local tabline = wez.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+local tabbar = wez.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 
 local items = {
 	pwsh = {
@@ -225,22 +226,24 @@ config = {
 -- 	format = "https://www.github.com/$1/$3",
 -- })
 
-tabline.setup({
-	options = {
-		theme = config.color_scheme,
-	},
-	sections = {
-		tabline_a = {
-			"hostname",
-		},
-		tab_active = {
-			"index",
-			{ "process", padding = { right = 1, left = 0 } },
-		},
-	},
-})
+-- tabline.setup({
+-- 	options = {
+-- 		theme = config.color_scheme,
+-- 	},
+-- 	sections = {
+-- 		tabline_a = {
+-- 			"hostname",
+-- 		},
+-- 		tab_active = {
+-- 			"index",
+-- 			{ "process", padding = { right = 1, left = 0 } },
+-- 		},
+-- 	},
+-- })
 
-tabline.apply_to_config(config)
+-- tabline.apply_to_config(config)
+
+tabbar.apply_to_config(config)
 
 wez.on("gui-startup", function(cmd)
 	local _, _, window = mux.spawn_window(cmd or {})
