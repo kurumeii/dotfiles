@@ -127,3 +127,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		end, 500)
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "json,jsonc",
+	callback = function()
+		vim.bo.commentstring = "// %s"
+	end,
+})

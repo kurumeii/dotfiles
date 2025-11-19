@@ -1,9 +1,15 @@
 local utils = require("utils")
+---@module 'lazy'
+---@type LazySpec[]
 return {
 	{
 		"nvim-mini/mini.nvim",
 		priority = 2,
 		lazy = false,
+		dependencies = {
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			"rafamadriz/friendly-snippets",
+		},
 		config = function()
 			require("mini.keymap").setup()
 			local map_combo = require("mini.keymap").map_combo
@@ -138,6 +144,36 @@ return {
 				skip_unbalanced = true,
 				markdown = true,
 			})
+			require("mini.comment").setup({
+				options = {
+					custom_commentstring = function()
+						return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+					end,
+				},
+			})
+			local lang_patterns = {
+				jsx = { "javascript/javascript.json", "javascript/react-es7.json" },
+				tsx = { "javascript/javascript.json", "javascript/typescript.json", "javascript/react-ts.json" },
+			}
+			local snippets, config_path = require("mini.snippets"), vim.fn.stdpath("config")
+			snippets.setup({
+				snippets = {
+					snippets.gen_loader.from_lang({
+						lang_patterns = lang_patterns,
+					}),
+					snippets.gen_loader.from_file(config_path .. "/snippets/global.json"),
+					-- snippets.start_lsp_server(),
+				},
+				mappings = {
+					expand = "",
+				},
+				expand = {
+					select = function(snip, ins)
+						local select = snippets.default_select
+						select(snip, ins)
+					end,
+				},
+			})
 			-- END OF PLUGINS
 
 			-- KEYMAPS
@@ -193,48 +229,6 @@ return {
 			utils.map({ "n" }, utils.L("sl"), function()
 				MiniSessions.select()
 			end, "Load session")
-		end,
-	},
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		event = "VeryLazy",
-		config = function()
-			require("mini.comment").setup({
-				options = {
-					custom_commentstring = function()
-						return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-					end,
-				},
-			})
-		end,
-	},
-	{
-		"rafamadriz/friendly-snippets",
-		event = "InsertEnter",
-		config = function()
-			local lang_patterns = {
-				jsx = { "javascript/javascript.json", "javascript/react-es7.json" },
-				tsx = { "javascript/javascript.json", "javascript/typescript.json", "javascript/react-ts.json" },
-			}
-			local snippets, config_path = require("mini.snippets"), vim.fn.stdpath("config")
-			snippets.setup({
-				snippets = {
-					snippets.gen_loader.from_lang({
-						lang_patterns = lang_patterns,
-					}),
-					snippets.gen_loader.from_file(config_path .. "/snippets/global.json"),
-					-- snippets.start_lsp_server(),
-				},
-				mappings = {
-					expand = "",
-				},
-				expand = {
-					select = function(snip, ins)
-						local select = snippets.default_select
-						select(snip, ins)
-					end,
-				},
-			})
 		end,
 	},
 }
