@@ -32,8 +32,9 @@ return {
 				menu = {
 					draw = {
 						columns = {
-							{ "label" },
-							{ "kind_icon", "kind", "source_name", gap = 1 },
+							{ "kind_icon", "label", gap = 1 },
+							{ "kind", "label_description", gap = 1 },
+							-- { "source_name" },
 						},
 						treesitter = { "lsp" },
 						components = {
