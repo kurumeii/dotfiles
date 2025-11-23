@@ -24,7 +24,7 @@ return {
 			toggle = { map = vim.keymap.set },
 			words = { enabled = true },
 			explorer = {
-				enabled = false,
+				enabled = true,
 			},
 			scratch = {
 				enabled = false,
@@ -362,6 +362,15 @@ return {
 				end
 			end,
 			desc = "notifications clear",
+		},
+		-- Explorer
+		{
+			"<leader>E",
+			desc = "Snacks Explorer",
+			function()
+				local explorer = Snacks.explorer
+				explorer.open()
+			end,
 		},
 	},
 }
