@@ -30,7 +30,7 @@ return {
 				virt_text_priority = 100,
 				use_focus = true,
 			},
-			current_line_blame_formatter = "Coocked by <author> (<author_time:%R>) - <summary>",
+			current_line_blame_formatter = "Cooked (<author_time:%R>) by <author> - <summary>",
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
 				local map = require("utils").map
