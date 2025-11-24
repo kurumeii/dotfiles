@@ -2,7 +2,7 @@
 local wez = require("wezterm")
 local mux = wez.mux
 local config = wez.config_builder()
-local tabline = wez.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+-- local tabline = wez.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 local tabbar = wez.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 
 local items = {
@@ -42,10 +42,10 @@ config = {
 	font = wez.font("CaskaydiaCove Nerd Font"),
 	adjust_window_size_when_changing_font_size = false,
 	font_size = 12,
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
+	-- front_end = "WebGpu",
+	-- webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
-	freetype_render_target = "Light",
+	-- freetype_render_target = "Light",
 	line_height = 1.1,
 	wsl_domains = {
 		{
