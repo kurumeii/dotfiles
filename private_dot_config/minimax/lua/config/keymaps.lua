@@ -7,3 +7,9 @@ vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "]t", ":tabnext<CR>")
 vim.keymap.set("n", "[t", ":tabprevious<CR>")
+vim.keymap.set("n", "]p", '<Cmd>exe "put! " . v:register<CR>', {
+	desc = "Paste below",
+})
+vim.keymap.set("n", "[p", '<Cmd>exe "put! " . v:register<CR>', {
+	desc = "Paste below",
+})
