@@ -105,11 +105,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 				ts.install({ parser_name })
 			end
 		end
-		vim.defer_fn(function()
-			vim.treesitter.start(bufnr, parser_name)
-			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-			vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		end, 500)
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		-- vim.defer_fn(function()
+		-- 	vim.treesitter.start(bufnr, parser_name)
+		-- end, 500)
 	end,
 })
 
@@ -165,5 +165,69 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 			local number_of_lines = vim.fn.getreg('"'):len()
 			utils.notify("Yanked " .. number_of_lines .. " lines", "INFO")
 		end
+	end,
+})
+
+-- Minigit
+vim.api.nvim_create_autocmd("User", {
+	pattern = "MiniGitCommandSplit",
+	callback = function(au_data)
+		if au_data.data.git_subcommand ~= "blame" then
+			return
+		end
+
+		-- Align blame output with source
+		local win_src = au_data.data.win_source
+		vim.wo.wrap = false
+		vim.fn.winrestview({ topline = vim.fn.line("w0", win_src) })
+		vim.api.nvim_win_set_cursor(0, { vim.fn.line(".", win_src), 0 })
+
+		-- Bind both windows so that they scroll together
+		vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
+	end,
+})
+
+-- vim.api.nvim_create_autocmd("User", {
+-- 	pattern = "MiniDiffUpdated",
+-- 	callback = function(data)
+-- 		local summary = vim.b[data.buf].minidiff_summary
+-- 		local t = {}
+-- 		if summary == nil then
+-- 			return
+-- 		end
+-- 		if summary.add > 0 then
+-- 			table.insert(t, mininvim.icons.git_add .. summary.add)
+-- 		end
+-- 		if summary.change > 0 then
+-- 			table.insert(t, mininvim.icons.git_edit .. summary.change)
+-- 		end
+-- 		if summary.delete > 0 then
+-- 			table.insert(t, mininvim.icons.git_remove .. summary.delete)
+-- 		end
+-- 		vim.b[data.buf].minidiff_summary_string = table.concat(t, " ")
+-- 	end,
+-- })
+
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+	callback = function(arg)
+		utils.map("n", utils.L("ug"), require("mini.diff").toggle_overlay, "UI toggle git overlay", {
+			buffer = arg.buf,
+		})
+		utils.map("n", utils.L("uG"), require("mini.diff").toggle, "UI toggle git", {
+			buffer = arg.buf,
+		})
+	end,
+})
+
+-- Chezmoi
+
+local get_chezmoi_dirs = function()
+	local home = assert(os.getenv("HOME") or os.getenv("USERPROFILE"), "HOME or USERPROFILE must be set")
+	return home:gsub("\\", "/") .. "/.local/share/chezmoi/*"
+end
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = get_chezmoi_dirs(),
+	callback = function()
+		vim.schedule(require("chezmoi.commands.__edit").watch)
 	end,
 })

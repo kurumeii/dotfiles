@@ -2,12 +2,12 @@ _G.mininvim = {
 	icons = {
 		mode_prepend = " ",
 		clock = "󰥔",
-		git_branch = "",
+		git_branch = "󰘬",
 		error = "󰅙 ",
 		warn = "󰀨 ",
 		info = "󰋼 ",
 		hint = "󰌵 ",
-		lsp = "",
+		lsp = "",
 		no_lsp = "󱏎",
 		edit = "󰏫 ",
 		git_signs = {
@@ -15,9 +15,9 @@ _G.mininvim = {
 			change = "▎",
 			delete = "",
 		},
-		git_add = "󰐖 ",
-		git_edit = "󱗜 ",
-		git_remove = "󰍵 ",
+		git_add = "󰐕 ",
+		git_edit = " ",
+		git_remove = "󰍴 ",
 		spinner = {
 			"",
 			"",
