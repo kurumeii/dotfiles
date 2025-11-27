@@ -909,7 +909,31 @@ now(function()
 		"xml",
 		"yaml",
 	}
-	ts.install(ensure_install)
+	local isnt_installed = function(lang)
+		return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
+	end
+	local to_install = vim.tbl_filter(isnt_installed, ensure_install)
+	if #to_install > 0 then
+		require("nvim-treesitter").install(to_install)
+	end
+
+	-- Enable tree-sitter after opening a file for a target language
+	local filetypes = {}
+	for _, lang in ipairs(ensure_install) do
+		for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+			table.insert(filetypes, ft)
+		end
+	end
+
+	vim.api.nvim_create_autocmd("FileType", {
+		desc = "Install Treesitter",
+		pattern = filetypes,
+		callback = function(ev)
+			vim.treesitter.start(ev.buf)
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		end,
+	})
 end)
 
 later(function()
