@@ -5,8 +5,17 @@
 	},
 	"mcpServers": {
 		"serena": {
-			"httpUrl": "http://localhost:12345/mcp",
-			"timeout": 2000
+			"command": "uv",
+			"args": [
+				"run",
+				"--directory",
+				"$HOME/serena-mcp",
+				"serena-mcp-server",
+				"--context",
+				"ide-assistants",
+				"--project",
+				"pwd"
+			]
 		},
 		"shadcn": {
 			"command": "npx",
