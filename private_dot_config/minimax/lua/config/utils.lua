@@ -9,17 +9,7 @@ local hexChars = "0123456789abcdef"
 H.map = function(mode, keys, func, desc, opts)
 	opts = opts or {}
 	opts.desc = desc
-	local icon = opts.icon
-	-- Remove icon
-	opts.icon = nil
 	vim.keymap.set(mode, keys, func, opts)
-	-- require("mini.clue").set_mapping_desc({
-	-- 	keys,
-	-- 	func,
-	-- 	mode = mode,
-	-- 	icon = icon,
-	-- 	desc = desc,
-	-- })
 end
 
 H.L = function(key)
@@ -275,7 +265,6 @@ function H.uniq(tbl)
 	return result
 end
 
----@type MiniHookFunction
 function H.build_blink(params)
 	H.notify("Building blink.cmp", "INFO")
 	local obj = vim.system({ "cargo", "build", "--release" }, { cwd = params.path }):wait()
@@ -283,65 +272,6 @@ function H.build_blink(params)
 		H.notify("Building blink.cmp done", "INFO")
 	else
 		H.notify("Building blink.cmp failed", "ERROR")
-	end
-end
-
-local function progress(opts)
-	local count = 1
-	local timer = vim.loop.new_timer()
-	if timer == nil then
-		return
-	end
-	local notif = MiniNotify.add("Building", "INFO")
-	timer:start(
-		0,
-		100,
-		vim.schedule_wrap(function()
-			count = count + 1
-			local icon = mininvim.icons.spinner[count % #mininvim.icons.spinner + 1]
-			local content = string.format("Building... %s", icon)
-			MiniNotify.update(notif, {
-				msg = content,
-				level = "INFO",
-			})
-		end)
-	)
-	vim.system(opts.cmd, { cwd = opts.cwd }, function(result)
-		timer:stop()
-		timer:close()
-		if result.code == 0 then
-			MiniNotify.update(notif, {
-				msg = "✓ " .. opts.on_success,
-				level = "INFO",
-			})
-		else
-			MiniNotify.update(notif, {
-				msg = "✗ " .. opts.on_failure .. ": " .. result.stderr,
-				level = "ERROR",
-			})
-		end
-		vim.defer_fn(function()
-			MiniNotify.remove(notif)
-		end, 1000)
-	end)
-end
-
----@type MiniHookFunction
-function H.build_avante(params)
-	if vim.fn.has("win32") == 1 then
-		progress({
-			cmd = { "powershell", "-File", "Build.ps1", "-BuildFromSource ", "true" },
-			cwd = params.path,
-			on_success = "Building Avante done",
-			on_failure = "Building Avante failed",
-		})
-	else
-		progress({
-			cmd = { "make" },
-			cwd = params.path,
-			on_success = "Building Avante done",
-			on_failure = "Building Avante failed",
-		})
 	end
 end
 
@@ -393,7 +323,7 @@ end
 function H.execute(opts, buffer)
 	vim.lsp.buf_request(buffer or 0, "workspace/executeCommand", {
 		command = opts.command,
-		arguments = opts.args,
+		arguments = opts.arguments,
 	}, function(err)
 		if err then
 			H.notify(err.message, "ERROR")
@@ -436,6 +366,46 @@ H.map_split = function(buf_id, lhs, direction, close_on_file)
 		desc = desc .. " and close"
 	end
 	vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
+end
+
+--- Deletes all listed buffers in a given direction from the current one silently.
+--- @param direction 'left' | 'right'
+function H.delete_buffers_in_direction(direction)
+	local listed_buffers = {}
+	for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.bo[bufnr].buflisted then
+			table.insert(listed_buffers, bufnr)
+		end
+	end
+
+	local current_bufnr = vim.api.nvim_get_current_buf()
+	local current_buf_idx
+	for i, bufnr in ipairs(listed_buffers) do
+		if bufnr == current_bufnr then
+			current_buf_idx = i
+			break
+		end
+	end
+
+	if not current_buf_idx then
+		return
+	end
+
+	if direction == "right" then
+		if current_buf_idx == #listed_buffers then
+			return
+		end
+		for i = #listed_buffers, current_buf_idx + 1, -1 do
+			pcall(require("mini.bufremove").delete, listed_buffers[i], false)
+		end
+	elseif direction == "left" then
+		if current_buf_idx == 1 then
+			return
+		end
+		for i = current_buf_idx - 1, 1, -1 do
+			pcall(require("mini.bufremove").delete, listed_buffers[i], false)
+		end
+	end
 end
 
 return H

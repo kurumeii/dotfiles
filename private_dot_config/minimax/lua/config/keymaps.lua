@@ -13,3 +13,6 @@ vim.keymap.set("n", "]p", '<Cmd>exe "put! " . v:register<CR>', {
 vim.keymap.set("n", "[p", '<Cmd>exe "put! " . v:register<CR>', {
 	desc = "Paste below",
 })
+vim.keymap.set("n", "<leader>wq", "<Cmd>q<Cr>", {
+	desc = "Window quit",
+})
