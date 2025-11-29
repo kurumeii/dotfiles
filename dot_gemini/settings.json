@@ -12,9 +12,9 @@
 				"$HOME/serena-mcp",
 				"serena-mcp-server",
 				"--context",
-				"ide-assistants",
+				"ide-assistant",
 				"--project",
-				"pwd"
+				"cwd"
 			]
 		},
 		"shadcn": {
@@ -62,11 +62,12 @@
 		"checkpointing": {
 			"enabled": true
 		},
-		"enablePromptCompletion": true,
+		"enablePromptCompletion": false,
 		"disableAutoUpdate": true,
 		"sessionRetention": {
 			"enabled": false
-		}
+		},
+		"previewFeatures": true
 	},
 	"ui": {
 		"theme": "ANSI",
@@ -84,7 +85,8 @@
 		"footer": {
 			"hideSandboxStatus": false
 		},
-		"useFullWidth": true
+		"useFullWidth": true,
+		"useAlternateBuffer": true
 	},
 	"model": {
 		"summarizeToolOutput": {
