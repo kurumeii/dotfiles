@@ -85,6 +85,9 @@ hi.setup({
 			end,
 			group = function(_, match)
 				local color, shade = match:match("[%w-]+%-([a-z%-]+)%-(%d+)")
+				if not color then
+					return
+				end
 				shade = tonumber(shade)
 				local bg = vim.tbl_get(mininvim.tw_colors, color, shade)
 				if bg == nil then
@@ -95,11 +98,18 @@ hi.setup({
 					M.hl[hl] = true
 					local bg_shade = shade == 500 and 950 or shade < 500 and 900 or 100
 					local fg = vim.tbl_get(mininvim.tw_colors, color, bg_shade)
-					vim.api.nvim_set_hl(0, hl, { bg = "#" .. bg, fg = "#" .. fg })
+					-- vim.api.nvim_set_hl(0, hl, { bg = "#" .. bg, fg = "#" .. fg })
+					vim.api.nvim_set_hl(0, hl, { fg = "#" .. bg })
 				end
 				return hl
 			end,
-			extmark_opts = { priority = 1000 },
+			extmark_opts = function(_, _, data)
+				return {
+					virt_text = { { "󰝤 ", data.hl_group } },
+					virt_text_pos = "inline",
+					priority = 1000,
+				}
+			end,
 		},
 	},
 })
