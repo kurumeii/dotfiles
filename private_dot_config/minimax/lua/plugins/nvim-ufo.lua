@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		local utils = require("config.utils")
 		utils.map({ "n" }, "zO", require("ufo").openAllFolds, "Open all folds")
 		utils.map({ "n" }, "zC", require("ufo").closeAllFolds, "Close all folds")
-		utils.map({ "n" }, "zK", function()
+		utils.map({ "n" }, "zk", function()
 			local winid = require("ufo").peekFoldedLinesUnderCursor()
 			if not winid then
 				vim.lsp.buf.hover()
