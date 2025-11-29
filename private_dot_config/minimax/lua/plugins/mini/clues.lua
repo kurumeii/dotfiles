@@ -19,6 +19,7 @@ miniclue.setup({
 		{ mode = "n", keys = "<leader>d", desc = " Debugger" },
 		{ mode = "n", keys = "<leader>s", desc = " Sessions" },
 		{ mode = "n", keys = "<leader>u", desc = " Ui" },
+		{ mode = "n", keys = "<leader>p", desc = "Package" },
 		miniclue.gen_clues.builtin_completion(),
 		miniclue.gen_clues.g(),
 		miniclue.gen_clues.marks(),

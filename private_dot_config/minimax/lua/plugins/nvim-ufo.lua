@@ -17,7 +17,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 					winblend = 0,
 				},
 			},
-			-- provider_selector = {},
+			provider_selector = function()
+				return { "lsp", "indent" }
+			end,
 			fold_virt_text_handler = function(virt_text, lnum, endLnum, width, truncate)
 				local newVirtText = {}
 				local suffix = (" 󱞡 %d "):format(endLnum - lnum)
@@ -49,7 +51,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		local utils = require("config.utils")
 		utils.map({ "n" }, "zO", require("ufo").openAllFolds, "Open all folds")
 		utils.map({ "n" }, "zC", require("ufo").closeAllFolds, "Close all folds")
-		utils.map({ "n" }, "<s-k>", function()
+		utils.map({ "n" }, "zK", function()
 			local winid = require("ufo").peekFoldedLinesUnderCursor()
 			if not winid then
 				vim.lsp.buf.hover()

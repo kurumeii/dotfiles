@@ -1,9 +1,11 @@
-local colorscheme = "kanagawa"
+local colorscheme = "gruvbox"
 local add = MiniDeps.add
 
 if colorscheme == "gruvbox" then
 	add("ellisonleao/gruvbox.nvim")
-	require("gruvbox").setup()
+	require("gruvbox").setup({
+		contrast = "hard",
+	})
 end
 if colorscheme == "kanagawa" then
 	add("rebelot/kanagawa.nvim")
