@@ -1,3 +1,4 @@
+vim.g.start_time = vim.uv.hrtime()
 local path_package = vim.fn.stdpath("data") .. "/site"
 local mini_path = path_package .. "/pack/deps/start/mini.nvim"
 
@@ -54,7 +55,7 @@ later(function()
 	require("mini.trailspace").setup()
 	require("mini.move").setup()
 	require("mini.fuzzy").setup()
-	require("mini.operators").setup()
+	require("plugins.mini.operators")
 	require("mini.bracketed").setup({
 		treesitter = { suffix = "s" },
 	})

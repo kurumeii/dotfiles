@@ -1,7 +1,7 @@
 require("mini.basics").setup({
 	options = {
-		basic = true,
-		extra_ui = false,
+		basic = false,
+		extra_ui = true,
 		win_borders = "single",
 	},
 	mappings = {
@@ -9,4 +9,9 @@ require("mini.basics").setup({
 		windows = true,
 		move_with_alt = true,
 	},
+})
+
+vim.opt.listchars:append({
+	extends = "󰳟",
+	precedes = "󰳝",
 })

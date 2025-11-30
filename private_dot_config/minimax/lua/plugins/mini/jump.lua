@@ -8,10 +8,9 @@ require("mini.jump").setup({
 })
 local MiniJump2d = require("mini.jump2d")
 MiniJump2d.setup({
-	labels = "abcdefghijklmnopqrstuvwxyz",
+	labels = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL",
 	view = {
 		dim = true,
-		n_steps_ahead = 2,
 	},
 	mappings = {
 		start_jumping = "<leader>j",

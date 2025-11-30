@@ -17,7 +17,9 @@ starter.setup({
     ]]
 	end,
 	footer = function()
-		return "It's - " .. os.date("%x %X")
+		local elapsed_ns = vim.uv.hrtime() - vim.g.start_time
+		local elapsed_ms = elapsed_ns / 1e6
+		return "⚡ Neovim loaded in " .. string.format("%.2f", elapsed_ms) .. "ms"
 	end,
 })
 local utils = require("config.utils")

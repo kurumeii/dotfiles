@@ -1,4 +1,4 @@
-local colorscheme = "gruvbox"
+local colorscheme = "catppuccin"
 local add = MiniDeps.add
 
 if colorscheme == "gruvbox" then
@@ -20,13 +20,21 @@ if colorscheme == "catppuccin" then
 		name = "catppuccin",
 	})
 	require("catppuccin").setup({
-		flavour = "mocha",
 		dim_inactive = {
 			enabled = true,
 		},
 		transparent_background = false,
 		auto_integrations = true,
+		integrations = {
+			mini = {
+				enabled = true,
+				indentscope_color = "rosewater",
+			},
+		},
 	})
 end
-
-vim.cmd("colorscheme " .. colorscheme)
+if colorscheme == "mini" then
+	vim.cmd.colorscheme("miniwinter")
+else
+	vim.cmd.colorscheme(colorscheme)
+end
