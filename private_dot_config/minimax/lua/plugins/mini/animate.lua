@@ -2,17 +2,19 @@ local MiniAnimate = require("mini.animate")
 
 MiniAnimate.setup({
 	cursor = {
-		enable = false,
+		enable = true,
+		timing = MiniAnimate.gen_timing.quartic({
+			duration = 2,
+			unit = "step",
+			easing = "in-out",
+		}),
+		path = MiniAnimate.gen_path.line(),
 	},
 	scroll = {
 		enable = false,
-		timing = MiniAnimate.gen_timing.quadratic({
-			duration = 200,
-			unit = "total",
-		}),
 		subscroll = MiniAnimate.gen_subscroll.equal({
 			predicate = function(total_scroll)
-				return total_scroll > 1
+				return total_scroll > 0
 			end,
 		}),
 	},

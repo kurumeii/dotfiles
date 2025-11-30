@@ -1,5 +1,14 @@
 local MiniCompletion = require("mini.completion")
 MiniCompletion.setup({
+	delay = { completion = 100, info = 100, signature = 50 },
+	window = {
+		info = { height = 25, width = 80 },
+		signature = { height = 25, width = 80 },
+	},
+	mappings = {
+		scroll_down = "<c-f>",
+		scroll_up = "<c-b>",
+	},
 	lsp_completion = {
 		source_func = "omnifunc",
 		process_items = function(items, base)
@@ -14,19 +23,3 @@ MiniCompletion.setup({
 		end,
 	},
 })
-local utils = require("config.utils")
-utils.map(
-	{ "i" },
-	"<cr>",
-	function()
-		if vim.fn.pumvisible() ~= 0 then
-			local item_selected = vim.fn.complete_info()["selected"] ~= -1
-			return item_selected and vim.keycode("<c-y>") or vim.keycode("<c-y><cr>")
-		end
-		return MiniPairs.cr()
-	end,
-	"Accept completion",
-	{
-		expr = true,
-	}
-)

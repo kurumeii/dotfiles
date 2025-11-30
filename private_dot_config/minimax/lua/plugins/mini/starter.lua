@@ -10,9 +10,12 @@ local header = [[
 
 starter.setup({
 	-- query_updaters = "",
+	evaluate_single = true,
 	items = {
-		starter.sections.sessions(1, true),
-		starter.sections.recent_files(3, true, true),
+		starter.sections.sessions(3),
+		starter.sections.recent_files(3, false),
+		starter.sections.recent_files(3, true),
+		starter.sections.pick(),
 		starter.sections.builtin_actions(),
 	},
 	header = header,
