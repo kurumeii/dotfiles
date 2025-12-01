@@ -1,4 +1,4 @@
-local colorscheme = "catppuccin"
+local colorscheme = "gruvbox"
 local add = MiniDeps.add
 
 if colorscheme == "gruvbox" then

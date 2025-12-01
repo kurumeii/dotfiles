@@ -2,8 +2,9 @@ local utils = require("config.utils")
 require("mini.tabline").setup({
 	show_icon = true,
 	format = function(buf_id, label)
-		local parent = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf_id), ":h:t") or ""
-		local default_format = MiniTabline.default_format(buf_id, parent .. "/" .. label)
+		-- README: Buggy and ugly, turn off for now
+		-- local parent = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf_id), ":h:t") or ""
+		local default_format = MiniTabline.default_format(buf_id, label)
 		local suffix = vim.bo[buf_id].modified and mininvim.icons.edit or ""
 		return default_format .. suffix
 	end,
