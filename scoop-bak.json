@@ -23,30 +23,6 @@
 			"Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
 			"Updated": "2025-10-14T23:30:10+07:00",
 			"Manifests": 367
-		},
-		{
-			"Name": "nonportable",
-			"Source": "https://github.com/ScoopInstaller/Nonportable",
-			"Updated": "2025-10-17T15:43:05+07:00",
-			"Manifests": 128
-		},
-		{
-			"Name": "java",
-			"Source": "https://github.com/ScoopInstaller/Java",
-			"Updated": "2025-10-16T04:09:55+07:00",
-			"Manifests": 322
-		},
-		{
-			"Name": "games",
-			"Source": "https://github.com/Calinou/scoop-games",
-			"Updated": "2025-10-17T19:31:59+07:00",
-			"Manifests": 365
-		},
-		{
-			"Name": ".SM",
-			"Source": "https://github.com/okibcn/ScoopMaster",
-			"Updated": "2024-09-19T06:57:20+07:00",
-			"Manifests": 23088
 		}
 	],
 	"apps": [
@@ -168,13 +144,6 @@
 			"Info": "",
 			"Updated": "2025-09-27T15:27:56.7603356+07:00",
 			"Name": "difftastic"
-		},
-		{
-			"Source": ".SM",
-			"Version": "5.0.1",
-			"Info": "",
-			"Updated": "2025-06-28T16:45:10.7641103+07:00",
-			"Name": "evkey"
 		},
 		{
 			"Source": "main",
@@ -527,13 +496,6 @@
 			"Name": "sharex"
 		},
 		{
-			"Source": ".SM",
-			"Version": "6.1",
-			"Info": "",
-			"Updated": "2025-06-28T16:38:42.5440044+07:00",
-			"Name": "ss"
-		},
-		{
 			"Source": "versions",
 			"Version": "nightly-20250628",
 			"Info": "",
@@ -609,13 +571,6 @@
 			"Info": "",
 			"Updated": "2025-09-02T20:24:16.378232+07:00",
 			"Name": "vim"
-		},
-		{
-			"Source": ".SM",
-			"Version": "1.12.4",
-			"Info": "",
-			"Updated": "2025-06-28T16:47:29.2487749+07:00",
-			"Name": "vortex"
 		},
 		{
 			"Source": "extras",
@@ -800,13 +755,6 @@
 			"Name": "difftastic"
 		},
 		{
-			"Source": ".SM",
-			"Version": "5.0.1",
-			"Info": "Global install",
-			"Updated": "2025-06-28T16:45:10.7641103+07:00",
-			"Name": "evkey"
-		},
-		{
 			"Source": "main",
 			"Version": "10.3.0",
 			"Info": "Global install",
@@ -1157,13 +1105,6 @@
 			"Name": "sharex"
 		},
 		{
-			"Source": ".SM",
-			"Version": "6.1",
-			"Info": "Global install",
-			"Updated": "2025-06-28T16:38:42.5440044+07:00",
-			"Name": "ss"
-		},
-		{
 			"Source": "versions",
 			"Version": "nightly-20250628",
 			"Info": "Global install",
@@ -1239,13 +1180,6 @@
 			"Info": "Global install",
 			"Updated": "2025-09-02T20:24:16.378232+07:00",
 			"Name": "vim"
-		},
-		{
-			"Source": ".SM",
-			"Version": "1.12.4",
-			"Info": "Global install",
-			"Updated": "2025-06-28T16:47:29.2487749+07:00",
-			"Name": "vortex"
 		},
 		{
 			"Source": "extras",
