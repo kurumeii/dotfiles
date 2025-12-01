@@ -408,4 +408,24 @@ function H.delete_buffers_in_direction(direction)
 	end
 end
 
+function H.get_relative_time(timestamp)
+	local current_time = os.time()
+	local diff = os.difftime(current_time, timestamp)
+	local minutes = math.floor(diff / 60)
+	local hours = math.floor(minutes / 60)
+	local days = math.floor(hours / 24)
+
+	if minutes < 1 then
+		return "just now"
+	elseif minutes < 60 then
+		return string.format("%d mins ago", minutes)
+	elseif hours < 24 then
+		return string.format("%d hours ago", hours)
+	elseif days <= 3 then
+		return string.format("%d days ago", days)
+	else
+		return os.date("%m/%d/%Y", timestamp)
+	end
+end
+
 return H

@@ -10,8 +10,3 @@ require("mini.basics").setup({
 		move_with_alt = true,
 	},
 })
-
-vim.opt.listchars:append({
-	extends = "󰳟",
-	precedes = "󰳝",
-})

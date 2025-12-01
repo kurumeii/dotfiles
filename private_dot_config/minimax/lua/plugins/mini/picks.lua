@@ -27,22 +27,6 @@ require("mini.pick").setup({
 })
 vim.ui.select = MiniPick.ui_select
 
-local function find_config_files()
-	local dir = vim.fn.stdpath("config")
-	local files = vim.fn.glob(dir .. "/**/*", true, true)
-	files = vim.tbl_filter(function(f)
-		return vim.fn.isdirectory(f) == 0
-	end, files)
-	files = vim.tbl_map(function(f)
-		return vim.fn.fnamemodify(f, ":~:.")
-	end, files)
-	MiniPick.start({
-		source = {
-			items = files,
-			name = "Config files",
-		},
-	})
-end
 local utils = require("config.utils")
 utils.map("n", utils.L("ff"), MiniPick.builtin.files, "Find files")
 utils.map({ "n", "v" }, utils.L("fw"), function()
@@ -63,7 +47,29 @@ utils.map("n", utils.L("fb"), MiniPick.builtin.buffers, "Find buffers")
 utils.map("n", utils.L("fq"), function()
 	MiniExtra.pickers.list({ scope = "quickfix" })
 end, "Find quickfix list")
-utils.map("n", utils.L("fC"), find_config_files, "Find Config files")
+utils.map("n", utils.L("fC"), function()
+	MiniPick.builtin.files({
+		tool = "fd",
+	}, {
+		source = {
+			cwd = vim.fn.stdpath("config"),
+		},
+	})
+end, "Find Config files")
+utils.map("n", utils.L("fp"), function()
+	local project_dir = vim.fs.joinpath(vim.fn.expand("~"), "projects")
+	if vim.fn.isdirectory(project_dir) == 0 then
+		return
+	end
+
+	MiniPick.builtin.files({
+		tool = "fd",
+	}, {
+		source = {
+			cwd = project_dir,
+		},
+	})
+end, "Find project files")
 utils.map("n", utils.L("fd"), function()
 	MiniExtra.pickers.diagnostic(nil, { scope = "current" })
 end, "Find Diagnostics in buffer")
@@ -71,7 +77,7 @@ utils.map("n", utils.L("fD"), function()
 	MiniExtra.pickers.diagnostic(nil, { scope = "all" })
 end, "Find Diagnostics")
 utils.map("n", utils.L("fm"), MiniExtra.pickers.marks, "Find marks")
--- utils.map("n", utils.L("fH"), MiniExtra.pickers.history, "Find history")
+utils.map("n", utils.L("fH"), MiniExtra.pickers.history, "Find history")
 utils.map("n", utils.L("fv"), MiniExtra.pickers.visit_paths, "Find visit paths")
 utils.map("n", utils.L("fl"), function()
 	MiniExtra.pickers.buf_lines({

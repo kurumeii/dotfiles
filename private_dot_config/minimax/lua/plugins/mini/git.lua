@@ -1,9 +1,17 @@
+---@diagnostic disable: need-check-nil
 local utils = require("config.utils")
-vim.opt.updatetime = 500
+local blame_enabled = true
+local style = {
+	sign = "sign",
+	num = "number",
+}
+local au_group = vim.api.nvim_create_augroup("MiniGitBlameGroup", { clear = true })
+local ns_id = vim.api.nvim_create_namespace("MiniGitBlame")
+
 require("mini.git").setup()
 require("mini.diff").setup({
 	view = {
-		style = "sign",
+		style = style.sign,
 		signs = {
 			add = mininvim.icons.git_signs.add,
 			change = mininvim.icons.git_signs.change,
@@ -20,104 +28,206 @@ require("mini.diff").setup({
 	},
 })
 
-local ns_id = vim.api.nvim_create_namespace("MiniGitBlame")
-
-local function get_relative_time(timestamp)
-	local current_time = os.time()
-	local diff = os.difftime(current_time, timestamp)
-
-	local minutes = math.floor(diff / 60)
-	local hours = math.floor(minutes / 60)
-	local days = math.floor(hours / 24)
-	local months = math.floor(days / 30)
-	local years = math.floor(days / 365)
-
-	if minutes < 1 then
-		return "just now"
-	elseif minutes < 60 then
-		return string.format("%d mins ago", minutes)
-	elseif hours < 24 then
-		return string.format("%d hours ago", hours)
-	elseif days < 30 then
-		return string.format("%d days ago", days)
-	elseif months < 12 then
-		return string.format("%d months ago", months)
-	else
-		return string.format("%d years ago", years)
-	end
-end
+vim.opt.updatetime = 500
 
 local function clear_blame()
 	vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
 end
-local function show_blame()
-	if not MiniGit then
-		return
-	end
+
+-- Diff current buffer against a commit
+local function diff_this()
+	-- 1. Get git info and calculate file path
 	local buf_data = MiniGit.get_buf_data(0)
 	if not buf_data or not buf_data.root then
+		vim.notify("Not in a git repository.", vim.log.levels.WARN, { title = "Git" })
 		return
 	end
 
-	-- Use the root path found by mini.git for safety
 	local root = buf_data.root
-	-- INTEGRATION END
+	local file_path_from_root = buf_data.file
 
-	local file = vim.fn.expand("%")
-	local line = vim.fn.line(".")
-	local cmd = string.format("git -C %s blame -L %d,%d --porcelain %s", root, line, line, file)
+	if not file_path_from_root then
+		local abs_file_path = vim.api.nvim_buf_get_name(0)
+		if not abs_file_path or abs_file_path == "" then
+			vim.notify("Buffer has no file path.", vim.log.levels.WARN, { title = "Git" })
+			return
+		end
+		local normalized_root = root:gsub("[\\/]", "/")
+		local normalized_abs_path = abs_file_path:gsub("[\\/]", "/")
 
-	-- Run asynchronously (optional but better for performance)
-	-- or synchronously (easier) like below:
-	local output = vim.fn.system(cmd)
-	if vim.v.shell_error ~= 0 or output == "" then
+		if normalized_abs_path:find(normalized_root, 1, true) == 1 then
+			file_path_from_root = normalized_abs_path:sub(#normalized_root + 2)
+		else
+			vim.notify("File is not inside the git repository: " .. root, vim.log.levels.WARN, { title = "Git" })
+			return
+		end
+	end
+
+	if not file_path_from_root or file_path_from_root == "" then
+		vim.notify("Could not determine file path relative to git root.", vim.log.levels.WARN, { title = "Git" })
 		return
 	end
 
-	-- Parse Output
-	local author = output:match("author (.-)\n")
-	local date_ts = output:match("author%-time (.-)\n")
-	local summary = output:match("summary (.-)\n")
-	local hash = output:match("^(%S+)")
-	if hash and hash:match("^0+$") then
-		local text = "  Not committed yet"
+	-- 4. Create the final diff view
+	local function create_diff_view(old_content, hash)
+		local original_win = vim.api.nvim_get_current_win()
+		local original_buf = vim.api.nvim_get_current_buf()
 
-		-- Ensure we are still on the same line
-		if vim.api.nvim_win_get_cursor(0)[1] ~= line then
+		-- Create a temporary buffer in a new vertical split
+		vim.cmd("vnew")
+		local new_buf = vim.api.nvim_get_current_buf()
+
+		-- Set content and options
+		local ft = vim.api.nvim_get_option_value("filetype", { buf = original_buf })
+		vim.api.nvim_buf_set_lines(new_buf, 0, -1, false, vim.split(old_content, "\n", { plain = true }))
+		vim.api.nvim_set_option_value("filetype", ft, { buf = new_buf })
+		vim.api.nvim_set_option_value("readonly", true, { buf = new_buf })
+		vim.api.nvim_set_option_value("buftype", "nofile", { buf = new_buf })
+
+		-- Set name and start diff
+		local file_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(original_buf), ":t")
+		vim.api.nvim_buf_set_name(new_buf, string.format("%s@%s", file_name, hash:sub(1, 7)))
+		vim.cmd("diffthis")
+
+		-- Switch back and start diff on original window
+		vim.api.nvim_set_current_win(original_win)
+		vim.cmd("diffthis")
+	end
+
+	-- 3. Get content of the selected commit
+	local function on_commit_selected(selection)
+		if not selection then
+			return
+		end
+		local hash = selection:match("^(%S+)")
+		if not hash then
 			return
 		end
 
-		vim.api.nvim_buf_set_extmark(0, ns_id, line - 1, 0, {
-			virt_text = { { text, "Comment" } },
-			hl_mode = "combine",
-		})
-		return
+		local get_content_cmd = { "git", "-C", root, "show", hash .. ":" .. file_path_from_root }
+		vim.system(get_content_cmd, { text = true }, function(content_obj)
+			vim.schedule(function()
+				local old_content = ""
+				if content_obj.code == 0 then
+					old_content = content_obj.stdout
+				elseif not (content_obj.stderr and content_obj.stderr:match("exists on disk, but not in")) then
+					vim.notify(
+						"Could not get file content from git: " .. (content_obj.stderr or ""),
+						vim.log.levels.ERROR,
+						{ title = "Git" }
+					)
+					return
+				end
+				create_diff_view(old_content, hash)
+			end)
+		end)
 	end
-	if author and date_ts and summary then
-		if vim.api.nvim_win_get_cursor(0)[1] ~= line then
-			return
-		end
 
-		-- Calculate relative time
-		local rel_time = get_relative_time(tonumber(date_ts))
-		-- Format your text here
-		local text = string.format(" (%s) %s -> %s", rel_time, author, summary)
-
-		vim.api.nvim_buf_set_extmark(0, ns_id, line - 1, 0, {
-			virt_text = { { text, "Comment" } },
-			hl_mode = "combine",
-		})
-	end
+	-- 2. Get commit log and show picker
+	local get_log_cmd = { "git", "-C", root, "log", "--pretty=format:%h	%s	%ar", "--", file_path_from_root }
+	vim.system(get_log_cmd, { text = true }, function(log_obj)
+		vim.schedule(function()
+			if log_obj.code ~= 0 or log_obj.stdout == "" then
+				vim.notify("Could not get commit history for this file.", vim.log.levels.WARN, { title = "Git" })
+				return
+			end
+			local commits = vim.split(log_obj.stdout, "\n", { trimempty = true })
+			if #commits == 0 then
+				vim.notify("No commits found for this file.", vim.log.levels.INFO, { title = "Git" })
+				return
+			end
+			table.insert(commits, 1, "HEAD	Current HEAD")
+			vim.ui.select(commits, { prompt = "Diff against commit:" }, on_commit_selected)
+		end)
+	end)
 end
 
-local au_group = vim.api.nvim_create_augroup("MiniGitBlameGroup", { clear = true })
+-- Toggle for blame annotations
+local function toggle_blame()
+	blame_enabled = not blame_enabled
+	if not blame_enabled then
+		clear_blame()
+	end
+	local msg = blame_enabled and "Blame annotations enabled" or "Blame annotations disabled"
+	vim.notify(msg, vim.log.levels.INFO, { title = "Git" })
+end
+
+local function toggle_diff_style()
+	local config = MiniDiff.config
+	if config.view.style == style.sign then
+		config.view.style = style.num
+		vim.notify("Diff style set to: number", vim.log.levels.INFO, { title = "Git" })
+	else
+		config.view.style = style.sign
+		vim.notify("Diff style set to: sign", vim.log.levels.INFO, { title = "Git" })
+	end
+	MiniDiff.setup(config)
+end
 
 -- Show blame when cursor holds still
 vim.api.nvim_create_autocmd("CursorHold", {
 	group = au_group,
 	callback = function()
+		if not blame_enabled then
+			return
+		end
 		clear_blame()
-		show_blame()
+		if not MiniGit then
+			return
+		end
+		local buf_data = MiniGit.get_buf_data(0)
+		if not buf_data or not buf_data.root then
+			return
+		end
+
+		-- Use the root path found by mini.git for safety
+		local root = buf_data.root
+		-- INTEGRATION END
+
+		local file = vim.fn.expand("%")
+		local line = vim.fn.line(".")
+		local cmd_list = { "git", "-C", root, "blame", "-L", string.format("%d,%d", line, line), "--porcelain", file }
+
+		vim.system(cmd_list, { text = true }, function(obj)
+			vim.schedule(function()
+				-- If we moved away, don't show stale blame
+				if vim.api.nvim_win_get_cursor(0)[1] ~= line then
+					return
+				end
+
+				if obj.code ~= 0 or obj.stdout == "" then
+					return
+				end
+
+				local output = obj.stdout
+				-- Parse Output
+				local author = output:match("author (.-)\n")
+				local date_ts = output:match("author%-time (.-)\n")
+				local summary = output:match("summary (.-)\n")
+				local hash = output:match("^(%S+)")
+				if hash and hash:match("^0+$") then
+					local text = "  Not committed yet"
+
+					vim.api.nvim_buf_set_extmark(0, ns_id, line - 1, 0, {
+						virt_text = { { text, "Comment" } },
+						hl_mode = "combine",
+					})
+					return
+				end
+
+				if author and date_ts and summary then
+					-- Calculate relative time
+					local rel_time = utils.get_relative_time(tonumber(date_ts))
+					-- Format your text here
+					local text = string.format(" (%s) %s -> %s", rel_time, author, summary)
+
+					vim.api.nvim_buf_set_extmark(0, ns_id, line - 1, 0, {
+						virt_text = { { text, "Comment" } },
+						hl_mode = "combine",
+					})
+				end
+			end)
+		end)
 	end,
 })
 
@@ -126,3 +236,39 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
 	group = au_group,
 	callback = clear_blame,
 })
+
+-- Minigit
+vim.api.nvim_create_autocmd("User", {
+	pattern = "MiniGitCommandSplit",
+	callback = function(au_data)
+		if au_data.data.git_subcommand ~= "blame" then
+			return
+		end
+		-- Align blame output with source
+		local win_src = au_data.data.win_source
+		vim.wo.wrap = false
+		vim.fn.winrestview({ topline = vim.fn.line("w0", win_src) })
+		vim.api.nvim_win_set_cursor(0, { vim.fn.line(".", win_src), 0 })
+
+		-- Bind both windows so that they scroll together
+		vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
+	end,
+})
+
+utils.map("n", utils.L("gb"), toggle_blame, "Git toggle git Blame")
+utils.map("n", utils.L("gd"), diff_this, "Git diff against commit")
+utils.map("n", utils.L("gh"), MiniDiff.toggle_overlay, "Git toggle git overlay")
+utils.map("n", utils.L("gt"), toggle_diff_style, "Git toggle diff Style")
+utils.map("n", utils.L("gu"), function()
+	MiniExtra.pickers.git_hunks()
+end, "Git unstaged hunks")
+utils.map("n", utils.L("gs"), function()
+	MiniExtra.pickers.git_hunks({
+		scope = "staged",
+	})
+end, "Git staged hunks")
+utils.map("n", utils.L("gc"), function()
+	MiniExtra.pickers.git_commits({
+		path = vim.api.nvim_buf_get_name(0),
+	})
+end, "Git commit current buffer")

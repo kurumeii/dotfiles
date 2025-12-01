@@ -30,6 +30,12 @@ vim.g.clipboard = {
 }
 {{- end }}
 vim.o.clipboard = "unnamedplus"
+
+{{- if eq .chezmoi.os "windows" -}}
+vim.o.shell = "pwsh"
+{{- else if eq .chezmoi.os "linux" -}}
+vim.o.shell = "zsh"
+{{- end}}
 vim.o.smartcase = true
 vim.o.smartindent = true
 vim.o.ignorecase = true
