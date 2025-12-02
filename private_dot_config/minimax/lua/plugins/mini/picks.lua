@@ -61,12 +61,25 @@ utils.map("n", utils.L("fp"), function()
 	if vim.fn.isdirectory(project_dir) == 0 then
 		return
 	end
-
-	MiniPick.builtin.files({
-		tool = "fd",
-	}, {
+	local projects = {}
+	for file in vim.fs.dir(project_dir) do
+		local path = vim.fs.joinpath(project_dir, file)
+		if vim.fn.isdirectory(path) == 1 then
+			table.insert(projects, path)
+		end
+	end
+	if #projects == 0 then
+		return
+	end
+	MiniPick.start({
 		source = {
-			cwd = project_dir,
+			items = projects,
+			name = "Projects",
+			show = function(buf_id, items, query)
+				MiniPick.default_show(buf_id, items, query, {
+					show_icons = true,
+				})
+			end,
 		},
 	})
 end, "Find project files")

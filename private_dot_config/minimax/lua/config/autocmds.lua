@@ -14,6 +14,12 @@ vim.api.nvim_create_autocmd("User", {
 		utils.map_split(args.buf, "<C-w>v", "vertical", false)
 	end,
 })
+vim.api.nvim_create_autocmd("User", {
+	pattern = "MiniFilesActionRename",
+	callback = function(event)
+		Snacks.rename.on_rename_file(event.data.from, event.data.to)
+	end,
+})
 
 -- LspAttach
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -35,6 +41,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			utils.map("n", utils.L("cv"), utils.command("typescript.selectTypeScriptVersion"), "[TS] Select ts version")
 		end
 		utils.map("n", "<s-k>", vim.lsp.buf.hover)
+		utils.map("i", "<c-/", vim.lsp.buf.signature_help)
 	end,
 })
 
@@ -46,8 +53,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		end
 	end,
 })
-
--- Dashboard
 
 -- Auto save session
 vim.api.nvim_create_autocmd("VimLeavePre", {

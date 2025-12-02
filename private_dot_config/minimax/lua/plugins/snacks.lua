@@ -9,9 +9,12 @@ require("snacks").setup({
 	},
 	explorer = {
 		enabled = true,
+		replace_netrw = false,
 	},
 	lazygit = { enabled = true },
 	terminal = { enabled = true },
+	bigfile = { enabled = true },
+	image = { enabled = true },
 })
 
 local utils = require("config.utils")

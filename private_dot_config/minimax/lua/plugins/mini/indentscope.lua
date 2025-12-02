@@ -11,7 +11,3 @@ MiniIndentScope.setup({
 		}),
 	},
 })
-
-vim.opt.listchars:append({
-	tab = symbol,
-})
