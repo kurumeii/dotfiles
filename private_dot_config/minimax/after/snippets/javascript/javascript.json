@@ -1,0 +1,12 @@
+{
+	"Console Log": {
+		"prefix": "clg",
+		"body": "console.log('$1:', $1);",
+		"description": "Log a variable to the console"
+	},
+	"Console error": {
+		"prefix": "cer",
+		"body": "console.error('$1:');",
+		"description": "Console error"
+	}
+}
