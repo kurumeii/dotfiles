@@ -65,7 +65,7 @@
 		"enablePromptCompletion": false,
 		"disableAutoUpdate": true,
 		"sessionRetention": {
-			"enabled": false
+			"enabled": true
 		},
 		"previewFeatures": true
 	},
@@ -73,7 +73,7 @@
 		"theme": "ANSI",
 		"hideWindowTitle": false,
 		"hideTips": true,
-		"hideBanner": false,
+		"hideBanner": true,
 		"hideFooter": false,
 		"showMemoryUsage": false,
 		"showLineNumbers": true,
@@ -83,10 +83,13 @@
 		},
 		"hideContextSummary": false,
 		"footer": {
-			"hideSandboxStatus": false
+			"hideSandboxStatus": false,
+			"hideCWD": true
 		},
 		"useFullWidth": true,
-		"useAlternateBuffer": true
+		"useAlternateBuffer": true,
+		"showModelInfoInChat": true,
+		"showStatusInTitle": true
 	},
 	"model": {
 		"summarizeToolOutput": {
