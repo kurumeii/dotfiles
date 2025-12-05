@@ -8,5 +8,33 @@
 		"prefix": "cer",
 		"body": "console.error('$1:');",
 		"description": "Console error"
+	},
+	"Try Catch Block": {
+		"prefix": [
+			"trc",
+			"tryc",
+			"trycatch"
+		],
+		"body": [
+			"try {",
+			"\t$1",
+			"} catch (error) {",
+			"\tconsole.error('${2:Error}:', error);",
+			"}"
+		],
+		"description": "Try Catch Block"
+	},
+	"React Functional Component": {
+		"prefix": "rfc",
+		"body": [
+			"export const ${1:ComponentName} = (${2:props}) => {",
+			"\treturn (",
+			"\t\t<div>",
+			"\t\t\t$3",
+			"\t\t</div>",
+			"\t);",
+			"};",
+		],
+		"description": "React Functional Component"
 	}
 }
