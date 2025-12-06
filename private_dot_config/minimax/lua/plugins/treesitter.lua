@@ -1,19 +1,3 @@
-MiniDeps.add({
-	source = "nvim-treesitter/nvim-treesitter",
-	checkout = "main",
-	hooks = {
-		post_checkout = function()
-			vim.cmd("TSUpdate")
-		end,
-	},
-})
-MiniDeps.add({
-	source = "nvim-treesitter/nvim-treesitter-textobjects",
-	checkout = "main",
-})
-
-MiniDeps.add({ source = "nvim-treesitter/nvim-treesitter-context" })
-
 local ts = require("nvim-treesitter")
 ts.setup({
 	install_dir = vim.fn.stdpath("data") .. "/treesitter",
@@ -71,38 +55,36 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-MiniDeps.later(function()
-	vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-		callback = function()
-			require("nvim-treesitter-textobjects").setup({
-				mode = {
-					enable = true,
-					set_jumps = true,
-				},
-			})
-			local ts_text_object = require("nvim-treesitter-textobjects.move")
-			local utils = require("config.utils")
-			utils.map({ "n", "x", "o" }, "]f", function()
-				ts_text_object.goto_next_start("@function.outer", "textobjects")
-			end, "Next function start")
-			utils.map({ "n", "x", "o" }, "]F", function()
-				ts_text_object.goto_next_start("@function.outer", "textobjects")
-			end, "Next function end")
-			utils.map({ "n", "x", "o" }, "[f", function()
-				ts_text_object.goto_previous_start("@function.outer", "textobjects")
-			end, "Previous function start")
-			utils.map({ "n", "x", "o" }, "[F", function()
-				ts_text_object.goto_previous_start("@function.outer", "textobjects")
-			end, "Previous function end")
-		end,
-	})
-	vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-		callback = function()
-			local tsc = require("treesitter-context")
-			tsc.setup({
-				mode = "cursor",
-				max_lines = 3,
-			})
-		end,
-	})
-end)
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+	callback = function()
+		require("nvim-treesitter-textobjects").setup({
+			mode = {
+				enable = true,
+				set_jumps = true,
+			},
+		})
+		local ts_text_object = require("nvim-treesitter-textobjects.move")
+		local utils = require("config.utils")
+		utils.map({ "n", "x", "o" }, "]f", function()
+			ts_text_object.goto_next_start("@function.outer", "textobjects")
+		end, "Next function start")
+		utils.map({ "n", "x", "o" }, "]F", function()
+			ts_text_object.goto_next_start("@function.outer", "textobjects")
+		end, "Next function end")
+		utils.map({ "n", "x", "o" }, "[f", function()
+			ts_text_object.goto_previous_start("@function.outer", "textobjects")
+		end, "Previous function start")
+		utils.map({ "n", "x", "o" }, "[F", function()
+			ts_text_object.goto_previous_start("@function.outer", "textobjects")
+		end, "Previous function end")
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+	callback = function()
+		local tsc = require("treesitter-context")
+		tsc.setup({
+			mode = "cursor",
+			max_lines = 3,
+		})
+	end,
+})

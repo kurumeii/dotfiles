@@ -1,4 +1,3 @@
-MiniDeps.add("windwp/nvim-ts-autotag")
 vim.api.nvim_create_autocmd("InsertEnter", {
 	pattern = { "typescript", "javascriptreact", "typescriptreact", "javascript" },
 	callback = function()

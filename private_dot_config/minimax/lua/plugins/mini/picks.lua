@@ -98,7 +98,9 @@ utils.map("n", utils.L("fl"), function()
 		scope = "current",
 	})
 end, "Find buffer line")
-utils.map("n", utils.L("ft"), MiniExtra.pickers.colorschemes, "Find colorschemes")
+utils.map("n", utils.L("ft"), function()
+	MiniExtra.pickers.colorschemes()
+end, "Find colorschemes")
 utils.map("n", utils.L("fT"), function()
 	MiniExtra.pickers.hipatterns({
 		scope = "all",

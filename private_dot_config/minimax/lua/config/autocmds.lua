@@ -21,30 +21,6 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
--- LspAttach
-vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-	callback = function(args)
-		utils.map("n", utils.L("cr"), function()
-			vim.ui.input({ prompt = "Rename to: " }, function(new_name)
-				if not new_name then
-					utils.notify("Rename cancelled", "WARN")
-				else
-					vim.lsp.buf.rename(new_name, { bufnr = args.buf })
-					utils.notify("Rename successfully")
-				end
-			end)
-		end, "Rename")
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if client and client.name == "vtsls" then
-			utils.map("n", utils.L("co"), utils.action("source.organizeImports"), "[TS] Organize imports")
-			utils.map("n", utils.L("cv"), utils.command("typescript.selectTypeScriptVersion"), "[TS] Select ts version")
-		end
-		utils.map("n", "<s-k>", vim.lsp.buf.hover)
-		utils.map("i", "<c-/", vim.lsp.buf.signature_help)
-	end,
-})
-
 -- Navic
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function()
@@ -155,6 +131,18 @@ end
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = get_chezmoi_dirs(),
 	callback = function()
-		vim.schedule(require("chezmoi.commands.__edit").watch)
+		if vim.wo.diff then
+			return
+		end
+		vim.schedule(function()
+			local modules = { "chezmoi.commands.__edit", "chezmoi.commands.edit", "chezmoi.commands" }
+			for _, mod_name in ipairs(modules) do
+				local ok, mod = pcall(require, mod_name)
+				if ok and type(mod.watch) == "function" then
+					mod.watch()
+					return
+				end
+			end
+		end)
 	end,
 })

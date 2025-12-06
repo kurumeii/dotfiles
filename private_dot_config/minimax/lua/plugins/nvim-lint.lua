@@ -1,4 +1,3 @@
-MiniDeps.add("mfussenegger/nvim-lint")
 local lint = require("lint")
 local cspell_util = require("config.lint.cspell")
 local utils = require("config.utils")

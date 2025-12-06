@@ -41,25 +41,67 @@ now(function()
 	require("plugins.mini.notify")
 	require("plugins.mini.starter")
 	require("plugins.colorschemes")
-	require("plugins.treesitter")
-	require("plugins.conform")
 	require("plugins.snacks")
 end)
-later(function()
-	add("nvim-lua/plenary.nvim")
-	add("b0o/SchemaStore.nvim")
-	add("justinsgithub/wezterm-types")
+now(function()
+	add({
+		source = "nvim-treesitter/nvim-treesitter",
+		checkout = "main",
+		hooks = {
+			post_checkout = function()
+				vim.cmd("TSUpdate")
+			end,
+		},
+	})
+	add({
+		source = "nvim-treesitter/nvim-treesitter-textobjects",
+		checkout = "main",
+	})
+	add({ source = "nvim-treesitter/nvim-treesitter-context" })
+	require("plugins.treesitter")
 end)
 later(function()
+	-- Mini.plugins that doesnt need config
 	require("mini.bufremove").setup()
 	require("mini.trailspace").setup()
 	require("mini.move").setup()
 	require("mini.fuzzy").setup()
-	require("plugins.mini.operators")
 	require("mini.bracketed").setup({
 		treesitter = { suffix = "s" },
 	})
 	require("mini.extra").setup()
+end)
+later(function()
+	-- Lua dev
+	add("b0o/SchemaStore.nvim")
+	add("nvim-lua/plenary.nvim")
+	add("justinsgithub/wezterm-types")
+	require("plugins.lazydev")
+end)
+later(function()
+	-- Lsp
+	add("neovim/nvim-lspconfig")
+	add({
+		source = "mason-org/mason.nvim",
+		depends = {
+			"mason-org/mason-lspconfig.nvim",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+		},
+	})
+	require("plugins.mason")
+end)
+later(function()
+	-- Linters
+	add("mfussenegger/nvim-lint")
+	require("plugins.nvim-lint")
+end)
+later(function()
+	-- Format
+	add("stevearc/conform.nvim")
+	require("plugins.conform")
+end)
+later(function()
+	require("plugins.mini.operators")
 	require("plugins.mini.git")
 	require("plugins.mini.ai")
 	require("plugins.mini.jump")
@@ -75,16 +117,23 @@ later(function()
 	require("plugins.mini.indentscope")
 	require("plugins.mini.misc")
 	require("plugins.mini.picks")
-	require("plugins.mini.tabline")
-	require("plugins.mini.statusline")
 	require("plugins.mini.visits")
+end)
+later(function()
+	-- UI
+	require("plugins.mini.tabline")
+	-- require("plugins.lualine")
+	require("plugins.mini.statusline")
+	require("plugins.nvim-navic")
+end)
+later(function()
+	-- Misc
 	require("plugins.nvim-ufo")
 	require("plugins.import-size")
-	require("plugins.lazydev")
-	require("plugins.ts-autotag")
-	require("plugins.mason")
 	require("plugins.chezmoi")
-	-- require("plugins.lualine")
-	require("plugins.nvim-lint")
-	require("plugins.nvim-navic")
+end)
+later(function()
+	-- Typescript
+	add("windwp/nvim-ts-autotag")
+	require("plugins.ts-autotag")
 end)
