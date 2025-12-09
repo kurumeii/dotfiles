@@ -26,6 +26,8 @@ require("mini.deps").setup({
 
 local now, later = MiniDeps.now, MiniDeps.later
 local add = MiniDeps.add
+vim.g.using_snack_notif = true
+vim.g.using_snack_indent = true
 
 now(function()
 	require("config.options")
@@ -38,10 +40,16 @@ now(function()
 	require("plugins.mini.icons")
 	require("plugins.mini.sessions")
 	require("plugins.mini.clues")
-	require("plugins.mini.notify")
 	require("plugins.mini.starter")
 	require("plugins.colorschemes")
-	require("plugins.snacks")
+end)
+now(function()
+	if vim.g.using_snack_notif then
+		add("folke/snacks.nvim")
+		require("plugins.snacks")
+	else
+		require("plugins.mini.notify")
+	end
 end)
 now(function()
 	add({
@@ -114,10 +122,16 @@ later(function()
 	require("plugins.mini.cursorword")
 	require("plugins.mini.pairs")
 	require("plugins.mini.hipatterns")
-	require("plugins.mini.indentscope")
 	require("plugins.mini.misc")
 	require("plugins.mini.picks")
 	require("plugins.mini.visits")
+end)
+later(function()
+	if vim.g.using_snack_notif then
+		return
+	else
+		require("plugins.mini.indentscope")
+	end
 end)
 later(function()
 	-- UI
