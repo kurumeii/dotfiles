@@ -152,4 +152,13 @@ later(function()
 	require("plugins.nvim-ufo")
 	require("plugins.import-size")
 	require("plugins.chezmoi")
+	add({
+		source = "github/copilot.vim",
+		hooks = {
+			post_checkout = function()
+				vim.cmd([[Copilot setup]])
+			end,
+		},
+	})
+	require("plugins.copilot")
 end)
