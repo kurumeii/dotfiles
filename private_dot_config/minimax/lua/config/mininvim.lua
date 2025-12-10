@@ -1,6 +1,7 @@
 _G.mininvim = {
 	icons = {
 		mode_prepend = " ",
+		check = " ",
 		clock = "󰥔",
 		git_branch = "󰘬",
 		error = "󰅙 ",
@@ -27,6 +28,10 @@ _G.mininvim = {
 			"",
 		},
 		recording = " ",
+		unix = {
+			win = " ",
+			linux = "󰌽 ",
+		},
 		groups = {
 			brewer = {
 				files = { "Brewfile" },

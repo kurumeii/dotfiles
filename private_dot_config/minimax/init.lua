@@ -28,6 +28,7 @@ local now, later = MiniDeps.now, MiniDeps.later
 local add = MiniDeps.add
 vim.g.using_snack_notif = true
 vim.g.using_snack_indent = true
+vim.g.using_mini_tabline = true
 
 now(function()
 	require("config.options")
@@ -67,6 +68,9 @@ now(function()
 	})
 	add({ source = "nvim-treesitter/nvim-treesitter-context" })
 	require("plugins.treesitter")
+	-- Typescript
+	add("windwp/nvim-ts-autotag")
+	require("plugins.ts-autotag")
 end)
 later(function()
 	-- Mini.plugins that doesnt need config
@@ -135,8 +139,11 @@ later(function()
 end)
 later(function()
 	-- UI
-	require("plugins.mini.tabline")
-	-- require("plugins.lualine")
+	if vim.g.using_mini_tabline then
+		require("plugins.mini.tabline")
+	else
+		require("plugins.lualine")
+	end
 	require("plugins.mini.statusline")
 	require("plugins.nvim-navic")
 end)
@@ -145,9 +152,4 @@ later(function()
 	require("plugins.nvim-ufo")
 	require("plugins.import-size")
 	require("plugins.chezmoi")
-end)
-later(function()
-	-- Typescript
-	add("windwp/nvim-ts-autotag")
-	require("plugins.ts-autotag")
 end)

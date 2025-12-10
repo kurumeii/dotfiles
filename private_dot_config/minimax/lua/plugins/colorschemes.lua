@@ -4,7 +4,7 @@ local add = MiniDeps.add
 if colorscheme == "gruvbox" then
 	add("ellisonleao/gruvbox.nvim")
 	require("gruvbox").setup({
-		contrast = "hard",
+		contrast = "",
 	})
 end
 if colorscheme == "kanagawa" then
