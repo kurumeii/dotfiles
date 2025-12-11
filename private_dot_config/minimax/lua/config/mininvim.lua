@@ -28,7 +28,7 @@ _G.mininvim = {
 			"",
 		},
 		recording = " ",
-		unix = {
+		os = {
 			win = " ",
 			linux = "󰌽 ",
 		},

@@ -10,11 +10,7 @@
 		"description": "Console error"
 	},
 	"Try Catch Block": {
-		"prefix": [
-			"trc",
-			"tryc",
-			"trycatch"
-		],
+		"prefix": "tryc",
 		"body": [
 			"try {",
 			"\t$1",
@@ -23,18 +19,5 @@
 			"}"
 		],
 		"description": "Try Catch Block"
-	},
-	"React Functional Component": {
-		"prefix": "rfc",
-		"body": [
-			"export const ${1:ComponentName} = (${2:props}) => {",
-			"\treturn (",
-			"\t\t<div>",
-			"\t\t\t$3",
-			"\t\t</div>",
-			"\t);",
-			"};",
-		],
-		"description": "React Functional Component"
 	}
 }

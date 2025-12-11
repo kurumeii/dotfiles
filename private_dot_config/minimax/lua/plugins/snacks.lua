@@ -26,7 +26,13 @@ require("snacks").setup({
 		enabled = vim.g.using_snack_notif,
 		style = "compact",
 		margin = {
-			top = 3,
+			top = 2,
+		},
+	},
+	-- Styles
+	styles = {
+		notification = {
+			wo = { wrap = true },
 		},
 	},
 })
