@@ -5,17 +5,18 @@
 	},
 	"mcpServers": {
 		"serena": {
-			"command": "uv",
-			"args": [
-				"run",
-				"--directory",
-				"$HOME/serena-mcp",
-				"serena-mcp-server",
-				"--context",
-				"ide-assistant",
-				"--project",
-				"cwd"
-			]
+			// "command": "uv",
+			// "args": [
+			// 	"run",
+			// 	"--directory",
+			// 	"$HOME/serena-mcp",
+			// 	"serena-mcp-server",
+			// 	"--context",
+			// 	"ide-assistant",
+			// 	"--project",
+			// 	"cwd"
+			// ],
+			"httpUrl": "http://localhost:12345/mcp"
 		},
 		"shadcn": {
 			"command": "npx",
