@@ -20,7 +20,8 @@ starter.setup({
 	},
 	header = header,
 	footer = function()
-		local elapsed_ns = vim.uv.hrtime() - vim.g.start_time
+		local end_time = vim.g.start_time_finish or vim.uv.hrtime()
+		local elapsed_ns = end_time - vim.g.start_time
 		local elapsed_ms = elapsed_ns / 1e6
 		return "⚡ Neovim loaded in " .. string.format("%.2f", elapsed_ms) .. "ms"
 	end,

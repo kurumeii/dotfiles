@@ -132,3 +132,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		end)
 	end,
 })
+
+-- Startup time
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		vim.g.start_time_finish = vim.uv.hrtime()
+	end,
+})

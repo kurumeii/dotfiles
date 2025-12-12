@@ -12,68 +12,68 @@
 			"alignment": "left",
 			"segments": [
 				{
-					"type": "session",
-					"style": "plain",
+					"template": "@{{ .UserName }} ",
 					"foreground": "#E36464",
-					"template": "@{{ .UserName }} "
+					"type": "session",
+					"style": "plain"
 				},
 				{
-					"type": "text",
-					"style": "plain",
+					"template": "\udb85\udc0b",
 					"foreground": "#62ED8B",
-					"template": "\udb85\udc0b"
+					"type": "text",
+					"style": "plain"
 				},
 				{
-					"type": "path",
-					"style": "plain",
-					"foreground": "#56B6C2",
-					"properties": {
+					"options": {
 						"style": "folder"
 					},
-					"template": " {{ .Path }} "
+					"template": " {{ .Path }} ",
+					"foreground": "#56B6C2",
+					"type": "path",
+					"style": "plain"
 				},
 				{
-					"type": "git",
-					"style": "plain",
-					"foreground": "#D4AAFC",
-					"properties": {
+					"options": {
 						"branch_icon": "\ue0a0",
 						"fetch_status": true,
 						"fetch_upstream_icon": true
 					},
-					"template": "<#ffffff>on</> {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} "
+					"template": "<#ffffff>on</> {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+					"foreground": "#D4AAFC",
+					"type": "git",
+					"style": "plain"
 				},
 				{
-					"type": "node",
-					"style": "plain",
-					"foreground": "#98C379",
-					"properties": {
+					"options": {
 						"fetch_version": true
 					},
-					"template": "<#ffffff>via</> \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
+					"template": "<#ffffff>via</> \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+					"foreground": "#98C379",
+					"type": "node",
+					"style": "plain"
 				},
 				{
-					"type": "status",
-					"style": "plain",
+					"template": " \uf119",
 					"foreground": "#DCB977",
-					"template": " \uf119"
+					"type": "status",
+					"style": "plain"
 				}
 			]
 		},
 		{
 			"type": "prompt",
 			"alignment": "left",
-			"newline": true,
 			"segments": [
 				{
-					"type": "text",
-					"style": "plain",
+					"template": "\uea9f ",
 					"foreground": "#62ED8B",
-					"template": "\uea9f "
+					"type": "text",
+					"style": "plain"
 				}
-			]
+			],
+			"newline": true
 		}
 	],
-	"version": 3,
+	"version": 4,
 	"final_space": true
 }
