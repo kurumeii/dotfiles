@@ -1,19 +1,5 @@
 local utils = require("config.utils")
 
--- Mini Files
-vim.api.nvim_create_autocmd("User", {
-	pattern = "MiniFilesBufferCreate",
-	callback = function(args)
-		local MiniFiles = require("mini.files")
-		utils.map({ "n" }, "//", function()
-			utils.show_dotfiles = not utils.show_dotfiles
-			local new_filter = utils.show_dotfiles and utils.filter_show or utils.filter_hide
-			MiniFiles.refresh({ content = { filter = new_filter } })
-		end, "Toggle hidden files", { buffer = args.buf })
-		utils.map_split(args.buf, "<C-w>s", "horizontal", false)
-		utils.map_split(args.buf, "<C-w>v", "vertical", false)
-	end,
-})
 vim.api.nvim_create_autocmd("User", {
 	pattern = "MiniFilesActionRename",
 	callback = function(event)

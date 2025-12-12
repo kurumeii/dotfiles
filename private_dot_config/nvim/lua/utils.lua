@@ -438,4 +438,22 @@ H.map_split = function(buf_id, lhs, direction, close_on_file)
 	vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
+--- @param from string
+--- @param to string
+function H.rename_file(from, to)
+	local changes = {
+		{
+			oldUri = vim.uri_from_fname(from),
+			newUri = vim.uri_from_fname(to),
+		},
+	}
+
+	local clients = vim.lsp.get_clients()
+	for _, client in ipairs(clients) do
+		if client:supports_method("workspace/didRenameFiles") then
+			client:notify("workspace/didRenameFiles", { files = changes })
+		end
+	end
+end
+
 return H
