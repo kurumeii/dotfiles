@@ -25,10 +25,10 @@ utils.map("n", utils.L("ba"), function()
 		end
 	end
 end, "Delete all buffer")
-utils.map("n", utils.L("bR"), function()
+utils.map("n", utils.L("bL"), function()
 	utils.delete_buffers_in_direction("right")
 end, "Delete Buffers to the Right")
-utils.map("n", utils.L("bL"), function()
+utils.map("n", utils.L("bH"), function()
 	utils.delete_buffers_in_direction("left")
 end, "Delete Buffers to the Left")
 utils.map("n", utils.L("bo"), function()
