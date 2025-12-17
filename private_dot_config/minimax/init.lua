@@ -150,6 +150,7 @@ end)
 later(function()
 	-- Misc
 	require("plugins.nvim-ufo")
+	add("stuckinsnow/import-size.nvim")
 	require("plugins.import-size")
 	require("plugins.chezmoi")
 	add({

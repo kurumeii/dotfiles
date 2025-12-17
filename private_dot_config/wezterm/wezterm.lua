@@ -42,11 +42,12 @@ config = {
 	font = wez.font("CaskaydiaCove Nerd Font"),
 	adjust_window_size_when_changing_font_size = false,
 	font_size = 12,
-	-- front_end = "WebGpu",
-	-- webgpu_power_preference = "HighPerformance",
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
 	freetype_load_target = "Light",
-	-- freetype_render_target = "Light",
 	line_height = 1.1,
+	win32_system_backdrop = "Acrylic",
+	window_background_opacity = 0.7,
 	wsl_domains = {
 		{
 			name = items.ubuntu.label,

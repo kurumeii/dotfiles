@@ -1,10 +1,12 @@
 local colorscheme = "gruvbox"
+local transparent = true
 local add = MiniDeps.add
 
 if colorscheme == "gruvbox" then
 	add("ellisonleao/gruvbox.nvim")
 	require("gruvbox").setup({
 		contrast = "",
+		transparent_mode = transparent,
 	})
 end
 if colorscheme == "kanagawa" then
