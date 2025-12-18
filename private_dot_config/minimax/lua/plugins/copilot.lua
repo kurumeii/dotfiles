@@ -1,3 +1,3 @@
 local utils = require("config.utils")
 
-utils.map("i", "<c-l>", "<Plug>(copilot-accept-word)", "Copilot accept word")
+utils.map("i", "<c-l>", "<Plug>(copilot-accept-line)", "Copilot accept line")

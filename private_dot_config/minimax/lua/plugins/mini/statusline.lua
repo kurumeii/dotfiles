@@ -56,6 +56,13 @@ local function active_mode()
 		trunc_width = 75,
 	})
 	local lsp = MiniStatusline.section_lsp({ icon = mininvim.icons.lsp, trunc_width = 75 })
+	local function get_copilot_status()
+		if vim.fn.exists("*copilot#Enabled") == 1 and vim.fn["copilot#Enabled"]() == 1 then
+			return mininvim.icons.groups.copilot.glyph .. " "
+		end
+		return ""
+	end
+	local copilot = get_copilot_status()
 	MiniStatusline.section_fileinfo = custom_fileinfo
 	local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 150 })
 	local location = get_location("percent")
@@ -76,7 +83,7 @@ local function active_mode()
 			strings = { filename },
 		},
 		"%=", -- End left alignment
-		{ hl = "MiniStatuslineFileinfo", strings = { eol, lsp, fileinfo } },
+		{ hl = "MiniStatuslineFileinfo", strings = { eol, copilot, lsp, fileinfo } },
 		{ hl = mode_hl, strings = { search, location } },
 	})
 end
