@@ -56,7 +56,7 @@ if vim.g.using_snack_notif then
 	utils.map("n", utils.L("nh"), function()
 		Snacks.notifier.show_history()
 	end, "Snacks show history")
-	utils.map("n", utils.L("nh"), function()
+	utils.map("n", utils.L("nc"), function()
 		local all_notif = Snacks.notifier.get_history()
 		for _, notification in ipairs(all_notif) do
 			Snacks.notifier.hide(notification.id)

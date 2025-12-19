@@ -24,6 +24,7 @@ return {
 				propertyDeclarationTypes = { enabled = true },
 				variableTypes = { enabled = false },
 			},
+			tsdk = "./.yarn/sdks/typescript/lib",
 		},
 	},
 }

@@ -149,6 +149,7 @@ later(function()
 end)
 later(function()
 	-- Misc
+	add("lbrayner/vim-rzip")
 	require("plugins.nvim-ufo")
 	add("stuckinsnow/import-size.nvim")
 	require("plugins.import-size")
