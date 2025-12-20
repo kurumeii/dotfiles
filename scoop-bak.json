@@ -112,13 +112,6 @@
 		},
 		{
 			"Source": "main",
-			"Version": "8.16.0_8",
-			"Info": "",
-			"Updated": "2025-10-17T20:02:26.8779123+07:00",
-			"Name": "curl"
-		},
-		{
-			"Source": "main",
 			"Version": "3.14.1",
 			"Info": "",
 			"Updated": "2025-06-15T20:56:41.2101723+07:00",
@@ -494,13 +487,6 @@
 			"Info": "",
 			"Updated": "2025-08-24T07:41:36.9123123+07:00",
 			"Name": "sharex"
-		},
-		{
-			"Source": "versions",
-			"Version": "nightly-20250628",
-			"Info": "",
-			"Updated": "2025-06-28T15:49:00.5898753+07:00",
-			"Name": "steam"
 		},
 		{
 			"Source": "main",
@@ -721,13 +707,6 @@
 		},
 		{
 			"Source": "main",
-			"Version": "8.16.0_8",
-			"Info": "Global install",
-			"Updated": "2025-10-17T20:02:26.8779123+07:00",
-			"Name": "curl"
-		},
-		{
-			"Source": "main",
 			"Version": "3.14.1",
 			"Info": "Global install",
 			"Updated": "2025-06-15T20:56:41.2101723+07:00",
@@ -1103,13 +1082,6 @@
 			"Info": "Global install",
 			"Updated": "2025-08-24T07:41:36.9123123+07:00",
 			"Name": "sharex"
-		},
-		{
-			"Source": "versions",
-			"Version": "nightly-20250628",
-			"Info": "Global install",
-			"Updated": "2025-06-28T15:49:00.5898753+07:00",
-			"Name": "steam"
 		},
 		{
 			"Source": "main",
