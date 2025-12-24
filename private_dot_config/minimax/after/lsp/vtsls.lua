@@ -24,7 +24,7 @@ return {
 				propertyDeclarationTypes = { enabled = true },
 				variableTypes = { enabled = false },
 			},
-			tsdk = "./.yarn/sdks/typescript/lib",
+			tsdk = vim.uv.fs_stat(vim.uv.cwd() .. "/.yarn/sdks/typescript/lib") and "./.yarn/sdks/typescript/lib" or nil,
 		},
 	},
 }

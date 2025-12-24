@@ -11,6 +11,7 @@ miniclue.setup({
 	clues = {
 		{ mode = "n", keys = "<leader>b", desc = " Buffers" },
 		{ mode = "n", keys = "<leader>c", desc = " Code" },
+		{ mode = "n", keys = "<leader>cs", desc = "Code spell" },
 		{ mode = "n", keys = "<leader>g", desc = "󰊢 Git" },
 		{ mode = "n", keys = "<leader>f", desc = " Find" },
 		{ mode = "n", keys = "<leader>w", desc = " Window" },
