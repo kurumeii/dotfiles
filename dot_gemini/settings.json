@@ -75,7 +75,7 @@
 		"hideWindowTitle": false,
 		"hideTips": true,
 		"hideBanner": true,
-		"hideFooter": false,
+		"hideFooter": true,
 		"showMemoryUsage": false,
 		"showLineNumbers": true,
 		"showCitations": true,
@@ -114,7 +114,6 @@
 			"list_directory",
 			"glob",
 			"search_file_content",
-			"run_shell_command",
 			"web_fetch",
 			"google_web_search"
 		]
@@ -131,8 +130,5 @@
 		"auth": {
 			"selectedType": "oauth-personal"
 		}
-	},
-	"experimental": {
-		"useModelRouter": false
 	}
 }
