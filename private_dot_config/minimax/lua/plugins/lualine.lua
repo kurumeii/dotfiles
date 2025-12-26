@@ -6,7 +6,7 @@ require("bufferline").setup({
 		always_show_bufferline = true,
 		show_close_icon = false,
 		show_buffer_close_icons = false,
-		separator_style = "thick", -- slant | padded_slant | slope | padded_slope | thick | thin
+		separator_style = "thin", -- slant | padded_slant | slope | padded_slope | thick | thin
 		---@diagnostic disable-next-line: missing-fields
 		groups = {
 			options = {

@@ -1,4 +1,3 @@
-vim.g.using_snack_notif = true
 local utils = require("config.utils")
 require("snacks").setup({
 	statuscolumn = {
@@ -9,21 +8,29 @@ require("snacks").setup({
 		},
 	},
 	explorer = {
-		enabled = true,
+		enabled = vim.g.snacks_explorer,
 		replace_netrw = false,
 	},
+	picker = {
+		sources = {
+			explorer = {
+				hidden = true,
+				ignored = true,
+				exclude = { ".git", "node_modules" },
+			},
+		},
+	},
+	animate = {
+		easing = "inOutQuad",
+	},
+	scroll = { enabled = vim.g.mini_animate == false },
 	lazygit = { enabled = true },
 	terminal = { enabled = true },
 	bigfile = { enabled = true },
 	image = { enabled = true },
-	indent = { enabled = true },
-	animate = {
-		fps = 120,
-		duration = 200,
-		easing = "inOutCirc",
-	},
+	indent = { enabled = vim.g.snacks_indent },
 	notifier = {
-		enabled = vim.g.using_snack_notif,
+		enabled = vim.g.snacks_notify,
 		style = "compact",
 		margin = {
 			top = 2,
@@ -37,7 +44,7 @@ require("snacks").setup({
 	},
 })
 
-if vim.g.using_snack_notif then
+if vim.g.snacks_notify then
 	vim.notify = Snacks.notifier
 	vim.api.nvim_create_autocmd("LspProgress", {
 		---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
@@ -64,7 +71,10 @@ if vim.g.using_snack_notif then
 	end, "Snacks clear all history")
 end
 
-utils.map("n", utils.L("fe"), Snacks.explorer.open, "Find Explorer")
+if vim.g.snacks_explorer then
+	utils.map("n", utils.L("e"), Snacks.explorer.open, "Find Explorer")
+end
+
 utils.map("n", utils.L("gg"), Snacks.lazygit.open, "Open Lazygit")
 utils.map("n", utils.L("t"), function()
 	Snacks.terminal.toggle()

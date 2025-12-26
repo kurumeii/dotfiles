@@ -1,6 +1,3 @@
-MiniDeps.add({
-	source = "folke/lazydev.nvim",
-})
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "lua" },
 	callback = function()

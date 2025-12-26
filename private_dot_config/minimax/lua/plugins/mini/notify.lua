@@ -18,6 +18,12 @@ MiniNotify.setup({
 		enable = true,
 		duration_last = 2000,
 	},
+	window = {
+		config = function()
+			local pad = 2
+			return { col = vim.o.columns, row = pad }
+		end,
+	},
 })
 
 vim.notify = MiniNotify.make_notify()

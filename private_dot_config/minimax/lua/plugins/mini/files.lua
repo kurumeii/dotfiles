@@ -5,9 +5,6 @@ require("mini.files").setup({
 		width_focus = 30,
 		width_preview = 30,
 	},
-	options = {
-		use_as_default_explorer = true,
-	},
 	mappings = {
 		go_out_plus = "h",
 		synchronize = "<c-s>",

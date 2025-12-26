@@ -2,7 +2,7 @@ require("mini.basics").setup({
 	options = {
 		basic = false,
 		extra_ui = false,
-		win_borders = "single",
+		win_borders = "auto",
 	},
 	mappings = {
 		basic = true,
@@ -10,3 +10,4 @@ require("mini.basics").setup({
 		move_with_alt = true,
 	},
 })
+vim.o.winborder = "rounded"

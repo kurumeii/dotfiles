@@ -21,4 +21,6 @@ require("mini.icons").setup({
 	lsp = init_setup("lsp"),
 })
 MiniDeps.later(MiniIcons.mock_nvim_web_devicons)
-MiniDeps.later(MiniIcons.tweak_lsp_kind)
+if vim.g.mini_completion then
+	MiniDeps.later(MiniIcons.tweak_lsp_kind)
+end

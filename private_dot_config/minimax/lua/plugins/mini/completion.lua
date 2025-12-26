@@ -12,14 +12,13 @@ MiniCompletion.setup({
 	lsp_completion = {
 		source_func = "omnifunc",
 		process_items = function(items, base)
-			local default_process = MiniCompletion.default_process_items(items, base, {
+			return MiniCompletion.default_process_items(items, base, {
 				filtersort = "fuzzy",
-				kind_priority = {
-					Text = -1,
-					Snippet = 2,
-				},
+				kind_priority = { Text = -1, Snippet = 2 },
 			})
-			return default_process
 		end,
 	},
 })
+
+-- Force noinsert so cycling through the menu doesn't override current text
+vim.opt.completeopt = { "menuone", "noinsert", "noselect" }

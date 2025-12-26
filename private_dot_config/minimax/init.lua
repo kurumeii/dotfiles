@@ -26,9 +26,13 @@ require("mini.deps").setup({
 
 local now, later = MiniDeps.now, MiniDeps.later
 local add = MiniDeps.add
-vim.g.using_snack_notif = true
-vim.g.using_snack_indent = true
-vim.g.using_mini_tabline = true
+local utils = require("config.utils")
+vim.g.mini_tabline = true
+vim.g.snacks_notify = false
+vim.g.snacks_indent = false
+vim.g.snacks_explorer = false
+vim.g.mini_animate = true
+vim.g.mini_completion = false
 
 now(function()
 	require("config.options")
@@ -37,20 +41,24 @@ now(function()
 	require("config.autocmds")
 	require("plugins.mini.basics")
 	require("plugins.mini.keymap")
-	require("plugins.mini.files")
 	require("plugins.mini.icons")
 	require("plugins.mini.sessions")
 	require("plugins.mini.clues")
 	require("plugins.mini.starter")
 	require("plugins.colorschemes")
-end)
-now(function()
-	if vim.g.using_snack_notif then
-		add("folke/snacks.nvim")
-		require("plugins.snacks")
-	else
+	if vim.g.snacks_notify == false then
 		require("plugins.mini.notify")
 	end
+	if vim.g.snacks_explorer == false then
+		require("plugins.mini.files")
+	end
+	if vim.g.mini_animate then
+		require("plugins.mini.animate")
+	end
+end)
+now(function()
+	add("folke/snacks.nvim")
+	require("plugins.snacks")
 end)
 now(function()
 	add({
@@ -88,10 +96,10 @@ later(function()
 	add("b0o/SchemaStore.nvim")
 	add("nvim-lua/plenary.nvim")
 	add("justinsgithub/wezterm-types")
+	add("folke/lazydev.nvim")
 	require("plugins.lazydev")
 end)
 later(function()
-	-- Lsp
 	add("neovim/nvim-lspconfig")
 	add({
 		source = "mason-org/mason.nvim",
@@ -101,6 +109,7 @@ later(function()
 		},
 	})
 	require("plugins.mason")
+	require("plugins.lspconfig")
 end)
 later(function()
 	-- Linters
@@ -121,8 +130,9 @@ later(function()
 	require("plugins.mini.surround")
 	require("plugins.mini.comment")
 	require("plugins.mini.snippets")
-	require("plugins.mini.animate")
-	require("plugins.mini.completion")
+	if vim.g.mini_completion then
+		require("plugins.mini.completion")
+	end
 	require("plugins.mini.cursorword")
 	require("plugins.mini.pairs")
 	require("plugins.mini.hipatterns")
@@ -131,15 +141,13 @@ later(function()
 	require("plugins.mini.visits")
 end)
 later(function()
-	if vim.g.using_snack_notif then
-		return
-	else
+	if vim.g.snacks_indent == false then
 		require("plugins.mini.indentscope")
 	end
 end)
 later(function()
 	-- UI
-	if vim.g.using_mini_tabline then
+	if vim.g.mini_tabline then
 		require("plugins.mini.tabline")
 	else
 		require("plugins.lualine")
@@ -163,4 +171,19 @@ later(function()
 		},
 	})
 	require("plugins.copilot")
+end)
+later(function()
+	if vim.g.mini_completion == false then
+		add({
+			source = "saghen/blink.cmp",
+			hooks = {
+				post_checkout = utils.build_blink,
+				post_install = utils.build_blink,
+			},
+			depends = {
+				"folke/lazydev.nvim",
+			},
+		})
+		require("plugins.blink")
+	end
 end)
