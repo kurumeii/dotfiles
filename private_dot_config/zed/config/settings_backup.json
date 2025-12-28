@@ -1,0 +1,122 @@
+{
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "preview_tabs": {
+    "enabled": true,
+  },
+  "tabs": {
+    "file_icons": true,
+    "close_position": null,
+    "show_diagnostics": "errors",
+    "git_status": true,
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "ui_font_family": "CaskaydiaCove Nerd Font",
+  "buffer_font_family": "CaskaydiaCove Nerd Font",
+  "buffer_line_height": "standard",
+  "buffer_font_features": {
+    "calt": true,
+  },
+  "vim_mode": true,
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Light",
+    "dark": "Gruvbox Dark Soft",
+  },
+  "colorize_brackets": true,
+  "vim": {
+    "highlight_on_yank_duration": 300,
+    "use_smartcase_find": true,
+  },
+  "project_panel": {
+    "hide_root": true,
+    "entry_spacing": "standard",
+  },
+  "show_whitespaces": "trailing",
+  "bottom_dock_layout": "full",
+  "vertical_scroll_margin": 3,
+  "toolbar": {
+    "quick_actions": false,
+  },
+  "terminal": {
+    "copy_on_select": true,
+    "toolbar": {
+      "breadcrumbs": false,
+    },
+    "button": false,
+  },
+  "completion_menu_scrollbar": "system",
+  "completions": {
+    "lsp_insert_mode": "replace",
+  },
+  "debugger": {
+    "dock": "left",
+  },
+  "hide_mouse": "on_typing_and_movement",
+  "edit_predictions": {
+    "mode": "subtle",
+  },
+  "title_bar": {
+    "show_branch_icon": true,
+  },
+  "line_indicator_format": "short",
+  "relative_line_numbers": "enabled",
+  "collaboration_panel": {
+    "button": false,
+  },
+  "outline_panel": {
+    "button": false,
+  },
+  "git": {
+    "inline_blame": {
+      "delay_ms": 500,
+    },
+  },
+  "file_finder": {
+    "modal_max_width": "large",
+  },
+  // LSP
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true,
+      },
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "classFunctions": ["cva", "cx", "tw"],
+      },
+    },
+  },
+  "agent": {
+    "always_allow_tool_actions": true,
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.5",
+    },
+    "model_parameters": [],
+    "dock": "left",
+  },
+  "context_servers": {
+    "serena": {
+      "settings": {},
+      "enabled": true,
+      "headers": {},
+      "url": "http://localhost:12345/mcp",
+    },
+    "mcp-server-figma": {
+      "enabled": true,
+      "settings": {
+        "figma_api_key": "${FIGMA_API_KEY}",
+      },
+    },
+    "mcp-server-context7": {
+      "enabled": true,
+      "settings": {
+        "context7_api_key": "${CONTEXT_7_API_KEY}",
+      },
+    },
+  },
+}

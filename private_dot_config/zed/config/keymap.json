@@ -1,0 +1,120 @@
+[
+  {
+    "context": "Editor && vim_mode == insert && !menu",
+    "bindings": {
+      "j k": "vim::NormalBefore",
+      "ctrl-s": "workspace::Save",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "shift-y": "vim::YankToEndOfLine",
+      // f section
+      "space f f": "file_finder::Toggle",
+      "space f c": "zed::OpenSettingsFile",
+      "space f k": "zed::OpenKeymapFile",
+      "space f p": "projects::OpenRecent",
+      "space f l": "buffer_search::Deploy",
+      "space f w": "pane::DeploySearch",
+      "space f t": "theme_selector::Toggle",
+      "space f i": "icon_theme_selector::Toggle",
+      "space f r": "vim::ToggleRegistersView",
+      "space f d": "diagnostics::Deploy",
+      // Buffer
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePreviousItem",
+      "space b d": "pane::CloseActiveItem",
+      "space b o": "pane::CloseOtherItems",
+      "space b L": "pane::CloseItemsToTheRight",
+      "space b H": "pane::CloseItemsToTheLeft",
+      "space b a": "pane::CloseAllItems",
+      "space b l": "pane::SwapItemRight",
+      "space b h": "pane::SwapItemLeft",
+      "space b g": "pane::JoinAll",
+      "space b p": "pane::TogglePinTab",
+      "space b P": "pane::UnpinAllTabs",
+      // LSP
+      "space l s": "outline::Toggle",
+      "space l S": "project_symbols::Toggle",
+      "space l d": "editor::GoToDefinition",
+      "space l D": "editor::GoToDeclaration",
+      "space l i": "editor::GoToImplementation",
+      "space l r": "editor::FindAllReferences",
+      "space l t": "editor::GoToTypeDefinition",
+      "space c a": "editor::ToggleCodeActions",
+      "space c r": "editor::Rename",
+      "space c f": "editor::Format",
+      "space c o": "editor::OrganizeImports",
+      // Misc
+      "ctrl-a": "editor::SelectAll",
+      "ctrl-s": "workspace::Save",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "space u d": "editor::ToggleInlineDiagnostics",
+      "space u w": "editor::ToggleSoftWrap",
+      "space e": "pane::RevealInProjectPanel",
+      "space t": "terminal_panel::ToggleFocus",
+      "z C": "editor::FoldAll",
+      "z O": "editor::UnfoldAll",
+      "space a a": "agent::ToggleFocus",
+      //Git
+      "space g r": "git::Restore",
+      "space g s": "git::Blame",
+      "space g g": "git_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
+    "bindings": {
+      // mini.ai plugin behavior
+      "Q": "vim::MiniQuotes",
+      "B": "vim::MiniBrackets",
+    },
+  },
+  {
+    "context": "Editor && !menu && (vim_mode == visual || vim_mode == normal)",
+    "bindings": {
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+    },
+  },
+  // File panel (netrw)
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Delete",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "q": "workspace::ToggleLeftDock",
+      "space e": "workspace::ToggleLeftDock",
+      // Navigate between panel
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-shift-j": "workspace::ToggleZoom",
+      "ctrl-n": null, // Disable new terminal tab
+      "ctrl-p": null, // Disable open project
+      "ctrl-shift-n": "workspace::NewTerminal",
+      "ctrl-w": "pane::CloseActiveItem",
+    },
+  },
+  {
+    "context": "Agent && not_editing",
+    "bindings": {
+      "space q": "workspace::ToggleLeftDock",
+    },
+  },
+]
