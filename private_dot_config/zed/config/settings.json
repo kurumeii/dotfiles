@@ -89,23 +89,32 @@
         "classFunctions": ["cva", "cx", "tw"],
       },
     },
+    "vscode-css-language-server": {
+      "settings": {
+        "css": {
+          "lint": {
+            "unknownAtRules": "ignore",
+          },
+        },
+      },
+    },
   },
   "agent": {
     "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5",
+      "model": "gpt-5-mini",
     },
     "model_parameters": [],
-    "dock": "left",
+    "dock": "right",
   },
   "context_servers": {
     "mcp-server-tavily": {
       "enabled": true,
-      "command": "pwsh",
+      "command": "cmd",
       "args": ["/c", "pnpm dlx tavily-mcp@latest"],
       "env": {
-        "TAVILY_api_key": "${TAVILY_API_KEY}",
+        "TAVILY_api_key": "$TAVILY_API_KEY",
       },
     },
     "serena": {
@@ -117,13 +126,13 @@
     "mcp-server-figma": {
       "enabled": true,
       "settings": {
-        "figma_api_key": "${FIGMA_API_KEY}",
+        "figma_api_key": "$FIGMA_API_KEY",
       },
     },
     "mcp-server-context7": {
       "enabled": true,
       "settings": {
-        "context7_api_key": "${CONTEXT_7_API_KEY}",
+        "context7_api_key": "$CONTEXT_7_API_KEY",
       },
     },
   },
