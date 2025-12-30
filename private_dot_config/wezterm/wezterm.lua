@@ -16,7 +16,7 @@ local items = {
 	},
 	fedora = {
 		label = "󰣛 fedora",
-		args = { "wsl.exe", "-d", "FedoraLinux-42", "--cd", "~" },
+		args = { "wsl.exe", "-d", "FedoraLinux-43", "--cd", "~" },
 	},
 }
 
@@ -51,12 +51,12 @@ config = {
 	wsl_domains = {
 		{
 			name = items.ubuntu.label,
-			distribution = "Ubuntu",
+			distribution = items.ubuntu.args[3],
 			default_cwd = "~",
 		},
 		{
 			name = items.fedora.label,
-			distribution = "FedoraLinux-42",
+			distribution = items.fedora.args[3],
 			default_cwd = "~",
 		},
 	},
