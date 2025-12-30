@@ -29,8 +29,8 @@ _G.mininvim = {
 		},
 		recording = " ",
 		os = {
-			win = " ",
-			linux = "󰌽 ",
+			win = " ",
+			linux = " ",
 		},
 		groups = {
 			brewer = {

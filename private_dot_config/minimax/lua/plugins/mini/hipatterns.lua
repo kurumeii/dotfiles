@@ -96,8 +96,8 @@ hi.setup({
 				local hl = "MiniHiPatternsTailwind" .. color .. shade
 				if not M.hl[hl] then
 					M.hl[hl] = true
-					local bg_shade = shade == 500 and 950 or shade < 500 and 900 or 100
-					local fg = vim.tbl_get(mininvim.tw_colors, color, bg_shade)
+					-- local bg_shade = shade == 500 and 950 or shade < 500 and 900 or 100
+					-- local fg = vim.tbl_get(mininvim.tw_colors, color, bg_shade)
 					-- vim.api.nvim_set_hl(0, hl, { bg = "#" .. bg, fg = "#" .. fg })
 					vim.api.nvim_set_hl(0, hl, { fg = "#" .. bg })
 				end

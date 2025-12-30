@@ -2,9 +2,20 @@ local utils = require("config.utils")
 require("snacks").setup({
 	statuscolumn = {
 		enabled = true,
+		left = {
+			"git",
+			"mark",
+		},
+		right = {
+			"fold",
+			"sign",
+		},
 		folds = {
 			git_hl = false,
 			open = true,
+		},
+		git = {
+			patterns = { "MiniDiffSign" },
 		},
 	},
 	explorer = {
