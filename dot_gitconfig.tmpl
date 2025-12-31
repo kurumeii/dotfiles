@@ -3,8 +3,13 @@
 name = "andrew nguyen"
 email = "ngphuchoanganh@gmail.com"
 ; email = "andrew.nguyen1@techvify.com.vn"
+{{- if eq .chezmoi.os "windows" }}
+[credential]
+	helper = manager
+{{- else if .win_user }}
 [credential]
 		helper = "/mnt/c/Users/{{ .win_user }}/scoop/root/apps/git/current/mingw64/bin/git-credential-manager.exe"
+{{- end }}
 {{- end }}
 
 [core]
