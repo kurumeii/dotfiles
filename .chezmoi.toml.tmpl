@@ -1,6 +1,6 @@
 [merge]
     command = "env"
-    args = ["NVIM_APPNAME=minimax", "nvim", "-d", "{{ .Destination }}", "{{ .Source }}", "{{ .Target }}"]
+    args = ["NVIM_APPNAME=minimax", "nvim", "-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
 
 [data]
     headless = false

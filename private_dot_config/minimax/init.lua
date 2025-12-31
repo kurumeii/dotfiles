@@ -171,6 +171,8 @@ later(function()
 		},
 	})
 	require("plugins.copilot")
+	add("folke/edgy.nvim")
+	require("plugins.edgy")
 end)
 later(function()
 	if vim.g.mini_completion == false then

@@ -28,6 +28,15 @@ vim.g.clipboard = {
 		["*"] = "/mnt/c/Users/{{ .win_user }}/scoop/root/shims/win32yank.exe -o --lf",
 	},
 }
+
+vim.ui.open = function(path)
+	local script = vim.fn.expand("$HOME/bin/open-in-windows")
+	if vim.fn.executable(script) == 1 then
+		vim.fn.jobstart({ script, path }, { detach = true })
+	else
+		vim.notify("open-in-windows script not found", vim.log.levels.WARN)
+	end
+end
 {{- end }}
 vim.o.clipboard = "unnamedplus"
 
