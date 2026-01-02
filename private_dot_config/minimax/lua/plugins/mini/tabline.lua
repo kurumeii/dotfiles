@@ -3,7 +3,8 @@ require("mini.tabline").setup({
 	show_icon = true,
 	format = function(buf_id, label)
 		local buf_name = vim.api.nvim_buf_get_name(buf_id)
-		local icon = vim.bo[buf_id].modified and mininvim.icons.edit or MiniIcons.get("file", buf_name)
+		local icon = MiniIcons.get("file", buf_name)
+		local is_edited = vim.bo[buf_id].modified and mininvim.icons.edit or ""
 		local hasErrors = vim.diagnostic.get(buf_id, { severity = "ERROR" })
 		if #hasErrors > 0 then
 			icon = mininvim.icons.error
@@ -13,7 +14,7 @@ require("mini.tabline").setup({
 				icon = mininvim.icons.warn
 			end
 		end
-		return string.format(" %s %s ", icon, label)
+		return string.format(" %s %s %s", icon, label, is_edited)
 	end,
 })
 
