@@ -122,6 +122,17 @@ later(function()
 	require("plugins.conform")
 end)
 later(function()
+	-- Debugging
+	add("mfussenegger/nvim-dap")
+	add({
+		source = "rcarriga/nvim-dap-ui",
+		depends = { "nvim-neotest/nvim-nio" },
+	})
+	add("theHamsta/nvim-dap-virtual-text")
+	add("jay-babu/mason-nvim-dap.nvim")
+	require("plugins.dap")
+end)
+later(function()
 	require("plugins.mini.operators")
 	require("plugins.mini.git")
 	require("plugins.mini.ai")

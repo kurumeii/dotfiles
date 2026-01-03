@@ -1,5 +1,3 @@
-local utils = require("config.utils")
-
 require("mason").setup({
 	ui = {
 		icons = {
