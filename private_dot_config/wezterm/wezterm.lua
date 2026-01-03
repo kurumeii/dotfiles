@@ -87,6 +87,22 @@ config = {
 			action = wez.action.SpawnTab("DefaultDomain"),
 		},
 		{
+			key = "e", -- Rename tab
+			mods = mods.L,
+			action = wez.action.PromptInputLine({
+				description = wez.format({
+					{ Attribute = { Intensity = "Bold", Underline = "Single" } },
+					{ Foreground = { AnsiColor = "Fuchsia" } },
+					{ Text = "Rename tab" },
+				}),
+				action = wez.action_callback(function(window, _, line)
+					if line then
+						window:active_tab():set_title(line)
+					end
+				end),
+			}),
+		},
+		{
 			key = "d", -- Duplicate tab
 			mods = mods.L,
 			action = wez.action.SpawnTab("CurrentPaneDomain"),
@@ -103,7 +119,7 @@ config = {
 			mods = mods.L,
 			action = wez.action.PromptInputLine({
 				description = wez.format({
-					{ Attribute = { Intensity = "Bold" } },
+					{ Attribute = { Intensity = "Bold", Underline = "Single" } },
 					{ Foreground = { AnsiColor = "Fuchsia" } },
 					{ Text = "Enter name for workspace" },
 				}),
