@@ -9,6 +9,7 @@ export EDITOR="nvim"
 
 alias cd='z'
 alias code="/mnt/c/Users/{{ .win_user }}/scoop/root/apps/vscode/current/bin/code"
+alias zed="/mnt/c/Users/{{ .win_user }}/scoop/root/apps/zed/current/bin/zed"
 
 HYPHEN_INSENSITIVE="true"
 # Uncomment one of the following lines to change the auto-update behavior
@@ -79,7 +80,6 @@ if grep -q -i "microsoft" /proc/version; then
   export BROWSER="$HOME/bin/open-in-windows"
 fi
 
-{{- end -}}
 alias ls='eza --long --git --icons --all'
 alias cat='bat'
 alias man='tldr'
