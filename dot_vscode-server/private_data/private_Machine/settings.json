@@ -4,5 +4,8 @@
   "editor.fontFamily": "CaskaydiaCove Nerd Font",
   "editor.tabSize": 2,
   "editor.aiStats.enabled": true,
-  "terminal.integrated.fontSize": 15
+  "terminal.integrated.fontSize": 15,
+  "tailwindCSS.classFunctions": ["cva", "cx", "tv"],
+  "editor.colorDecorators": true,
+  "color-highlight.enable": false
 }

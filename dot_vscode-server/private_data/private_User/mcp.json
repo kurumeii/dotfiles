@@ -1,20 +1,10 @@
 {
   "servers": {
-    "serena": {
-      "type": "stdio",
-      "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "~/serena-mcp",
-        "serena-mcp-server",
-        "--mode",
-        "interactive",
-        "--context",
-        "ide-assistant"
-      ]
+    "wsl-serena": {
+      "type": "http",
+      "url": "http://localhost:12345/mcp"
     },
-    "context-7": {
+    "wsl-context-7": {
       "type": "stdio",
       "command": "pnpm",
       "args": ["dlx", "@upstash/context7-mcp"],
@@ -22,13 +12,18 @@
         "api-key": "$CONTEXT_7_API_KEY"
       }
     },
-    "figma": {
+    "wsl-figma": {
       "type": "stdio",
       "command": "pnpm",
       "args": ["dlx", "figma-developer-mcp", "--stdio"],
       "env": {
         "FIGMA_API_KEY": "$FIGMA_API_KEY"
       }
+    },
+    "wsl-React-Aria": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "@react-aria/mcp@latest"]
     }
   },
   "inputs": []
