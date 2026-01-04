@@ -90,11 +90,7 @@ config = {
 			key = "e", -- Rename tab
 			mods = mods.L,
 			action = wez.action.PromptInputLine({
-				description = wez.format({
-					{ Attribute = { Intensity = "Bold", Underline = "Single" } },
-					{ Foreground = { AnsiColor = "Fuchsia" } },
-					{ Text = "Rename tab" },
-				}),
+				description = "Rename tab",
 				action = wez.action_callback(function(window, _, line)
 					if line then
 						window:active_tab():set_title(line)
@@ -118,11 +114,7 @@ config = {
 			key = "w", -- Workspace
 			mods = mods.L,
 			action = wez.action.PromptInputLine({
-				description = wez.format({
-					{ Attribute = { Intensity = "Bold", Underline = "Single" } },
-					{ Foreground = { AnsiColor = "Fuchsia" } },
-					{ Text = "Enter name for workspace" },
-				}),
+				description = "Enter name for workspace",
 				action = wez.action_callback(function(window, pane, line)
 					if line then
 						window:perform_action(
