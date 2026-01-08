@@ -18,7 +18,6 @@ local ensure_install = {
 	"regex",
 	"jsdoc",
 	"json",
-	"jsonc",
 	"query",
 	"git_rebase",
 	"gitcommit",

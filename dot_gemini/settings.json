@@ -1,134 +1,134 @@
 {
-	"ide": {
-		"enabled": true,
-		"hasSeenNudge": true
-	},
-	"mcpServers": {
-		"serena": {
-			// "command": "uv",
-			// "args": [
-			// 	"run",
-			// 	"--directory",
-			// 	"$HOME/serena-mcp",
-			// 	"serena-mcp-server",
-			// 	"--context",
-			// 	"ide-assistant",
-			// 	"--project",
-			// 	"cwd"
-			// ],
-			"httpUrl": "http://localhost:12345/mcp"
-		},
-		"shadcn": {
-			"command": "npx",
-			"args": [
-				"shadcn@latest",
-				"mcp"
-			]
-		},
-		"context7": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"@upstash/context7-mcp"
-			],
-			"env": {
-				"api-key": "$CONTEXT_7_API_KEY"
-			}
-		},
-		"figma": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"figma-developer-mcp",
-				"--stdio"
-			],
-			"env": {
-				"FIGMA_API_KEY": "$FIGMA_API_KEY"
-			}
-		},
-		"tavily": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"tavily-mcp@latest"
-			],
-			"env": {
-				"TAVILY_API_KEY": "$TAVILY_API_KEY"
-			}
-		}
-	},
-	"general": {
-		"preferredEditor": "neovim",
-		"vimMode": false,
-		"checkpointing": {
-			"enabled": true
-		},
-		"enablePromptCompletion": false,
-		"disableAutoUpdate": true,
-		"sessionRetention": {
-			"enabled": true
-		},
-		"previewFeatures": true
-	},
-	"ui": {
-		"theme": "ANSI",
-		"hideWindowTitle": false,
-		"hideTips": true,
-		"hideBanner": true,
-		"hideFooter": true,
-		"showMemoryUsage": false,
-		"showLineNumbers": true,
-		"showCitations": true,
-		"accessibility": {
-			"disableLoadingPhrases": true
-		},
-		"hideContextSummary": false,
-		"footer": {
-			"hideSandboxStatus": false,
-			"hideCWD": true
-		},
-		"useFullWidth": true,
-		"useAlternateBuffer": true,
-		"showModelInfoInChat": true,
-		"showStatusInTitle": true
-	},
-	"model": {
-		"summarizeToolOutput": {
-			"run_shell_command": {
-				"tokenBudget": 2000
-			}
-		}
-	},
-	"context": {
-		"fileName": [
-			"GEMINI.md",
-			"AGENTS.md",
-			"AGENT.md"
-		]
-	},
-	"tools": {
-		"shell": {
-			"showColor": true
-		},
-		"exclude": [
-			"list_directory",
-			"glob",
-			"search_file_content",
-			"web_fetch",
-			"google_web_search"
-		]
-	},
-	"mcp": {
-		"allowed": [
-			"context7",
-			"serena",
-			"figma",
-			"tavily"
-		]
-	},
-	"security": {
-		"auth": {
-			"selectedType": "oauth-personal"
-		}
-	}
+  "ide": {
+    "enabled": true,
+    "hasSeenNudge": true
+  },
+  "mcpServers": {
+    "serena": {
+      // "command": "uv",
+      // "args": [
+      // 	"run",
+      // 	"--directory",
+      // 	"$HOME/serena-mcp",
+      // 	"serena-mcp-server",
+      // 	"--context",
+      // 	"ide-assistant",
+      // 	"--project",
+      // 	"cwd"
+      // ],
+      "httpUrl": "http://localhost:12345/mcp"
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {
+        "api-key": "$CONTEXT_7_API_KEY"
+      }
+    },
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-developer-mcp",
+        "--stdio"
+      ],
+      "env": {
+        "FIGMA_API_KEY": "$FIGMA_API_KEY"
+      }
+    },
+    "tavily": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "$TAVILY_API_KEY"
+      }
+    }
+  },
+  "general": {
+    "preferredEditor": "neovim",
+    "vimMode": false,
+    "checkpointing": {
+      "enabled": true
+    },
+    "enablePromptCompletion": false,
+    "disableAutoUpdate": true,
+    "sessionRetention": {
+      "enabled": true
+    },
+    "previewFeatures": true
+  },
+  "ui": {
+    "theme": "ANSI",
+    "hideWindowTitle": false,
+    "hideTips": true,
+    "hideBanner": true,
+    "hideFooter": false,
+    "showMemoryUsage": false,
+    "showLineNumbers": true,
+    "showCitations": true,
+    "accessibility": {
+      "disableLoadingPhrases": true
+    },
+    "hideContextSummary": false,
+    "footer": {
+      "hideSandboxStatus": true,
+      "hideCWD": true
+    },
+    "useFullWidth": true,
+    "useAlternateBuffer": true,
+    "showModelInfoInChat": true,
+    "showStatusInTitle": true
+  },
+  "model": {
+    "summarizeToolOutput": {
+      "run_shell_command": {
+        "tokenBudget": 2000
+      }
+    }
+  },
+  "context": {
+    "fileName": [
+      "GEMINI.md",
+      "AGENTS.md",
+      "AGENT.md"
+    ]
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "exclude": [
+      "list_directory",
+      "glob",
+      "search_file_content",
+      "web_fetch",
+      "google_web_search"
+    ]
+  },
+  "mcp": {
+    "allowed": [
+      "context7",
+      "serena",
+      "figma",
+      "tavily"
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
 }
