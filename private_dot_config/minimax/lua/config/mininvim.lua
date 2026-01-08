@@ -16,6 +16,13 @@ _G.mininvim = {
 			change = "▎",
 			delete = "",
 		},
+		dap = {
+			Breakpoint = "",
+			BreakpointCondition = "",
+			LogPoint = "",
+			Stopped = "",
+			BreakpointRejected = "",
+		},
 		git_add = "󰐕 ",
 		git_edit = " ",
 		git_remove = "󰍴 ",
