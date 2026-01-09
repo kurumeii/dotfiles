@@ -70,10 +70,9 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-
 # pnpm end
-fastfetch -c neofetch
 
+fastfetch -c examples/28.jsonc
 
 # Set a custom browser for WSL to open URLs in the default Windows browser.
 if grep -q -i "microsoft" /proc/version; then

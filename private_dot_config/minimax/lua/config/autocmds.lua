@@ -31,3 +31,5 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		vim.g.start_time_finish = vim.uv.hrtime()
 	end,
 })
+
+utils.set_ft("tmpl", "bash")

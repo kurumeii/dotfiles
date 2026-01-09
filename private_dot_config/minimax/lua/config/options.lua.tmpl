@@ -28,7 +28,6 @@ vim.g.clipboard = {
 		["*"] = "/mnt/c/Users/{{ .win_user }}/scoop/root/shims/win32yank.exe -o --lf",
 	},
 }
-
 vim.ui.open = function(path)
 	local script = vim.fn.expand("$HOME/bin/open-in-windows")
 	if vim.fn.executable(script) == 1 then
@@ -37,15 +36,15 @@ vim.ui.open = function(path)
 		vim.notify("open-in-windows script not found", vim.log.levels.WARN)
 	end
 end
+vim.o.shell = "zsh"
 {{- end }}
-vim.o.clipboard = "unnamedplus"
 
 {{- if eq .chezmoi.os "windows" -}}
 vim.o.shell = "pwsh"
-{{- else if eq .chezmoi.os "linux" -}}
-vim.o.shell = "zsh"
 {{- end}}
+
 vim.o.smartcase = true
+vim.o.clipboard = "unnamedplus"
 vim.o.smartindent = true
 vim.o.ignorecase = true
 vim.o.breakindent = true
