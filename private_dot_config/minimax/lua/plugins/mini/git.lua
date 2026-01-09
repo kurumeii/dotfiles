@@ -255,6 +255,27 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+-- vim.api.nvim_create_autocmd("User", {
+-- 	pattern = "MiniDiffUpdated",
+-- 	callback = function(data)
+-- 		local summary = vim.b[data.buf].minidiff_summary
+-- 		local t = {}
+-- 		if summary == nil then
+-- 			return
+-- 		end
+-- 		if summary.add > 0 then
+-- 			table.insert(t, mininvim.icons.git_add .. summary.add)
+-- 		end
+-- 		if summary.change > 0 then
+-- 			table.insert(t, mininvim.icons.git_edit .. summary.change)
+-- 		end
+-- 		if summary.delete > 0 then
+-- 			table.insert(t, mininvim.icons.git_remove .. summary.delete)
+-- 		end
+-- 		vim.b[data.buf].minidiff_summary_string = table.concat(t, " ")
+-- 	end,
+-- })
+
 utils.map("n", utils.L("gb"), toggle_blame, "Git toggle git Blame")
 utils.map("n", utils.L("gd"), diff_this, "Git diff against commit")
 utils.map("n", utils.L("gh"), MiniDiff.toggle_overlay, "Git toggle git overlay")

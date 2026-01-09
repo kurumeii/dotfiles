@@ -9,3 +9,11 @@ require("mini.comment").setup({
 		end,
 	},
 })
+
+-- Commentstring
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "json" },
+	callback = function()
+		vim.bo.commentstring = "// %s"
+	end,
+})

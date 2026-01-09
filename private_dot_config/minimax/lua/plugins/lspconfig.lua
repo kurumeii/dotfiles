@@ -65,16 +65,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		utils.map("n", utils.L("ca"), vim.lsp.buf.code_action, "Code action")
 		utils.map("n", utils.L("cd"), vim.diagnostic.open_float, "Code show diagnostic")
-		utils.map("n", utils.L("cr"), function()
-			vim.ui.input({ prompt = "Rename to: " }, function(new_name)
-				if not new_name then
-					utils.notify("Rename cancelled", "WARN")
-				else
-					vim.lsp.buf.rename(new_name, { bufnr = args.buf })
-					utils.notify("Rename successfully")
-				end
-			end)
-		end, "Rename")
+		utils.map("n", utils.L("cr"), vim.lsp.buf.rename, "LSP: rename")
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client and client.name == "vtsls" then
 			utils.map("n", utils.L("co"), utils.action("source.organizeImports"), "[TS] Organize imports")

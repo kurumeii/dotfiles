@@ -87,6 +87,7 @@ if vim.g.snacks_explorer then
 end
 
 utils.map("n", utils.L("gg"), Snacks.lazygit.open, "Open Lazygit")
-utils.map("n", utils.L("t"), function()
-	Snacks.terminal.toggle()
-end, "Terminal")
+utils.map("n", utils.L("tt"), Snacks.terminal.toggle, "Terminal")
+utils.map("n", utils.L("td"), function()
+	Snacks.terminal:destroy()
+end, "Destroy Terminal")

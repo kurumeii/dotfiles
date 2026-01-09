@@ -181,6 +181,7 @@ later(function()
 			end,
 		},
 	})
+	add("folke/sidekick.nvim")
 	require("plugins.copilot")
 	-- add("folke/edgy.nvim")
 	-- require("plugins.edgy")

@@ -37,6 +37,8 @@ H.notify_once = function(msg, level, title)
 	vim.notify_once(msg, vim.log.levels[level], { title = title or "Notification" })
 end
 
+--- @param ms integer the timeout in millisecond
+--- @param fn function Callback function
 H.debounce = function(ms, fn)
 	local timer = vim.uv.new_timer()
 	return function(...)
@@ -50,7 +52,10 @@ H.debounce = function(ms, fn)
 	end
 end
 
-function H.hex_to_rgb(hex)
+--- Convert hex color to RGB
+--- @param hex string The hex color value (e.g., "#ff0000")
+--- RGB values as [r, g, b] where each value is between 0 and 1
+H.hex_to_rgb = function(hex)
 	hex = string.lower(hex)
 	local ret = {}
 	for i = 0, 2 do
@@ -63,18 +68,15 @@ function H.hex_to_rgb(hex)
 	return ret
 end
 
---[[
- * Converts an RGB color value to HSL. Conversion formula
- * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
- * Assumes r, g, and b are contained in the set [0, 255] and
- * returns h, s, and l in the set [0, 1].
- *
- * @param   Number  r       The red color value
- * @param   Number  g       The green color value
- * @param   Number  b       The blue color value
- * @return  Array           The HSL representation
-]]
-function H.rgbToHsl(r, g, b)
+--- Converts an RGB color value to HSL. Conversion formula
+--- adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+--- Assumes r, g, and b are contained in the set [0, 255] and
+--- returns h, s, and l in the set [0, 1].
+--- @param r number The red color value
+--- @param g number The green color value
+--- @param b number The blue color value
+--- The HSL representation (h, s, l)
+H.rgbToHsl = function(r, g, b)
 	local max, min = math.max(r, g, b), math.min(r, g, b)
 	local h = 0
 	local s = 0
@@ -107,18 +109,15 @@ function H.rgbToHsl(r, g, b)
 	return h * 360, s * 100, l * 100
 end
 
---[[
- * Converts an HSL color value to RGB. Conversion formula
- * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
- * Assumes h, s, and l are contained in the set [0, 1] and
- * returns r, g, and b in the set [0, 255].
- *
- * @param   Number  h       The hue
- * @param   Number  s       The saturation
- * @param   Number  l       The lightness
- * @return  Array           The RGB representation
-]]
-function H.hslToRgb(h, s, l)
+--- Converts an HSL color value to RGB. Conversion formula
+--- adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+--- Assumes h, s, and l are contained in the set [0, 1] and
+--- returns r, g, and b in the set [0, 255].
+--- @param h number The hue
+--- @param s number The saturation
+--- @param l number The lightness
+--- The RGB representation (r, g, b)
+H.hslToRgb = function(h, s, l)
 	local r, g, b
 
 	if s == 0 then
@@ -159,50 +158,44 @@ function H.hslToRgb(h, s, l)
 	return r * 255, g * 255, b * 255
 end
 
-function H.hexToHSL(hex)
+--- Convert hex color to HSL
+--- @param hex string The hex color value (e.g., "#ff0000")
+--- HSL representation (e.g., "hsl(0, 100, 50)")
+H.hexToHSL = function(hex)
 	local rgb = H.hex_to_rgb(hex)
 	local h, s, l = H.rgbToHsl(rgb[1], rgb[2], rgb[3])
 
 	return string.format("hsl(%d, %d, %d)", math.floor(h + 0.5), math.floor(s + 0.5), math.floor(l + 0.5))
 end
 
---[[
- * Converts an HSL color value to RGB in Hex representation.
- * @param   Number  h       The hue
- * @param   Number  s       The saturation
- * @param   Number  l       The lightness
- * @return  String           The hex representation
-]]
-function H.hslToHex(h, s, l)
+--- Converts an HSL color value to RGB in Hex representation.
+--- @param h number? The hue
+--- @param s number? The saturation
+--- @param l number? The lightness
+--- The hex representation
+H.hslToHex = function(h, s, l)
 	local r, g, b = H.hslToRgb(h / 360, s / 100, l / 100)
-
 	return string.format("#%02x%02x%02x", r, g, b)
 end
 
-function H.replaceHexWithHSL()
-	-- Get the current line number
-	local line_number = vim.api.nvim_win_get_cursor(0)[1]
-
-	-- Get the line content
-	local line_content = vim.api.nvim_buf_get_lines(0, line_number - 1, line_number, false)[1]
-
-	-- Find hex code patterns and replace them
-	for hex in line_content:gmatch("#[0-9a-fA-F]+") do
-		local hsl = H.hexToHSL(hex)
-		line_content = line_content:gsub(hex, hsl)
-	end
-
-	-- Set the line content back
-	vim.api.nvim_buf_set_lines(0, line_number - 1, line_number, false, { line_content })
-end
-
-function H.rgbToHex(r, g, b, a)
+--- Convert RGB values to hex
+--- @param r? number Red value (0-255)
+--- @param g? number Green value (0-255)
+--- @param b? number Blue value (0-255)
+--- @param a? number Alpha value (0-1)
+--- Hex color representation
+H.rgbToHex = function(r, g, b, a)
 	if a then
 		return string.format("#%02x%02x%02x", r * a, g * a, b * a)
 	end
 	return string.format("#%02x%02x%02x", r, g, b)
 end
 
+--- Convert OKLCH color values to sRGB
+--- @param l? number Lightness
+--- @param c? number Chroma
+--- @param h? number Hue
+--- RGB values (0-255)
 local function oklch_to_srgb(l, c, h)
 	-- OKLCH -> OKLab
 	local h_rad = h * math.pi / 180
@@ -247,13 +240,20 @@ local function oklch_to_srgb(l, c, h)
 	return math.floor(clamp(r) * 255 + 0.5), math.floor(clamp(g) * 255 + 0.5), math.floor(clamp(b) * 255 + 0.5)
 end
 
-function H.oklchToHex(l, c, h, a)
+--- Convert OKLCH color values to hex
+--- @param l? number Lightness
+--- @param c? number Chroma
+--- @param h? number Hue
+--- @param a? number Alpha
+--- Hex color representation
+H.oklchToHex = function(l, c, h, a)
 	local r, g, b = oklch_to_srgb(l, c, h)
 	return H.rgbToHex(r, g, b, a)
 end
 
 --- @param tbl table
-function H.uniq(tbl)
+--- Unique values from the input table
+H.uniq = function(tbl)
 	local seen, result = {}, {}
 	for _, value in ipairs(tbl) do
 		if not seen[value] then
@@ -264,7 +264,9 @@ function H.uniq(tbl)
 	return result
 end
 
-function H.build_blink(params)
+--- Build blink.cmp
+--- @param params table Build parameters containing path
+H.build_blink = function(params)
 	H.notify("Building blink.cmp", "INFO")
 	local obj = vim.system({ "cargo", "build", "--release" }, { cwd = params.path }):wait()
 	if obj.code == 0 then
@@ -276,7 +278,7 @@ end
 
 ---@param dot_ext string
 ---@param target_ft string
-function H.set_ft(dot_ext, target_ft)
+H.set_ft = function(dot_ext, target_ft)
 	vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 		pattern = "*." .. dot_ext,
 		desc = "Set filetype to " .. target_ft,
@@ -288,7 +290,8 @@ end
 
 ---@param lsp_name string
 ---@return boolean
-function H.has_lsp(lsp_name)
+---Whether the LSP is active
+H.has_lsp = function(lsp_name)
 	local find_lsp = vim.lsp.get_clients({
 		name = lsp_name,
 		bufnr = vim.api.nvim_get_current_buf(),
@@ -296,6 +299,7 @@ function H.has_lsp(lsp_name)
 	return #find_lsp > 0
 end
 
+--- @param action lsp.CodeActionKind
 H.action = function(action)
 	return function()
 		vim.lsp.buf.code_action({
@@ -307,19 +311,10 @@ H.action = function(action)
 		})
 	end
 end
--- function H.lsp_action(action)
---   vim.lsp.buf.code_action({
---     apply = true,
---     context = {
---       only = { action },
---       diagnostics = {},
---     },
---   })
--- end
 
 ---@param opts lsp.ExecuteCommandParams
 ---@param buffer? number
-function H.execute(opts, buffer)
+local execute = function(opts, buffer)
 	vim.lsp.buf_request(buffer or 0, "workspace/executeCommand", {
 		command = opts.command,
 		arguments = opts.arguments,
@@ -330,20 +325,25 @@ function H.execute(opts, buffer)
 	end)
 end
 
+---@param command string
 H.command = function(command)
 	return function()
-		H.execute({ command = command })
+		execute({ command = command })
 	end
 end
 
-function H.filter_show(_)
+H.filter_show = function(_)
 	return true
 end
 
-function H.filter_hide(fs_entry)
+H.filter_hide = function(fs_entry)
 	return not vim.startswith(fs_entry.name, ".")
 end
 
+---@param buf_id integer
+---@param lhs string
+---@param direction string
+---@param close_on_file boolean
 H.map_split = function(buf_id, lhs, direction, close_on_file)
 	local MiniFiles = require("mini.files")
 	local rhs = function()
@@ -369,7 +369,7 @@ end
 
 --- Deletes all listed buffers in a given direction from the current one silently.
 --- @param direction 'left' | 'right'
-function H.delete_buffers_in_direction(direction)
+H.delete_buffers_in_direction = function(direction)
 	local listed_buffers = {}
 	for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.bo[bufnr].buflisted then
@@ -407,7 +407,9 @@ function H.delete_buffers_in_direction(direction)
 	end
 end
 
-function H.get_relative_time(timestamp)
+--- Get relative time string from timestamp
+--- @param timestamp number Unix timestamp
+H.get_relative_time = function(timestamp)
 	local current_time = os.time()
 	local diff = os.difftime(current_time, timestamp)
 	local minutes = math.floor(diff / 60)

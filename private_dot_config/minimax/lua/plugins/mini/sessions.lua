@@ -32,3 +32,19 @@ end, "Delete session")
 utils.map({ "n" }, utils.L("sl"), function()
 	MiniSessions.select()
 end, "Load session")
+
+-- Auto save session
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	callback = function()
+		local except = {
+			"ministarter",
+			"snacks_dashboard",
+		}
+		if vim.tbl_contains(except, vim.bo.ft) then
+			return
+		end
+		local default_session = "session-" .. os.date("%Y%m%d-%H%M%S")
+		local session_name = MiniSessions.get_latest() or default_session
+		MiniSessions.write(session_name)
+	end,
+})
