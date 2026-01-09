@@ -1,65 +1,62 @@
 {
-	"mcpServers": {
-		"figma": {
-			"tools": [
-				"*"
-			],
-			"type": "local",
-			"command": "npx",
-			"args": [
-				"-y",
-				"figma-developer-mcp",
-				"--stdio"
-			],
-			"env": {
-				"FIGMA_API_KEY": "$FIGMA_API_KEY"
-			}
-		},
-		"shadcn": {
-			"tools": [
-				"*"
-			],
-			"type": "local",
-			"command": "npx",
-			"args": [
-				"shadcn@latest",
-				"mcp"
-			]
-		},
-		"context-7": {
-			"tools": [
-				"*"
-			],
-			"type": "local",
-			"command": "npx",
-			"args": [
-				"-y",
-				"@upstash/context7-mcp"
-			],
-			"env": {
-				"api-key": "$CONTEXT_7_API_KEY"
-			}
-		},
-		"serena": {
-			"tools": [
-				"*"
-			],
-			"type": "local",
-			"command": "bash",
-			"args": [
-				"-c",
-				"uv run --directory $HOME/serena-mcp serena-mcp-server --mode interactive --project $PWD"
-			]
-		},
-		"tavily": {
-			"type": "http",
-			"url": "https://mcp.tavily.com/mcp",
-			"headers": {
-				"Authorization": "$TAVILY_API_KEY"
-			},
-			"tools": [
-				"*"
-			]
-		}
-	}
+  "mcpServers": {
+    "figma": {
+      "tools": [
+        "*"
+      ],
+      "type": "local",
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-developer-mcp",
+        "--stdio"
+      ],
+      "env": {
+        "FIGMA_API_KEY": "$FIGMA_API_KEY"
+      }
+    },
+    "shadcn": {
+      "tools": [
+        "*"
+      ],
+      "type": "local",
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
+    },
+    "context-7": {
+      "tools": [
+        "*"
+      ],
+      "type": "local",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {
+        "api-key": "$CONTEXT_7_API_KEY"
+      }
+    },
+    "serena": {
+      "type": "http",
+      "url": "http://localhost:12345/mcp",
+      "headers": {},
+      "tools": [
+        "*"
+      ]
+    },
+    "tavily": {
+      "tools": [
+        "*"
+      ],
+      "type": "http",
+      "url": "https://mcp.tavily.com/mcp",
+      "headers": {
+        "Authorization": "$TAVILY_API_KEY"
+      }
+    }
+  }
 }
