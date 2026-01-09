@@ -6,15 +6,17 @@ email = "ngphuchoanganh@gmail.com"
 {{- if eq .chezmoi.os "windows" }}
 [credential]
 	helper = manager
-{{- else if .win_user }}
-[credential]
-		helper = "/mnt/c/Users/{{ .win_user }}/scoop/root/apps/git/current/mingw64/bin/git-credential-manager.exe"
-{{- end }}
-{{- end }}
-
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RF
 	autorcrlf = true
+{{- else if .win_user }}
+[credential]
+		helper = "/mnt/c/Users/{{ .win_user }}/scoop/root/apps/git/current/mingw64/bin/git-credential-manager.exe"
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RF
+{{- end }}
+{{- end }}
+
 [interactive]
 	diffFilter = diff-so-fancy --patch
 [diff]
