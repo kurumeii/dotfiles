@@ -33,7 +33,7 @@ vim.g.snacks_indent = false
 vim.g.snacks_explorer = false
 vim.g.mini_animate = true
 vim.g.mini_completion = false
-vim.g.show_dotfiles = true
+vim.g.show_dotfiles = false
 
 now(function()
 	require("config.options")
