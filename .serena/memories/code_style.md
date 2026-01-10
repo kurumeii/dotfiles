@@ -1,10 +1,2 @@
 
-# Code Style
-
-This project uses `stylua` to format Lua code. The following formatting rules are enforced:
-
-*   **Indentation:** Tabs, with a width of 2 spaces.
-*   **Column Width:** 120 characters.
-*   **Quote Style:** Double quotes are preferred.
-
-The configuration for `stylua` can be found in the `private_dot_config/nvim/stylua.toml` file.
+*   **Conventions:** Plugin-specific autocommands (especially those involving non-native filetypes or other plugins) should be placed in the respective plugin's configuration file (e.g., `lua/plugins/plugin-name.lua`), not in the global `lua/config/autocmds.lua`.
