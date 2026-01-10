@@ -26,10 +26,18 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "MiniFilesBufferCreate",
 	callback = function(args)
 		local MiniFiles = require("mini.files")
-		utils.map({ "n" }, "//", function()
-			utils.show_dotfiles = not utils.show_dotfiles
-			local new_filter = utils.show_dotfiles and utils.filter_show or utils.filter_hide
-			MiniFiles.refresh({ content = { filter = new_filter } })
+		utils.map("n", "gh", function()
+			vim.g.show_dotfiles = not vim.g.show_dotfiles
+			MiniFiles.refresh({
+				content = {
+					filter = function(fs_entry)
+						if vim.g.show_dotfiles then
+							return true
+						end
+						return not vim.startswith(fs_entry.name, ".")
+					end,
+				},
+			})
 		end, "Toggle hidden files", { buffer = args.buf })
 		utils.map_split(args.buf, "<C-w>s", "horizontal", false)
 		utils.map_split(args.buf, "<C-w>v", "vertical", false)

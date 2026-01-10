@@ -25,8 +25,8 @@ require("snacks").setup({
 	picker = {
 		sources = {
 			explorer = {
-				hidden = true,
-				ignored = true,
+				hidden = vim.g.show_dotfiles,
+				ignored = vim.g.show_dotfiles,
 				exclude = { ".git", "node_modules" },
 			},
 		},

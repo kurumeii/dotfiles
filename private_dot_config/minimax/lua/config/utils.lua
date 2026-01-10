@@ -332,14 +332,6 @@ H.command = function(command)
 	end
 end
 
-H.filter_show = function(_)
-	return true
-end
-
-H.filter_hide = function(fs_entry)
-	return not vim.startswith(fs_entry.name, ".")
-end
-
 ---@param buf_id integer
 ---@param lhs string
 ---@param direction string
