@@ -19,7 +19,14 @@ utils.map("n", utils.L("e"), function()
 	if not ok then
 		MiniFiles.open(nil, false)
 	end
-end, " Open explore")
+end, "Open explore")
+
+utils.map("n", utils.L("E"), function()
+	local ok = pcall(MiniFiles.open, nil, false)
+	if not ok then
+		MiniFiles.open(nil, false)
+	end
+end, "Open explore (home)")
 
 -- Mini Files
 vim.api.nvim_create_autocmd("User", {

@@ -93,7 +93,7 @@ utils.map("n", utils.L("td"), function()
 	Snacks.terminal:destroy()
 end, "Destroy Terminal")
 
-if not vim.g.mini_pickers then
+if not vim.g.mini_picks then
 	vim.ui.select = Snacks.picker.select
 	utils.map("n", utils.L("ff"), Snacks.picker.files, "Find files")
 	utils.map({ "n", "v" }, utils.L("fw"), function()
