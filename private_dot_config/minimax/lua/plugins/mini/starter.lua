@@ -1,12 +1,4 @@
 local starter = require("mini.starter")
-local header = [[
-					Meow! Here's your Neovim
-           __..--''``---....___   _..._    __
- /// //_.-'    .-/";  `        ``<._  ``.''_ `. / // /
-///_.-' _..--.'_    \                    `( ) ) // //
-/ (_..-' // (< _     ;_..__               ; `' / ///
- / // // //  `-._,_)' // / ``--...____..-' /// / //
-    ]]
 
 starter.setup({
 	-- query_updaters = "",
@@ -18,7 +10,7 @@ starter.setup({
 		starter.sections.pick(),
 		starter.sections.builtin_actions(),
 	},
-	header = header,
+	header = mininvim.icons.header,
 	footer = function()
 		local end_time = vim.g.start_time_finish or vim.uv.hrtime()
 		local elapsed_ns = end_time - vim.g.start_time

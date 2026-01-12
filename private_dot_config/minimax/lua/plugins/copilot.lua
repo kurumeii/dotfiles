@@ -10,7 +10,7 @@ require("sidekick").setup({
 		---@type sidekick.win.Opts
 		win = {
 			split = {
-				width = 60,
+				width = 70,
 			},
 		},
 	},

@@ -4,11 +4,10 @@ require("snacks").setup({
 		enabled = true,
 		left = {
 			"git",
-			"mark",
 		},
 		right = {
-			"fold",
 			"sign",
+			"fold",
 		},
 		folds = {
 			git_hl = false,
@@ -35,6 +34,7 @@ require("snacks").setup({
 	animate = {
 		easing = "inOutQuad",
 	},
+	quickfile = { enabled = true },
 	scroll = { enabled = vim.g.mini_animate == false },
 	lazygit = { enabled = true },
 	terminal = { enabled = true },
