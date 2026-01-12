@@ -87,11 +87,78 @@ if vim.g.snacks_explorer then
 	utils.map("n", utils.L("e"), Snacks.explorer.open, "Find Explorer")
 end
 
+-- Terminal tracking
+local active_terminals = {}
+local next_terminal_id = 1
+
 utils.map("n", utils.L("gg"), Snacks.lazygit.open, "Open Lazygit")
-utils.map("n", utils.L("tt"), Snacks.terminal.toggle, "Terminal")
+utils.map("n", utils.L("tn"), function()
+	local term_id = next_terminal_id
+	next_terminal_id = next_terminal_id + 1
+	active_terminals[term_id] = true
+	Snacks.terminal.open(nil, {
+		count = term_id,
+	})
+end, "Terminal New")
+
+utils.map("n", utils.L("tl"), function()
+	local terminals = {}
+	for id, _ in pairs(active_terminals) do
+		table.insert(terminals, { id = id, label = "term-" .. id })
+	end
+	if #terminals == 0 then
+		utils.notify("No terminals created yet", "WARN")
+		return
+	end
+	table.sort(terminals, function(a, b)
+		return a.id < b.id
+	end)
+	local terminal_labels = {}
+	for _, term in ipairs(terminals) do
+		table.insert(terminal_labels, term.label)
+	end
+	vim.ui.select(terminal_labels, {
+		prompt = "Select terminal:",
+	}, function(choice)
+		if choice then
+			Snacks.terminal.toggle(nil, {
+				count = tonumber(string.match(choice, "%d+")),
+			})
+		end
+	end)
+end, "Terminal List/Select")
+
+utils.map("n", utils.L("tb"), function()
+	Snacks.terminal.open("btop", { win = { style = "float" } })
+end, "Open btop in floating terminal")
+
 utils.map("n", utils.L("td"), function()
-	Snacks.terminal:destroy()
+	local terminal = Snacks.terminal.get(nil, { create = false })
+	if terminal then
+		-- Try to find which count this terminal has
+		for id, _ in pairs(active_terminals) do
+			local term = Snacks.terminal.get(nil, { count = id, create = false })
+			if term == terminal then
+				active_terminals[id] = nil
+				break
+			end
+		end
+		terminal:close()
+	end
 end, "Destroy Terminal")
+
+utils.map("n", utils.L("tt"), function()
+	for id, _ in pairs(active_terminals) do
+		local term = Snacks.terminal.get(nil, { count = id, create = false })
+		if term then
+			term:hide()
+		end
+	end
+	local default_term = Snacks.terminal.get(nil, { create = false })
+	if default_term then
+		default_term:hide()
+	end
+end, "Hide All Terminals")
 
 if not vim.g.mini_picks then
 	vim.ui.select = Snacks.picker.select
