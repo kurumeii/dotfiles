@@ -30,10 +30,11 @@ local utils = require("config.utils")
 vim.g.mini_tabline = true
 vim.g.snacks_notify = false
 vim.g.snacks_indent = false
-vim.g.snacks_explorer = false
+vim.g.snacks_explorer = true
 vim.g.mini_animate = true
 vim.g.mini_completion = false
 vim.g.show_dotfiles = false
+vim.g.mini_picks = true
 
 now(function()
 	require("config.options")
@@ -149,7 +150,9 @@ later(function()
 	require("plugins.mini.pairs")
 	require("plugins.mini.hipatterns")
 	require("plugins.mini.misc")
-	require("plugins.mini.picks")
+	if vim.g.mini_picks then
+		require("plugins.mini.picks")
+	end
 	require("plugins.mini.visits")
 end)
 later(function()
