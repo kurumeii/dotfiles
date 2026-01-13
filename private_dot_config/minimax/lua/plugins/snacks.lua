@@ -101,7 +101,11 @@ utils.map("n", utils.L("tn"), function()
 	})
 end, "Terminal New")
 
-utils.map("n", utils.L("tl"), function()
+utils.map("n", utils.L("tb"), function()
+	Snacks.terminal.open("btop", { win = { style = "float" } })
+end, "Open btop in floating terminal")
+
+utils.map("n", utils.L("td"), function()
 	local terminals = {}
 	for id, _ in pairs(active_terminals) do
 		table.insert(terminals, { id = id, label = "term-" .. id })
@@ -117,48 +121,60 @@ utils.map("n", utils.L("tl"), function()
 	for _, term in ipairs(terminals) do
 		table.insert(terminal_labels, term.label)
 	end
-	vim.ui.select(terminal_labels, {
-		prompt = "Select terminal:",
-	}, function(choice)
-		if choice then
-			Snacks.terminal.toggle(nil, {
-				count = tonumber(string.match(choice, "%d+")),
-			})
+	if #terminals == 1 then
+		local term = Snacks.terminal.get(nil, { create = false })
+		if term then
+			active_terminals[term.id] = nil
+			term:close()
 		end
-	end)
-end, "Terminal List/Select")
-
-utils.map("n", utils.L("tb"), function()
-	Snacks.terminal.open("btop", { win = { style = "float" } })
-end, "Open btop in floating terminal")
-
-utils.map("n", utils.L("td"), function()
-	local terminal = Snacks.terminal.get(nil, { create = false })
-	if terminal then
-		-- Try to find which count this terminal has
-		for id, _ in pairs(active_terminals) do
-			local term = Snacks.terminal.get(nil, { count = id, create = false })
-			if term == terminal then
-				active_terminals[id] = nil
-				break
+		return
+	else
+		vim.ui.select(terminal_labels, {
+			prompt = "Select terminal:",
+		}, function(choice)
+			if choice then
+				local term_id = tonumber(string.match(choice, "%d+"))
+				local term = Snacks.terminal.get(nil, { count = term_id, create = false })
+				if term then
+					active_terminals[term.id] = nil
+					term:close()
+				end
 			end
-		end
-		terminal:close()
+		end)
 	end
 end, "Destroy Terminal")
 
 utils.map("n", utils.L("tt"), function()
+	local terminals = {}
 	for id, _ in pairs(active_terminals) do
-		local term = Snacks.terminal.get(nil, { count = id, create = false })
-		if term then
-			term:hide()
-		end
+		table.insert(terminals, { id = id, label = "term-" .. id })
 	end
-	local default_term = Snacks.terminal.get(nil, { create = false })
-	if default_term then
-		default_term:hide()
+	if #terminals == 0 then
+		utils.notify("No terminals created yet", "WARN")
+		return
 	end
-end, "Hide All Terminals")
+	table.sort(terminals, function(a, b)
+		return a.id < b.id
+	end)
+	local terminal_labels = {}
+	for _, term in ipairs(terminals) do
+		table.insert(terminal_labels, term.label)
+	end
+	if #terminals == 1 then
+		Snacks.terminal.toggle(nil)
+		return
+	else
+		vim.ui.select(terminal_labels, {
+			prompt = "Select terminal:",
+		}, function(choice)
+			if choice then
+				Snacks.terminal.toggle(nil, {
+					count = tonumber(string.match(choice, "%d+")),
+				})
+			end
+		end)
+	end
+end, "Terminal List/Select")
 
 if not vim.g.mini_picks then
 	vim.ui.select = Snacks.picker.select
