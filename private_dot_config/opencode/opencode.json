@@ -1,0 +1,44 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+	"permission": {
+		"list": "deny",
+		"grep": "deny",
+		"glob": "deny",
+		"webfetch": "deny",
+		"websearch": "deny"
+	},
+	"username": "😺 Andrew Nguyen",
+	"theme": "opencode",
+	"plugin": [
+		"opencode-gemini-auth@latest"
+	],
+	"mcp": {
+		"serena": {
+			"type": "remote",
+			"url": "http://localhost:12345/mcp",
+			"timeout": 5000
+		},
+		"context7": {
+			"type": "local",
+			"command": [
+				"pnpm",
+				"dlx",
+				"@upstash/context7-mcp"
+			],
+			"environment": {
+				"api-key": "{env:CONTEXT_7_API_KEY}"
+			}
+		},
+		"tavily": {
+			"type": "local",
+			"command": [
+				"pnpm",
+				"dlx",
+				"tavily-mcp@latest"
+			],
+			"environment": {
+				"TAVILY_API_KEY": "{env:TAVILY_API_KEY}"
+			}
+		}
+	}
+}

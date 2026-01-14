@@ -12,6 +12,9 @@ require("sidekick").setup({
 			split = {
 				width = 70,
 			},
+			keys = {
+				prompt = { "<c-]>", "prompt" },
+			},
 		},
 	},
 })
