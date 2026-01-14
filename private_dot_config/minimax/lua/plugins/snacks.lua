@@ -87,47 +87,58 @@ if vim.g.snacks_explorer then
 	utils.map("n", utils.L("e"), Snacks.explorer.open, "Find Explorer")
 end
 
--- Terminal tracking
-local active_terminals = {}
-local next_terminal_id = 1
+local function get_terminal_ids()
+	local ids = {}
+	for id = 1, 50 do
+		local term = Snacks.terminal.get(nil, { count = id, create = false })
+		if term and term.id then
+			table.insert(ids, term.id)
+		end
+	end
+	return ids
+end
+
+local function get_next_terminal_id()
+	local used = {}
+	for _, id in ipairs(get_terminal_ids()) do
+		used[id] = true
+	end
+	for i = 1, 100 do
+		if not used[i] then
+			return i
+		end
+	end
+	return #used + 1
+end
 
 utils.map("n", utils.L("gg"), Snacks.lazygit.open, "Open Lazygit")
-utils.map("n", utils.L("tn"), function()
-	local term_id = next_terminal_id
-	next_terminal_id = next_terminal_id + 1
-	active_terminals[term_id] = true
-	Snacks.terminal.open(nil, {
-		count = term_id,
-	})
-end, "Terminal New")
 
 utils.map("n", utils.L("tb"), function()
 	Snacks.terminal.open("btop", { win = { style = "float" } })
 end, "Open btop in floating terminal")
 
+utils.map("n", utils.L("tt"), function()
+	local term_id = get_next_terminal_id()
+	Snacks.terminal.open(nil, {
+		count = term_id,
+	})
+end, "Terminal New")
+
 utils.map("n", utils.L("td"), function()
-	local terminals = {}
-	for id, _ in pairs(active_terminals) do
-		table.insert(terminals, { id = id, label = "term-" .. id })
-	end
-	if #terminals == 0 then
+	local ids = get_terminal_ids()
+	if #ids == 0 then
 		utils.notify("No terminals created yet", "WARN")
 		return
 	end
-	table.sort(terminals, function(a, b)
-		return a.id < b.id
-	end)
-	local terminal_labels = {}
-	for _, term in ipairs(terminals) do
-		table.insert(terminal_labels, term.label)
-	end
-	if #terminals == 1 then
-		local term = Snacks.terminal.get(nil, { create = false })
+	table.sort(ids)
+	local terminal_labels = vim.tbl_map(function(id)
+		return "term-" .. id
+	end, ids)
+	if #ids == 1 then
+		local term = Snacks.terminal.get(nil, { count = ids[1], create = false })
 		if term then
-			active_terminals[term.id] = nil
 			term:close()
 		end
-		return
 	else
 		vim.ui.select(terminal_labels, {
 			prompt = "Select terminal:",
@@ -136,7 +147,6 @@ utils.map("n", utils.L("td"), function()
 				local term_id = tonumber(string.match(choice, "%d+"))
 				local term = Snacks.terminal.get(nil, { count = term_id, create = false })
 				if term then
-					active_terminals[term.id] = nil
 					term:close()
 				end
 			end
@@ -144,36 +154,40 @@ utils.map("n", utils.L("td"), function()
 	end
 end, "Destroy Terminal")
 
-utils.map("n", utils.L("tt"), function()
-	local terminals = {}
-	for id, _ in pairs(active_terminals) do
-		table.insert(terminals, { id = id, label = "term-" .. id })
+utils.map("n", utils.L("tc"), function()
+	for _, id in ipairs(get_terminal_ids()) do
+		Snacks.terminal.toggle(nil, { count = id })
 	end
-	if #terminals == 0 then
+end, "Hide all terminals")
+
+utils.map("n", utils.L("tx"), function()
+	for _, id in ipairs(get_terminal_ids()) do
+		local term = Snacks.terminal.get(nil, { count = id, create = false })
+		if term then
+			term:close()
+		end
+	end
+end, "Close all terminals")
+
+utils.map("n", utils.L("tl"), function()
+	local ids = get_terminal_ids()
+	if #ids == 0 then
 		utils.notify("No terminals created yet", "WARN")
 		return
 	end
-	table.sort(terminals, function(a, b)
-		return a.id < b.id
+	table.sort(ids)
+	local terminal_labels = vim.tbl_map(function(id)
+		return "term-" .. id
+	end, ids)
+	vim.ui.select(terminal_labels, {
+		prompt = "Select terminal:",
+	}, function(choice)
+		if choice then
+			Snacks.terminal.toggle(nil, {
+				count = tonumber(string.match(choice, "%d+")),
+			})
+		end
 	end)
-	local terminal_labels = {}
-	for _, term in ipairs(terminals) do
-		table.insert(terminal_labels, term.label)
-	end
-	if #terminals == 1 then
-		Snacks.terminal.toggle(nil)
-		return
-	else
-		vim.ui.select(terminal_labels, {
-			prompt = "Select terminal:",
-		}, function(choice)
-			if choice then
-				Snacks.terminal.toggle(nil, {
-					count = tonumber(string.match(choice, "%d+")),
-				})
-			end
-		end)
-	end
 end, "Terminal List/Select")
 
 if not vim.g.mini_picks then
