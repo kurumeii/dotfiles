@@ -1,11 +1,13 @@
 local utils = require("config.utils")
-vim.g.copilot_no_tab_map = true
-vim.g.sidekick_nes = false
-vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
-utils.map("i", "<c-l>", "<Plug>(copilot-accept-line)", "Copilot accept line")
-
 -- AGENT
 require("sidekick").setup({
+	nes = {
+		enabled = true,
+		debounce = 300,
+		diff = {
+			inline = "words",
+		},
+	},
 	cli = {
 		---@type sidekick.win.Opts
 		win = {
@@ -31,3 +33,6 @@ end, "Agent: Send Selection")
 utils.map("n", utils.L("af"), function()
 	sk_cli.send({ msg = "{file}", filter = get_installed })
 end, "Agent: Send File")
+utils.map("n", "<s-tab>", function()
+	require("sidekick.nes").apply()
+end, "Goto/Apply NES", { expr = true })

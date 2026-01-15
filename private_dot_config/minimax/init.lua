@@ -177,16 +177,8 @@ later(function()
 	add("stuckinsnow/import-size.nvim")
 	require("plugins.import-size")
 	require("plugins.chezmoi")
-	add({
-		source = "github/copilot.vim",
-		hooks = {
-			post_checkout = function()
-				vim.cmd([[Copilot setup]])
-			end,
-		},
-	})
 	add("folke/sidekick.nvim")
-	require("plugins.copilot")
+	require("plugins.sidekick")
 	-- add("folke/edgy.nvim")
 	-- require("plugins.edgy")
 end)

@@ -1,5 +1,5 @@
 local colorscheme = "gruvbox"
-local transparent = true
+local transparent = false
 local add = MiniDeps.add
 
 if colorscheme == "gruvbox" then
