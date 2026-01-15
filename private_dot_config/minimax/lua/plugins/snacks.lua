@@ -87,28 +87,41 @@ if vim.g.snacks_explorer then
 	utils.map("n", utils.L("e"), Snacks.explorer.open, "Find Explorer")
 end
 
-local function get_terminal_ids()
-	local ids = {}
-	for id = 1, 50 do
-		local term = Snacks.terminal.get(nil, { count = id, create = false })
-		if term and term.id then
-			table.insert(ids, term.id)
+local function get_terms()
+	---@type snacks.win[]
+	local terms = {}
+	for i = 1, 20 do
+		local term = Snacks.terminal.get(nil, { count = i, create = false })
+		if term and term.buf and vim.api.nvim_buf_is_valid(term.buf) then
+			table.insert(terms, { id = i, term = term })
 		end
 	end
-	return ids
+	return terms
 end
 
-local function get_next_terminal_id()
-	local used = {}
-	for _, id in ipairs(get_terminal_ids()) do
-		used[id] = true
+local function get_next_id()
+	local terms = get_terms()
+	local map = {}
+	for _, t in ipairs(terms) do
+		map[t.id] = true
 	end
-	for i = 1, 100 do
-		if not used[i] then
+	for i = 1, 20 do
+		if not map[i] then
 			return i
 		end
 	end
-	return #used + 1
+	return #terms + 1
+end
+
+local function kill_term(term)
+	if term.destroy then
+		term:destroy()
+	else
+		term:close()
+		if term.buf and vim.api.nvim_buf_is_valid(term.buf) then
+			vim.api.nvim_buf_delete(term.buf, { force = true })
+		end
+	end
 end
 
 utils.map("n", utils.L("gg"), Snacks.lazygit.open, "Open Lazygit")
@@ -118,74 +131,60 @@ utils.map("n", utils.L("tb"), function()
 end, "Open btop in floating terminal")
 
 utils.map("n", utils.L("tt"), function()
-	local term_id = get_next_terminal_id()
 	Snacks.terminal.open(nil, {
-		count = term_id,
+		count = get_next_id(),
 	})
 end, "Terminal New")
 
 utils.map("n", utils.L("td"), function()
-	local ids = get_terminal_ids()
-	if #ids == 0 then
-		utils.notify("No terminals created yet", "WARN")
+	local terms = get_terms()
+	if #terms == 0 then
+		utils.notify("No terminals to destroy", "WARN")
 		return
 	end
-	table.sort(ids)
-	local terminal_labels = vim.tbl_map(function(id)
-		return "term-" .. id
-	end, ids)
-	if #ids == 1 then
-		local term = Snacks.terminal.get(nil, { count = ids[1], create = false })
-		if term then
-			term:close()
-		end
+
+	if #terms == 1 then
+		kill_term(terms[1].term)
 	else
-		vim.ui.select(terminal_labels, {
-			prompt = "Select terminal:",
+		vim.ui.select(terms, {
+			prompt = "Select terminal to destroy:",
+			format_item = function(item)
+				return "Terminal " .. item.id
+			end,
 		}, function(choice)
 			if choice then
-				local term_id = tonumber(string.match(choice, "%d+"))
-				local term = Snacks.terminal.get(nil, { count = term_id, create = false })
-				if term then
-					term:close()
-				end
+				kill_term(choice.term)
 			end
 		end)
 	end
 end, "Destroy Terminal")
 
 utils.map("n", utils.L("tc"), function()
-	for _, id in ipairs(get_terminal_ids()) do
-		Snacks.terminal.toggle(nil, { count = id })
+	for _, item in ipairs(get_terms()) do
+		item.term:hide()
 	end
 end, "Hide all terminals")
 
 utils.map("n", utils.L("tx"), function()
-	for _, id in ipairs(get_terminal_ids()) do
-		local term = Snacks.terminal.get(nil, { count = id, create = false })
-		if term then
-			term:close()
-		end
+	for _, item in ipairs(get_terms()) do
+		kill_term(item.term)
 	end
 end, "Close all terminals")
 
 utils.map("n", utils.L("tl"), function()
-	local ids = get_terminal_ids()
-	if #ids == 0 then
-		utils.notify("No terminals created yet", "WARN")
+	local terms = get_terms()
+	if #terms == 0 then
+		utils.notify("No terminals found", "WARN")
 		return
 	end
-	table.sort(ids)
-	local terminal_labels = vim.tbl_map(function(id)
-		return "term-" .. id
-	end, ids)
-	vim.ui.select(terminal_labels, {
+	vim.ui.select(terms, {
 		prompt = "Select terminal:",
+		format_item = function(item)
+			return "Terminal " .. item.id
+		end,
 	}, function(choice)
 		if choice then
-			Snacks.terminal.toggle(nil, {
-				count = tonumber(string.match(choice, "%d+")),
-			})
+			choice.term:toggle()
 		end
 	end)
 end, "Terminal List/Select")
