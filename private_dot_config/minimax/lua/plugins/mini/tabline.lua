@@ -1,6 +1,8 @@
 local utils = require("config.utils")
-require("mini.tabline").setup({
-	show_icon = true,
+local MiniTabline = require("mini.tabline")
+
+MiniTabline.setup({
+	show_icons = true,
 	format = function(buf_id, label)
 		local buf_name = vim.api.nvim_buf_get_name(buf_id)
 		local icon = MiniIcons.get("file", buf_name)

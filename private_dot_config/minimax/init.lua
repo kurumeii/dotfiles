@@ -179,8 +179,6 @@ later(function()
 	require("plugins.chezmoi")
 	add("folke/sidekick.nvim")
 	require("plugins.sidekick")
-	-- add("folke/edgy.nvim")
-	-- require("plugins.edgy")
 end)
 later(function()
 	if vim.g.mini_completion == false then

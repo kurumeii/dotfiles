@@ -9,6 +9,7 @@ miniclue.setup({
 		},
 	},
 	clues = {
+		{ mode = "n", keys = "<leader>a", desc = "󰚩 Agents" },
 		{ mode = "n", keys = "<leader>b", desc = " Buffers" },
 		{ mode = "n", keys = "<leader>c", desc = " Code" },
 		{ mode = "n", keys = "<leader>cs", desc = "Code spell" },

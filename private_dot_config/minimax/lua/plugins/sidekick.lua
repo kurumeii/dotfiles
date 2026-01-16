@@ -11,8 +11,9 @@ require("sidekick").setup({
 	cli = {
 		---@type sidekick.win.Opts
 		win = {
+			layout = "right",
 			split = {
-				width = 70,
+				width = 75,
 			},
 			keys = {
 				prompt = { "<c-]>", "prompt" },
@@ -25,7 +26,7 @@ local sk_cli = require("sidekick.cli")
 local get_installed = { installed = true }
 
 utils.map("n", utils.L("aa"), function()
-	sk_cli.toggle({ filter = get_installed })
+	sk_cli.toggle("opencode")
 end, "Agent: Toggle")
 utils.map({ "x", "n" }, utils.L("as"), function()
 	sk_cli.send({ msg = "{this}", filter = get_installed })
