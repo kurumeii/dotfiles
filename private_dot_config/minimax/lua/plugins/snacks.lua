@@ -19,7 +19,7 @@ require("snacks").setup({
 	},
 	explorer = {
 		enabled = vim.g.snacks_explorer,
-		replace_netrw = false,
+		replace_netrw = true,
 	},
 	picker = {
 		enabled = not vim.g.mini_picks,
@@ -40,6 +40,7 @@ require("snacks").setup({
 	terminal = { enabled = true },
 	bigfile = { enabled = true },
 	image = { enabled = true },
+	input = { enabled = true },
 	indent = { enabled = vim.g.snacks_indent },
 	notifier = {
 		enabled = vim.g.snacks_notify,
@@ -133,6 +134,7 @@ end, "Open btop in floating terminal")
 utils.map("n", utils.L("tt"), function()
 	Snacks.terminal.open(nil, {
 		count = get_next_id(),
+		win = { enter = false },
 	})
 end, "Terminal New")
 
@@ -184,7 +186,7 @@ utils.map("n", utils.L("tl"), function()
 		end,
 	}, function(choice)
 		if choice then
-			choice.term:toggle()
+			choice.term:toggle({ win = { enter = false } })
 		end
 	end)
 end, "Terminal List/Select")

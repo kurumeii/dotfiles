@@ -26,7 +26,7 @@ end, "Next Buffer")
 utils.map("n", "<S-h>", function()
 	MiniBracketed.buffer("backward")
 end, "Prev Buffer")
-utils.map("n", utils.L("bd"), MiniBufremove.delete, "Delete Buffer")
+utils.map("n", utils.L("bd"), MiniBufremove.wipeout, "Delete Buffer")
 utils.map("n", utils.L("bw"), MiniBufremove.wipeout, "Wipeout Closed Buffer")
 utils.map("n", utils.L("ba"), function()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do

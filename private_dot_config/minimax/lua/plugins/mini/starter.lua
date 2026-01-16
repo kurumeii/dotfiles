@@ -5,8 +5,8 @@ starter.setup({
 	evaluate_single = true,
 	items = {
 		starter.sections.sessions(3),
-		starter.sections.recent_files(3, false),
-		starter.sections.recent_files(3, true),
+		-- starter.sections.recent_files(3, false),
+		starter.sections.recent_files(3, true, false),
 		starter.sections.pick(),
 		starter.sections.builtin_actions(),
 	},

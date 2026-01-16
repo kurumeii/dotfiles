@@ -173,6 +173,12 @@ end)
 later(function()
 	-- Misc
 	add("lbrayner/vim-rzip")
+	add({
+		source = "kevinhwang91/nvim-ufo",
+		depends = {
+			"kevinhwang91/promise-async",
+		},
+	})
 	require("plugins.nvim-ufo")
 	add("stuckinsnow/import-size.nvim")
 	require("plugins.import-size")

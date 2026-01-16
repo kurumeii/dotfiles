@@ -3,7 +3,7 @@ local utils = require("config.utils")
 require("sidekick").setup({
 	nes = {
 		enabled = true,
-		debounce = 300,
+		debounce = 200,
 		diff = {
 			inline = "words",
 		},

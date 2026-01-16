@@ -1,47 +1,12 @@
-local ts = require("nvim-treesitter")
-ts.setup({
-	install_dir = vim.fn.stdpath("data") .. "/treesitter",
-})
+local utils = require("config.utils")
+require("nvim-treesitter").setup()
 
-local ensure_install = {
-	"lua",
-	"vim",
-	"vimdoc",
-	"bash",
-	"diff",
-	"html",
-	"css",
-	"powershell",
-	"javascript",
-	"typescript",
-	"tsx",
-	"regex",
-	"jsdoc",
-	"json",
-	"query",
-	"git_rebase",
-	"gitcommit",
-	"git_config",
-	"markdown",
-	"markdown_inline",
-	"toml",
-	"xml",
-	"yaml",
-}
-local isnt_installed = function(lang)
-	return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
-end
-local to_install = vim.tbl_filter(isnt_installed, ensure_install)
-if #to_install > 0 then
-	require("nvim-treesitter").install(to_install)
-end
+require("nvim-treesitter").install(mininvim.tree_sitters_ensured_install)
 
 -- Enable tree-sitter after opening a file for a target language
 local filetypes = {}
-for _, lang in ipairs(ensure_install) do
-	for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
-		table.insert(filetypes, ft)
-	end
+for _, lang in ipairs(mininvim.tree_sitters_ensured_install) do
+	vim.list_extend(filetypes, vim.treesitter.language.get_filetypes(lang))
 end
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -50,31 +15,30 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function(ev)
 		vim.treesitter.start(ev.buf)
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-		-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	callback = function()
 		require("nvim-treesitter-textobjects").setup({
-			mode = {
+			move = {
 				enable = true,
 				set_jumps = true,
 			},
 		})
 		local ts_text_object = require("nvim-treesitter-textobjects.move")
-		local utils = require("config.utils")
 		utils.map({ "n", "x", "o" }, "]f", function()
 			ts_text_object.goto_next_start("@function.outer", "textobjects")
 		end, "Next function start")
 		utils.map({ "n", "x", "o" }, "]F", function()
-			ts_text_object.goto_next_start("@function.outer", "textobjects")
+			ts_text_object.goto_next_end("@function.outer", "textobjects")
 		end, "Next function end")
 		utils.map({ "n", "x", "o" }, "[f", function()
 			ts_text_object.goto_previous_start("@function.outer", "textobjects")
 		end, "Previous function start")
 		utils.map({ "n", "x", "o" }, "[F", function()
-			ts_text_object.goto_previous_start("@function.outer", "textobjects")
+			ts_text_object.goto_previous_end("@function.outer", "textobjects")
 		end, "Previous function end")
 	end,
 })

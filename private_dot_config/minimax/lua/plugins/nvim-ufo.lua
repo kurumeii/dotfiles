@@ -1,10 +1,3 @@
-MiniDeps.add({
-	source = "kevinhwang91/nvim-ufo",
-	depends = {
-		"kevinhwang91/promise-async",
-	},
-})
-
 vim.api.nvim_create_autocmd("BufReadPost", {
 	callback = function()
 		vim.o.foldcolumn = "auto"
@@ -18,7 +11,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 				},
 			},
 			provider_selector = function()
-				return { "lsp", "indent" }
+				return { "lsp", "treesitter" }
 			end,
 			fold_virt_text_handler = function(virt_text, lnum, endLnum, width, truncate)
 				local newVirtText = {}

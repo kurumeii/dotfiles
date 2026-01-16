@@ -1,4 +1,4 @@
-local colorscheme = "gruvbox"
+local colorscheme = "tokyonight"
 local transparent = false
 local add = MiniDeps.add
 
@@ -33,6 +33,12 @@ if colorscheme == "catppuccin" then
 				indentscope_color = "rosewater",
 			},
 		},
+	})
+end
+if colorscheme == "tokyonight" then
+	add("folke/tokyonight.nvim")
+	require("tokyonight").setup({
+		style = "night",
 	})
 end
 if colorscheme == "mini" then
