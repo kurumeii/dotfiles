@@ -236,7 +236,7 @@ _G.mininvim = {
 			},
 		},
 	},
-	tree_sitter = {
+	tree_sitters_ensured_install = {
 		"lua",
 		"vim",
 		"vimdoc",

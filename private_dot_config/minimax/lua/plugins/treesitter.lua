@@ -1,8 +1,6 @@
 local utils = require("config.utils")
-require("nvim-treesitter").setup()
-
-require("nvim-treesitter").install(mininvim.tree_sitters_ensured_install)
-
+local ts = require("nvim-treesitter")
+ts.setup()
 -- Enable tree-sitter after opening a file for a target language
 local filetypes = {}
 for _, lang in ipairs(mininvim.tree_sitters_ensured_install) do
@@ -15,10 +13,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function(ev)
 		vim.treesitter.start(ev.buf)
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		-- README: Pretty buggy for the time being
 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		vim.wo.foldmethod = "expr"
 	end,
 })
-
+vim.api.nvim_create_autocmd("BufReadPre", {
+	once = true,
+	callback = function()
+		ts.install(mininvim.tree_sitters_ensured_install)
+	end,
+})
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	callback = function()
 		require("nvim-treesitter-textobjects").setup({

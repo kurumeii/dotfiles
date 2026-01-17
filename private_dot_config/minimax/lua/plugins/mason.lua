@@ -14,8 +14,6 @@ require("mason-tool-installer").setup({
 		"lua_ls",
 		"stylua",
 		"cspell",
-		"marksman",
-		"markdownlint-cli2",
 		"biome",
 		"prettierd",
 		"eslint-lsp",
@@ -29,6 +27,7 @@ require("mason-tool-installer").setup({
 		"yamlls",
 		"taplo",
 		"js-debug-adapter",
+		"copilot",
 	},
 })
 require("mason-lspconfig").setup({
