@@ -17,12 +17,11 @@ require("mini.pick").setup({
 		end,
 	},
 	mappings = {
-		choose_in_vsplit = "<c-v>",
 		toggle_preview = "<c-k>",
 		toggle_info = "?",
 		refine = "<c-q>",
-		mark = "<c-x>",
-		choose_marked = "<c-O>",
+		move_start = "",
+		choose_marked = "<c-g>",
 	},
 })
 vim.ui.select = MiniPick.ui_select

@@ -4,6 +4,7 @@ require("snacks").setup({
 		enabled = true,
 		left = {
 			"git",
+			"mark",
 		},
 		right = {
 			"sign",
