@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		vim.o.foldlevelstart = 99
 		vim.o.foldenable = true
 		local ufo = require("ufo")
+		local utils = require("config.utils")
 		ufo.setup({
 			open_fold_hl_timeout = 150,
 			preview = {
@@ -14,9 +15,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 					winblend = 0,
 				},
 			},
-			provider_selector = function()
-				return { "lsp", "indent" }
-			end,
 			fold_virt_text_handler = function(virt_text, lnum, endLnum, width, truncate)
 				local newVirtText = {}
 				local suffix = (" 󱞡 %d "):format(endLnum - lnum)
@@ -45,9 +43,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 				return newVirtText
 			end,
 		})
-		local utils = require("config.utils")
 		utils.map({ "n" }, "zO", ufo.openAllFolds, "Open all folds")
 		utils.map({ "n" }, "zC", ufo.closeAllFolds, "Close all folds")
+		utils.map("n", "zi", ufo.inspect, "Ufo: inspect", { noremap = true })
 		utils.map({ "n" }, "zk", function()
 			local winid = ufo.peekFoldedLinesUnderCursor()
 			if not winid then
