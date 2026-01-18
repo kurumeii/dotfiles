@@ -1,14 +1,19 @@
 {{- if not .headless }}
 [user]
-name = "andrew nguyen"
-email = "ngphuchoanganh@gmail.com"
-; email = "andrew.nguyen1@techvify.com.vn"
-{{- if eq .chezmoi.os "windows" }}
+	name = "andrew nguyen"
+	email = "ngphuchoanganh@gmail.com"
+	; email = "andrew.nguyen1@techvify.com.vn"
+{{- if eq .chezmoi.os "linux" }}
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RF
+[credential]
+	helper = keepassxc --git-groups
+{{- else if eq .chezmoi.os "windows" }}
 [credential]
 	helper = manager
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RF
-	autorcrlf = true
+	autocrlf = true
 {{- else if .win_user }}
 [credential]
 		helper = "/mnt/c/Users/{{ .win_user }}/scoop/root/apps/git/current/mingw64/bin/git-credential-manager.exe"
@@ -19,13 +24,13 @@ email = "ngphuchoanganh@gmail.com"
 
 [interactive]
 	diffFilter = diff-so-fancy --patch
-[diff]
-	tool = nvim
-[difftool "nvim"]
-	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
-[merge]
-	tool = nvim
-[mergetool "nvim"]
-	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -c \"botright split $MERGED\" -c \"set diff\""
-	trustExitCode = false
-	keepBackup = false
+[diff]
+	tool = nvim
+[difftool "nvim"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[merge]
+	tool = nvim
+[mergetool "nvim"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -c \"botright split $MERGED\" -c \"set diff\""
+	trustExitCode = false
+	keepBackup = false

@@ -48,6 +48,7 @@ config = {
 	line_height = 1.1,
 	win32_system_backdrop = "Acrylic",
 	window_background_opacity = 0.7,
+{{- if ne .chezmoi.os "linux" }}
 	wsl_domains = {
 		{
 			name = items.ubuntu.label,
@@ -60,7 +61,11 @@ config = {
 			default_cwd = "~",
 		},
 	},
+{{- end }}
+{{- if ne .chezmoi.os "linux" }}
 	default_prog = items.pwsh.args,
+{{- end }}
+	kde_window_background_blur = true,
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
 	tab_bar_at_bottom = false,

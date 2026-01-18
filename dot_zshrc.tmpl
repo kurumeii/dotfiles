@@ -8,8 +8,10 @@ export NVIM_APPNAME="minimax"
 export EDITOR="nvim"
 
 alias cd='z'
+{{- if hasKey . "win_user" }}
 alias code="/mnt/c/Users/{{ .win_user }}/scoop/root/apps/vscode/current/bin/code"
 alias zed="/mnt/c/Users/{{ .win_user }}/scoop/root/apps/zed/current/bin/zed"
+{{- end }}
 
 HYPHEN_INSENSITIVE="true"
 # Uncomment one of the following lines to change the auto-update behavior
