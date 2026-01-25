@@ -74,6 +74,7 @@ spawn-at-startup "wezterm"
 spawn-at-startup "mako"
 spawn-at-startup "fcitx5 -d"
 spawn-sh-at-startup "rclone mount Gdrive: ~/Gdrive/"
+spawn-sh-at-startup "rclone mount Gphotos: ~/Gphotos/"
 spawn-sh-at-startup "wl-paste --watch cliphist store"
 spawn-sh-at-startup "swaybg -m fill -i ~/Pictures/Backgrounds/IMG_20251224_212251.jpg"
 // ###########
