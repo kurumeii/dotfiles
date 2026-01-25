@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e  # Exit on error
+set -e # Exit on error
 
 bash "${CHEZMOI_SOURCE_DIR}/scripts/install_dnf_plugins.sh"
 bash "${CHEZMOI_SOURCE_DIR}/scripts/install_omp.sh"

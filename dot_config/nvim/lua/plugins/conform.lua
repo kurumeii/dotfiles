@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 				css = { "biome", "prettierd" },
 				scss = { "biome", "prettierd" },
 				kdl = { "kdlfmt" },
+				sh = { "shfmt" },
 			},
 			formatters = {
 				biome = {
