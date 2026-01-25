@@ -38,6 +38,7 @@ require("mason-tool-installer").setup({
 		"copilot",
 		"kdlfmt",
 		"fish_lsp",
+		"shfmt",
 	},
 })
 require("mason-lspconfig").setup({
