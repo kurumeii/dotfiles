@@ -1,0 +1,24 @@
+fish_add_path "$HOME/bin" 
+fish_add_path "$HOME/.local/bin" 
+fish_add_path "/usr/local/bin" 
+
+set -U EDITOR nvim
+set -gx TAVILY_API_KEY "{{ (keepassxc "Mcp/tavily").Password }}"
+set -gx CONTEXT_7_API_KEY "{{ (keepassxc "Mcp/context7").Password }}"
+
+mise activate fish | source
+
+if status is-interactive
+	fastfetch -c examples/8.jsonc
+  zoxide init fish | source
+  oh-my-posh init fish --config ~/andrew.omp.json | source
+  fzf --fish | source
+  gh completion -s fish | source
+  chezmoi completion fish | source
+
+  alias cd z
+  alias ls 'eza --icons --all --no-user'
+  alias cat bat
+  alias man tldr
+  alias grep rg
+end
