@@ -1,0 +1,23 @@
+{
+	"Console Log": {
+		"prefix": "clg",
+		"body": "console.log('$1:', $1);",
+		"description": "Log a variable to the console"
+	},
+	"Console error": {
+		"prefix": "cer",
+		"body": "console.error('$1:');",
+		"description": "Console error"
+	},
+	"Try Catch Block": {
+		"prefix": "tryc",
+		"body": [
+			"try {",
+			"\t$1",
+			"} catch (error) {",
+			"\tconsole.error('${2:Error}:', error);",
+			"}"
+		],
+		"description": "Try Catch Block"
+	}
+}

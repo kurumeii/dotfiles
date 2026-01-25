@@ -1,0 +1,7 @@
+[keepassxc]
+database = "/home/andrew/Gdrive/backups/Keepasx/password.kdbx"
+args=["--key-file", "/home/andrew/Gdrive/backups/Keepasx/SavedKey.keyx"]
+# prompt = true
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]

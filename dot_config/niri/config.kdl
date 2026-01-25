@@ -1,0 +1,381 @@
+input {
+    keyboard {
+        repeat-rate 25
+        repeat-delay 300
+        // track-layout "global"
+        xkb {
+            layout "us"
+            model ""
+            options "compose:ralt,ctrl:nocaps"
+        }
+    }
+    mouse {
+
+    }
+    focus-follows-mouse max-scroll-amount="0%"
+}
+cursor {
+    hide-when-typing
+}
+animations {
+    // Slow down all animations by this factor. Values below 1 speed them up instead.
+    slowdown 1.5
+}
+// by running `niri msg outputs` while inside a niri instance.
+// https://yalter.github.io/niri/Configuration:-Outputs
+output "HDMI-A-1" {
+    mode "1920x1080@74.973"
+    scale 1
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+ // position x=1280 y=0
+}
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://yalter.github.io/niri/Configuration:-Layout
+layout {
+    gaps 10
+    center-focused-column "never"
+    // (Mod+R) toggles between.
+    preset-column-widths {
+        proportion 0.3
+        proportion 0.5
+        proportion 0.7
+ // fixed 1920
+    }
+    // preset-window-heights { }
+    default-column-width {
+        proportion 0.5
+    }
+    focus-ring {
+        // off
+        width 4
+        active-color "pink"
+        inactive-color "gray"
+    }
+    // You can also add a border. It's similar to the focus ring, but always visible.
+    border {
+        off
+        width 4
+        active-color "pink"
+        inactive-color "gray"
+        urgent-color "#9b0000"
+ // active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+    // Struts shrink the area occupied by windows, similarly to layer-shell panels.
+    struts {
+
+    }
+}
+// Spawn things at startup.
+spawn-at-startup "waybar"
+spawn-at-startup "wezterm"
+spawn-at-startup "mako"
+spawn-at-startup "fcitx5 -d"
+spawn-sh-at-startup "rclone mount Gdrive: ~/Gdrive/"
+spawn-sh-at-startup "wl-paste --watch cliphist store"
+spawn-sh-at-startup "swaybg -m fill -i ~/Pictures/Backgrounds/IMG_20251224_212251.jpg"
+// ###########
+hotkey-overlay {
+    skip-at-startup
+}
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+window-rule {
+    match title="^Bluetooth Manager$"
+    open-floating true
+    default-column-width {
+        proportion 0.6
+    }
+    default-window-height {
+        proportion 0.6
+    }
+}
+window-rule {
+    match app-id="^org\\.wezfurlong\\.wezterm$"
+    default-column-width {
+        proportion 0.5
+    }
+}
+// Open the Firefox or its variants picture-in-picture player as floating by default.
+window-rule {
+    match app-id="firefox$" title="^Picture-in-Picture$"
+    match app-id="zen$" title="^Picture-in-Picture$"
+    open-floating true
+}
+// Block out two password managers from screen capture.
+// (This example rule is commented out with a "/-" in front.)
+/-window-rule {
+match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+match app-id=r#"^org\.gnome\.World\.Secrets$"#
+block-out-from "screen-capture"
+// Use this instead if you want them visible on third-party screenshot tools.
+// block-out-from "screencast"
+}
+window-rule {
+    match app-id="^blueman-manager$"
+    open-floating true
+}
+window-rule {
+    geometry-corner-radius 3
+    clip-to-geometry true
+}
+binds {
+    // "Mod" is a special modifier equal to Super when running on a TTY, and to Alt when running as a winit window.
+    Mod+Slash {
+        show-hotkey-overlay
+    }
+    Mod+T hotkey-overlay-title="Open Terminal" {
+        spawn "wezterm"
+    }
+    Mod+Space hotkey-overlay-title="Open app menu" {
+        spawn "fuzzel"
+    }
+    Mod+Ctrl+Space hotkey-overlay-title="Fuzzel Hub" {
+        spawn "~/.config/niri/script/fuzzel-hub.sh"
+    }
+    Mod+Y hotkey-overlay-title="Clipboard History" {
+        spawn "~/.config/niri/script/fuzzel-clipboard.sh"
+    }
+    Mod+E hotkey-overlay-title="Open file explorer (nautilus)" {
+        spawn-sh "nautilus"
+    }
+    Mod+B hotkey-overlay-title="Open browser (zen)" {
+        spawn-sh "~/.local/share/zen/zen"
+    }
+    Mod+Shift+B hotkey-overlay-title="Bluetooth Manager" {
+        spawn "wezterm" "start" "--title" "Bluetooth Manager" "--" "bluetoothctl"
+    }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" {
+        spawn "swaylock"
+    }
+    // Example volume keys mappings for PipeWire & WirePlumber.
+    // The allow-when-locked=true property makes them work even when the session is locked.
+    // Using spawn-sh allows to pass multiple arguments together with the command.
+    // "-l 1.0" limits the volume to 100%.
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    }
+    // Example media keys mapping using playerctl.
+    // This will work with any MPRIS-enabled media player.
+    XF86AudioPlay allow-when-locked=true {
+        spawn-sh "playerctl play-pause"
+    }
+    XF86AudioStop allow-when-locked=true {
+        spawn-sh "playerctl stop"
+    }
+    XF86AudioPrev allow-when-locked=true {
+        spawn-sh "playerctl previous"
+    }
+    XF86AudioNext allow-when-locked=true {
+        spawn-sh "playerctl next"
+    }
+    // Example brightness key mappings for brightnessctl.
+    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
+    // but you need to manually put each argument in separate "" quotes.
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "brightnessctl" "--class=backlight" "set" "+10%"
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "brightnessctl" "--class=backlight" "set" "10%-"
+    }
+    // Open/close the Overview: a zoomed-out view of workspaces and windows.
+    // You can also move the mouse into the top-left hot corner,
+    // or do a four-finger swipe up on a touchpad.
+    Mod+O repeat=false {
+        toggle-overview
+    }
+    Mod+Q repeat=false {
+        close-window
+    }
+    Mod+A {
+        spawn-sh "~/.config/niri/script/fuzzel-audio.sh"
+    }
+    Mod+H {
+        focus-column-left
+    }
+    Mod+L {
+        focus-column-right
+    }
+    Mod+Ctrl+H {
+        move-column-left
+    }
+    Mod+Ctrl+L {
+        move-column-right
+    }
+    Mod+J {
+        focus-window-or-workspace-down
+    }
+    Mod+K {
+        focus-window-or-workspace-up
+    }
+    Mod+Ctrl+J {
+        move-window-down-or-to-workspace-down
+    }
+    Mod+Ctrl+K {
+        move-window-up-or-to-workspace-up
+    }
+    Mod+Shift+H {
+        focus-column-first
+    }
+    Mod+Shift+L {
+        focus-column-last
+    }
+    // Mod+Shift+H {
+    //     move-column-to-first
+    // }
+    // Mod+Ctrl+End {
+    //     move-column-to-last
+    // }
+    // Mod+Shift+H {
+    //     focus-monitor-left
+    // }
+    // Mod+Shift+J {
+    //     focus-monitor-down
+    // }
+    // Mod+Shift+K {
+    //     focus-monitor-up
+    // }
+    // Mod+Shift+L {
+    //     focus-monitor-right
+    // }
+    // Mod+Shift+Ctrl+Left {
+    //     move-column-to-monitor-left
+    // }
+    // Mod+Shift+Ctrl+Down {
+    //     move-column-to-monitor-down
+    // }
+    // Mod+Shift+Ctrl+Up {
+    //     move-column-to-monitor-up
+    // }
+    // Mod+Shift+Ctrl+Right {
+    //     move-column-to-monitor-right
+    // }
+    // Mod+Shift+Ctrl+H {
+    //     move-column-to-monitor-left
+    // }
+    // Mod+Shift+Ctrl+J {
+    //     move-column-to-monitor-down
+    // }
+    // Mod+Shift+Ctrl+K {
+    //     move-column-to-monitor-up
+    // }
+    // Mod+Shift+Ctrl+L {
+    //     move-column-to-monitor-right
+    // }
+    Mod+Page_Up {
+        spawn-sh "wpctl set-volume @DEFAULT_SINK@ 0.05+"
+    }
+    Mod+Page_Down {
+        spawn-sh "wpctl set-volume @DEFAULT_SINK@ 0.05-"
+    }
+    Mod+M {
+        spawn-sh "wpctl set-mute @DEFAULT_SINK@ toggle"
+    }
+    Mod+Ctrl+1 {
+        move-column-to-workspace 1
+    }
+    Mod+Ctrl+2 {
+        move-column-to-workspace 2
+    }
+    Mod+Ctrl+3 {
+        move-column-to-workspace 3
+    }
+    Mod+Ctrl+4 {
+        move-column-to-workspace 4
+    }
+    Mod+Ctrl+5 {
+        move-column-to-workspace 5
+    }
+    Mod+Ctrl+6 {
+        move-column-to-workspace 6
+    }
+    Mod+Ctrl+7 {
+        move-column-to-workspace 7
+    }
+    Mod+Ctrl+8 {
+        move-column-to-workspace 8
+    }
+    Mod+Ctrl+9 {
+        move-column-to-workspace 9
+    }
+    // Mod+Ctrl+1 { move-window-to-workspace 1; }
+    // Mod+Tab { focus-workspace-previous; }
+    Mod+Comma {
+        consume-or-expel-window-left
+    }
+    Mod+Period {
+        consume-or-expel-window-right
+    }
+    Mod+R {
+        switch-preset-column-width
+    }
+    // Cycling through the presets in reverse order is also possible.
+    // Mod+R { switch-preset-column-width-back; }
+    Mod+Shift+R {
+        switch-preset-window-height
+    }
+    Mod+Ctrl+R {
+        reset-window-height
+    }
+    Mod+F {
+        maximize-column
+    }
+    // Mod+Shift+F {
+    //     fullscreen-window
+    // }
+    Mod+Ctrl+F {
+        expand-column-to-available-width
+    }
+    Mod+Ctrl+C {
+        center-visible-columns
+    }
+    Mod+Minus {
+        set-column-width "-10%"
+    }
+    Mod+Equal {
+        set-column-width "+10%"
+    }
+    Mod+Shift+Minus {
+        set-window-height "-10%"
+    }
+    Mod+Shift+Equal {
+        set-window-height "+10%"
+    }
+    // Move the focused window between the floating and the tiling layout.
+    Mod+V {
+        toggle-window-floating
+    }
+    Mod+Shift+V {
+        switch-focus-between-floating-and-tiling
+    }
+    Mod+W {
+        toggle-column-tabbed-display
+    }
+    Mod+S {
+        screenshot
+    }
+    Mod+Shift+S {
+        screenshot-screen
+    }
+    // Alt+Print {
+    //     screenshot-window
+    // }
+    Mod+Escape allow-inhibiting=false {
+        toggle-keyboard-shortcuts-inhibit
+    }
+    Mod+x {
+        quit
+    }
+}
+

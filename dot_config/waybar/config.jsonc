@@ -1,0 +1,54 @@
+{
+	"layer": "top",
+	"position": "top",
+	"height": 30,
+	"spacing": 0, 
+    
+	"modules-left": ["niri/workspaces", "tray"],
+	"modules-center": ["clock"],
+	"modules-right": ["pulseaudio","network", "cpu", "memory"], 
+	"niri/workspaces": { "format": "{icon}",
+		"format-icons": {
+			"active": "󰝤",
+			"default": "󰝣"
+		}
+	},
+	"niri/window": {
+		"format": "{}", 
+		"max-length": 50,
+		"rewrite": {
+		}
+	},
+	"clock": {
+		"format": "{:%H:%M %a %b %d}",
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+	},
+	"cpu": { 
+		"format": "󰘚 {usage}%", 
+		"tooltip": false 
+	},
+	"memory": { // Change this format to {total:0.1f}G, i like round numbers, soo, 32G.
+		"format": "󰍛 {used:0.1f}G", 
+		"tooltip-format": "󰍛 {percentage}%"
+	},	
+	"pulseaudio": {
+		"format": "󰕾 {volume}%",
+		"format-muted": "󰝟",
+	},
+	"tray": { 
+		"spacing": 5 
+	},
+	"network": {
+		"format": "{ifname}",
+		"format-ethernet": "󰈀 {ifname}%",
+		"format-wifi": "󰖩 {ifname} {signalStrength}%",
+		"format-disconnected": "",
+		"format-icons": [
+			"󰤟 {ifname} {signalStrength}%",
+			"󰤢 {ifname} {signalStrength}%",
+			"󰤥 {ifname} {signalStrength}%",
+			"󰖩 {ifname} {signalStrength}%",
+		],
+		"spacing": 3
+	}
+}
