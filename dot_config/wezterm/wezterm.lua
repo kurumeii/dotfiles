@@ -24,17 +24,15 @@ local join_mods = function(m)
 end
 
 config = {
-	font = wez.font("CaskaydiaCove Nerd Font"),
+	font = wez.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
 	adjust_window_size_when_changing_font_size = false,
 	font_size = 12,
 	-- front_end = "OpenGL",
 	front_end = "WebGpu",
 	line_height = 1,
 	window_background_opacity = 1,
-	-- win32_system_backdrop = "Acrylic",
 	enable_wayland = false,
 	kde_window_background_blur = true,
-	-- macos_window_background_blur = 30,
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
 	tab_bar_at_bottom = false,
@@ -43,9 +41,10 @@ config = {
 	enable_scroll_bar = false,
 	window_decorations = "NONE",
 	window_padding = {
-		bottom = 0,
+		bottom = 3,
 		right = 3,
 		left = 3,
+		top = 3,
 	},
 	allow_win32_input_mode = false,
 

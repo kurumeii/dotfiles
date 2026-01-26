@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				{ path = "snacks.nvim", words = { "Snacks" } },
 				{ path = "lazy.nvim", words = { "LazyVim" } },
-				{ path = "wezterm-types", mods = { "wezterm" } },
+				{ path = "wezterm-types", words = { "wezterm" } },
 			},
 		})
 	end,
