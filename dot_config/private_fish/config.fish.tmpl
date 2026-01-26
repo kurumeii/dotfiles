@@ -4,6 +4,7 @@ fish_add_path /usr/local/bin
 
 set -gx TAVILY_API_KEY "{{ (keepassxc "Mcp/tavily").Password }}"
 set -gx CONTEXT_7_API_KEY "{{ (keepassxc "Mcp/context7").Password }}"
+set -U fish_greeting
 set -g EDITOR nvim
 
 mise activate fish | source
