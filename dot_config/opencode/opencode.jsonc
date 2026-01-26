@@ -8,7 +8,7 @@
 		"websearch": "deny"
 	},
 	"username": "😺 Andrew Nguyen",
-	"theme": "tokyonight",
+	"theme": "system",
 	"plugin": [
 		"opencode-gemini-auth@latest"
 	],

@@ -1,4 +1,4 @@
-local colorscheme = "gruvbox-material"
+local colorscheme = "tokyonight"
 local transparent = true
 local add = MiniDeps.add
 
